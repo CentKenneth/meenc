@@ -14,15 +14,21 @@
           color="white"
           @click="drawer = true">
       </v-app-bar-nav-icon>
-      <v-toolbar-title >
+
+       <v-toolbar-title >
           <v-alert
               color="#01579B"
               dark
               dense>
               MEENC HEALTH CARE
-          </v-alert>
-          
+          </v-alert>   
       </v-toolbar-title>
+<v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon color="white">mdi-message-text</v-icon> </v-app-bar-nav-icon>
+          </v-btn>
+    
     </v-app-bar>
   
   <v-card
@@ -48,11 +54,8 @@
             dark
           >
           <v-card-title class="text-h5">
-
-             <v-icon 
-             color="white"
-             >mdi-message-text</v-icon>
-             Message
+              <v-app-bar-nav-icon  >
+          <v-icon color="white">mdi-magnify</v-icon> </v-app-bar-nav-icon>
             </v-card-title>
           </v-card>
          <v-alert
