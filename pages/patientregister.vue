@@ -3,13 +3,8 @@
     <v-card
         :loading="loading"
         :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
-        class="my-1"
-        
+        class="my-1"    
     >
-      <!-- head -->
-  
-  <!-- head -->
-
     <v-img
      :height="$vuetify.breakpoint.smAndDown ? '250' : '750'"
       src="https://www.cdc.gov/bloodpressure/images/materials-for-patients.jpg"
