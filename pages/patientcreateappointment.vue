@@ -1,4 +1,11 @@
 <template>
+<v-card>
+
+    <v-app-bar color="#01579B"
+    >
+      <v-app-bar-nav-icon href="/patientservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+    </v-app-bar>
+
   <v-row justify="center">
     <v-col
     :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
@@ -97,6 +104,7 @@
       </v-card>
     </v-col>
   </v-row>
+  </v-card>
 </template>
 <script>
   export default {

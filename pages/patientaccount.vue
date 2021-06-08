@@ -21,7 +21,7 @@
     </v-app-bar>
 
     <v-list color="blue" height="530">
-          <v-list-item link>
+          <v-list-item link href="patienteditprofile">
             <v-list-item-icon>
               <v-icon>mdi-id-card</v-icon>
             </v-list-item-icon>
