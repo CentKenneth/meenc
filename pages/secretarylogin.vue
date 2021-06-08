@@ -39,74 +39,113 @@
       src="https://media.istockphoto.com/photos/hospital-blurry-background-picture-id939102942?k=6&m=939102942&s=170667a&w=0&h=Df0vc28Ikv_Fk3pAiuiTMwEwLvdnFekfXmoGop2VN7s="
     ></v-img>
 
-    <div>
-      <v-card
-      :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
-      color="#BBDEFB">
+  <v-card flat color="#BBDEFB" class="pa-6">
 
-          <v-card-title >Login
-          <v-icon
-            >mdi-hospital</v-icon>
-          </v-card-title>
+    <v-card-title class="d-flex justify-center">
+      <v-icon>mdi-hospital</v-icon>
+      Login
+    </v-card-title>
+
+    <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
+      <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
+      >
+
         <v-text-field
-          v-model="email"
+          outlined
+          v-model="form.email"
           :rules="emailRules"
           label="E-mail"
-          required>
-          </v-text-field>
+        ></v-text-field>
+
         <v-text-field
-                :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="[rules.required, rules.min]"
-                :type="show3 ? 'text' : 'password'"
-                name="input-10-2"
-                label="Password"
-                hint="At least 8 characters"
-                value=""
-                class="input-group--focused"
-                @click:append="show3 = !show3">
-        </v-text-field>
-        <div class="text-center">
-          <v-btn
-            rounded
-            color="primary"
-            dark
-            a href="/secretaryhome"
-          > Login
-          </v-btn>
+          outlined
+          v-model="form.password"
+          label="Password"
+          @click:append="show3 = !show3"
+          :rules="passwordRules"
+          :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="show3 ? 'text' : 'password'"
+        ></v-text-field>
+
+      </v-form>
+
+    </v-card-text>
+
+    <v-card-actions class="d-flex flex-column my-0 py-0">
+
+        <v-btn
+          rounded
+          large
+          color="primary"
+          dark
+          @click="validate"
+        >
+        Login
+        </v-btn>
+
+        <br>
+
+        <div>
+          <a href="#">Forgot Password?</a>
         </div>
-        <div class="text-center">
-          <div class="col-md .offset-md">
-            <a href="#">Forgot Password?</a>
-          </div>
-          <div class="col-md .offset-md "> <v-btn 
-                rounded
-                elevation="2"
-                color="green"
-                dark
-                a href="/secretaryregister" > Create New Account 
-                </v-btn>
-          </div>
+
+        <div> 
+            <v-btn 
+              rounded
+              elevation="2"
+              color="green"
+              dark
+              @click="$router.push('/patientregister')"
+            > 
+              Create New Account
+            </v-btn>
         </div>
-      </v-card>
-    </div>
-    
+
+    </v-card-actions>
+
+    </v-card>
+
   </v-card>
+
 </template>
 <script>
   export default {
     data () {
       return {
+        valid: true,
+        form: {},
         show1: false,
         show2: true,
         show3: false,
         show4: false,
+        loading: false,
         password: 'Password',
-        rules: {
-          required: value => !!value || 'Required.',
-          min: v => v.length >= 8 || 'Min 8 characters',
-          emailMatch: () => (`The email and password you entered don't match`), 
-        },collapseOnScroll: true,
+        emailRules: [
+                  v => !!v || "E-mail is required",
+                  v => /.+@.+/.test(v) || "E-mail must be valid"
+                ],
+        passwordRules: [
+                    v => !!v || "Password is required",
+                    v => {
+                        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.,)(_\$%\^&\*])(?=.{8,})/;
+                        return (
+                            pattern.test(v) ||
+                            "Min. 8 characters with at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"
+                        );
+                    }
+                ],
+        collapseOnScroll: true,
       }
     },
+
+    methods: {
+      validate () {
+        this.$refs.form.validate()
+        console.log(this.$refs.form.validate())
+      }
+    }
   }
 </script>
