@@ -64,7 +64,7 @@
         <v-text-field
           outlined
           v-model="form.password"
-          label="Prepend inner"
+          label="Password"
           @click:append="show3 = !show3"
           :rules="passwordRules"
           :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -88,7 +88,7 @@
         </v-btn>
 
         <br>
-        
+
         <div>
           <a href="#">Forgot Password?</a>
         </div>
