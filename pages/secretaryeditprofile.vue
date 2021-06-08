@@ -1,21 +1,22 @@
 <template>
-<v-container>
   <v-card
+  height="700"
     class="overflow-hidden"
-    color="purple lighten-1"
+    color="#1E88E5"
     dark
   >
     <v-toolbar
       flat
-      color="purple"
+      color="#01579B"
     >
-      <v-icon>mdi-account</v-icon>
-      <v-toolbar-title class="font-weight-light">
-        Profile
-      </v-toolbar-title>
+      <v-btn color="#01579B" href="secretaryaccount"
+       fab
+        small>
+        
+        <v-icon> mdi-arrow-left-bold</v-icon></v-btn>
       <v-spacer></v-spacer>
       <v-btn
-        color="purple darken-3"
+        color="#01579B"
         fab
         small
         @click="isEditing = !isEditing"
@@ -28,6 +29,7 @@
         </v-icon>
       </v-btn>
     </v-toolbar>
+
     <v-card-text>
       <v-text-field
         :disabled="!isEditing"
@@ -35,11 +37,7 @@
         label="Name"
       ></v-text-field>
 
-     <v-text-field
-        :disabled="!isEditing"
-        color="white"
-        label="Username"
-      ></v-text-field>
+
 
       <v-autocomplete
         :disabled="!isEditing"
@@ -47,15 +45,8 @@
         :filter="customFilter"
         color="white"
         item-text="name"
-        label="Address"
+        label="Gender"
       ></v-autocomplete>
-    <v-text-field
-        :disabled="!isEditing"
-        color="white"
-        label="Password"
-      ></v-text-field>
-
-
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
@@ -65,7 +56,7 @@
         color="success"
         @click="save"
       >
-        Update
+        Save
       </v-btn>
     </v-card-actions>
     <v-snackbar
@@ -78,7 +69,7 @@
       Your profile has been updated
     </v-snackbar>
   </v-card>
-</v-container>
+ 
 </template>
 <script>
   export default {
@@ -88,9 +79,8 @@
         isEditing: null,
         model: null,
         states: [
-          { name: 'Panabo City', abbr: 'PC', id: 1 },
-          { name: 'Davao City', abbr: 'DC', id: 2 },
-          { name: 'Tagum City', abbr: 'TC', id: 3 },
+          { name: 'Male', abbr: 'M', id: 1 },
+          { name: 'Female', abbr: 'F', id: 2 },
         ],
       }
     },

@@ -23,18 +23,26 @@
       href="/">
       Back
     </v-btn>
+    <v-spacer></v-spacer>
+        <v-toolbar-title  
+          text
+              color="#01579B"
+              dark
+              dense>
+              DOCTOR
+      </v-toolbar-title>
     </v-app-bar>
 <!-- head -->
 
     <v-img
-      height="250"
+      :height="$vuetify.breakpoint.smAndDown ? '250' : '750'"
       src="https://th.bing.com/th/id/OIP.zmT8WMtoF7CcUrhQ5JRCUQHaE8?pid=ImgDet&rs=1"
     ></v-img>
 
     <div>
       <v-card
-      :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
-      color="#BBDEFB">
+        :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
+        color="#BBDEFB">
 
           <v-card-title >Login
           <v-icon
@@ -70,35 +78,28 @@
           <div class="col-md .offset-md">
             <a href="#">Forgot Password?</a>
           </div>
-          <div class="col-md .offset-md "> <v-btn 
-                rounded
-                elevation="2"
-                color="green"
-                dark
-                a href="/doctorregister" > Create New Account 
-                </v-btn>
-          </div>
+          
         </div>
       </v-card>
     </div>
     
   </v-card>
 </template>
-<script>
-  export default {
-    data () {
-      return {
-        show1: false,
-        show2: true,
-        show3: false,
-        show4: false,
-        password: 'Password',
-        rules: {
-          required: value => !!value || 'Required.',
-          min: v => v.length >= 8 || 'Min 8 characters',
-          emailMatch: () => (`The email and password you entered don't match`), 
-        },collapseOnScroll: true,
-      }
-    },
-  }
-</script>
+  <script>
+    export default {
+      data () {
+        return {
+          show1: false,
+          show2: true,
+          show3: false,
+          show4: false,
+          password: 'Password',
+          rules: {
+            required: value => !!value || 'Required.',
+            min: v => v.length >= 8 || 'Min 8 characters',
+            emailMatch: () => (`The email and password you entered don't match`), 
+          },collapseOnScroll: true,
+        }
+      },
+    }
+  </script>

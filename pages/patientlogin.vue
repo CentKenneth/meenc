@@ -19,12 +19,22 @@
       color="#BBDEFB"
       href="/">
       mdi-arrow-left-bold-box-outline
-      
     </v-icon>
     <v-btn text
       href="/">
       Back
     </v-btn>
+
+
+       <v-spacer> </v-spacer>   
+      <v-toolbar-title  
+          text
+              color="#01579B"
+              dark
+              dense>
+              PATIENT
+      </v-toolbar-title>
+      
     </v-app-bar>
 <!-- head -->
     <v-img

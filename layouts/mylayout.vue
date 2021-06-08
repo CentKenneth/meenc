@@ -1,9 +1,7 @@
 <template>
-  <v-app>
     <div>
-        my layout
+        patients table
     </div>
-  </v-app>
 </template>
 <script>
 </script>

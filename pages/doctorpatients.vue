@@ -1,7 +1,31 @@
 <template>
-  <v-card>
+<container >
+      <v-app-bar
+      class="mx-auto my-1"
+      color="#01579B"
+      elevation="none"
+    >
+    <v-spacer></v-spacer>
+       <v-toolbar-title >
+               <img
+                height="40"  
+                max-width="50"
+                src="~assets/M.svg"
+               >
+               </img>
+      </v-toolbar-title>
+          <v-alert
+              color="#01579B"
+              dark
+              dense>
+              MEENC HEALTH CARE
+          </v-alert>
+    <v-spacer></v-spacer>
+    </v-app-bar>
+  <v-card color="#BBDEFB">
+    
     <v-card-title>
-      My Patients
+      Patients
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -11,17 +35,43 @@
         hide-details
       ></v-text-field>
     </v-card-title>
-    <v-data-table
+    <v-data-table 
+    style="background-color:#BBDEFB"
+    height="350"
       :headers="headers"
       :items="patients"
       :search="search"
-      
     >
-    
-    
     </v-data-table>
-
   </v-card>
+
+  <v-card >
+  <v-bottom-navigation
+  background-color="#BBDEFB"
+    :value="value"
+    color="#01579B"
+    grow
+  >
+    <v-btn href="/doctorhome">
+      <span>Home</span>
+      <v-icon>mdi-home</v-icon>
+    </v-btn>
+
+    <v-btn href="/doctorservices">
+      <span>Services</span>
+
+      <v-icon>mdi-calendar-range</v-icon>
+    </v-btn>
+
+    <v-btn  href="/doctoraccount">
+      <span>Account</span>
+
+      <v-icon >mdi-account</v-icon>
+    </v-btn>
+  </v-bottom-navigation>
+</v-card>
+
+</container>
 </template>
 <script>
   export default {

@@ -5,6 +5,7 @@
 </template>
 
 <style>
+
 html {
   font-family:
     'Source Sans Pro',
@@ -41,7 +42,7 @@ html {
 }
 
 .button--green:hover {
-  color: #fff;
+  color: rgb(22, 150, 64);
   background-color: #3b8070;
 }
 
@@ -59,4 +60,7 @@ html {
   color: #fff;
   background-color: #35495e;
 }
+
 </style>
+
+

@@ -1,7 +1,6 @@
-<template
->
+<template>
 <v-container
-    class="spacing-playground pa-1"
+    class="spacing-playground pa-0"
     fluid 
   >
     <v-app-bar
@@ -10,21 +9,32 @@
       elevation="none"
       :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
     >
-    
       <v-app-bar-nav-icon 
           color="white"
           @click="drawer = true">
       </v-app-bar-nav-icon>
-      <v-toolbar-title >
-          <v-alert
+                
+       <v-spacer></v-spacer>
+               <img
+                height="80%"  
+                
+                src="~assets/M.svg"
+               >
+               </img>
+     
+      <v-toolbar-title  
+           > <v-alert
               color="#01579B"
               dark
               dense>
               MEENC HEALTH CARE
           </v-alert>
       </v-toolbar-title>
+      <v-spacer></v-spacer>
+       
+         
+
     </v-app-bar>
-  
   <v-card
     height="200"  
     :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
@@ -83,9 +93,7 @@
                       class="mx-auto"
                       src="https://th.bing.com/th/id/Rf5f51c189d52f38c05801b493782359b?rik=VwgogHXIkcWG7g&riu=http%3a%2f%2fwww.efilingplus.com%2fwp-content%2fuploads%2f2016%2f11%2fkey-filing-dates-reminder-icon.png&ehk=sohHPBdkvJ8IW2dAkh2kU8ti7eMOGG%2f1vapH1OXIN0E%3d&risl=&pid=ImgRaw"
                   ></v-img>
-
                   </div>
-  
              </v-card-actions>
             </div>
           </v-alert>
@@ -110,32 +118,13 @@
                 class="mx-auto"
                 src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
                 ></v-img>
-
                   </div>
              </v-card-actions>
             </div>
           </v-alert>
-          
-          <!--  -->
-        </v-col>
-
-        <v-col
-          v-for="(item, i) in items"
-          :key="i"
-          cols="12"
-        >
-          <v-card
-            :color="item.color"
-            dark
-          >
-            </div>
-          </v-card>
         </v-col>
       </v-row>
     </v-card>
-
-
-    <!-- sulod -->
       <v-navigation-drawer
         v-model="drawer"
         absolute
@@ -148,18 +137,6 @@
           active-class="deep-white--text text--accent-4"
           
         >
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon color="white">mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title >
-                <v-btn text
-                color="white"
-               href="/" >
-                    Home
-                </v-btn>
-            </v-list-item-title>
-          </v-list-item>
 
           <v-list-item  >
             <v-list-item-icon>
@@ -192,19 +169,18 @@
           <v-list-item>
             <v-list-item-icon>
               <v-icon color="white"
-              >mdi-account</v-icon>
+              >mdi-hospital</v-icon>
             </v-list-item-icon>
             <v-list-item-title><v-btn 
             text
             color="white"
-               href="#" >
-                About
+               href="/secretarylogin" >
+                Secretary
                 </v-btn></v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
- 
   </v-card>
 
   </v-container>

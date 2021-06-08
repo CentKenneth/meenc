@@ -5,6 +5,35 @@
         :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
         class="my-1"    
     >
+    <!-- head -->
+    <v-app-bar
+      :collapse="!collapseOnScroll"
+      :collapse-on-scroll="collapseOnScroll"
+      absolute
+      color="#01579B"
+      dark
+      scroll-target="#scrolling-techniques-6"
+    >
+    <v-icon
+      large
+      color="#BBDEFB">
+      mdi-arrow-left-bold-box-outline
+      
+    </v-icon>
+    <v-btn text
+      href="/">
+      Back
+    </v-btn>
+      <v-spacer> </v-spacer>   
+      <v-toolbar-title  
+          text
+              color="#01579B"
+              dark
+              dense>
+              PATIENT
+      </v-toolbar-title>
+    </v-app-bar>
+
     <v-img
      :height="$vuetify.breakpoint.smAndDown ? '250' : '750'"
       src="https://www.cdc.gov/bloodpressure/images/materials-for-patients.jpg"
@@ -41,6 +70,33 @@
                   :rules="nameRules"
                   :counter="10"
                   label="Last name"
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+                <v-row>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-text-field
+                v-model="height"
+                type="number"
+                label="Height"
+                placeholder="cm"
+                required
+              ></v-text-field>
+            </v-col>
+
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <v-text-field
+                  v-model="weight"
+                  type="number"
+                  label="Weight"
+                  placeholder="kg"
                   required
                 ></v-text-field>
               </v-col>
@@ -105,17 +161,70 @@
                   label="Gender"
                 ></v-select>
               </v-col>
-              </v-row>
-          </v-container>
+
+        
             <!-- vvv -->
-          
-            <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="Mobile number or E-mail"
-            required>
-            </v-text-field>
-  
+            <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+            >
+              <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="E-mail"
+              required>
+              </v-text-field>
+             </v-col>
+
+              <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+                >
+                    <v-text-field
+                            :type="show3 ? 'integers' : 'number'"
+                            name="input-13-2"
+                            label="Phone"
+                            hint="input 11 integers"
+                            value=""
+                            class="input-group--focused"
+                          >
+                    </v-text-field>
+              </v-col>
+              
+              <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+                >
+                    <v-text-field
+                            name="input-13-2"
+                            label="Street Address"
+                            value=""
+                            class="input-group--focused"
+                          >
+                    </v-text-field>
+              </v-col>
+                <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+                >
+                    <v-text-field
+                            name="input-13-2"
+                            label="City"
+                            value=""
+                            class="input-group--focused"
+                          >
+                    </v-text-field>
+              </v-col>
+              
+              <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+                >
                   <v-text-field
                     :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
                     :rules="[rules.required, rules.min]"
@@ -127,7 +236,12 @@
                     class="input-group--focused"
                     @click:append="show3 = !show3">
                   </v-text-field>
-
+                </v-col>
+                <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+                >
                   <v-text-field
                     :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
                     :rules="[rules.required, rules.min]"
@@ -139,7 +253,9 @@
                     class="input-group--focused"
                     @click:append="show3 = !show3">
                     </v-text-field>
-            
+                </v-col>
+                  </v-row>
+          </v-container>
             <div class="text-center">
                 <div class="col-md .offset-md">
                 <v-btn
@@ -180,8 +296,5 @@
       }
      
     }
-  
-    
-    
   }
 </script>
