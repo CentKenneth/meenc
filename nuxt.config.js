@@ -23,6 +23,42 @@ export default {
   plugins: [
   ],
 
+  // axios configuration
+  axios: {
+    baseURL: process.env.BASEURL
+  },
+
+  // auth configuration
+  auth: {
+    redirect: {
+      login: '/auth/login',
+      logout: '/auth/login',
+      home: '/auth/dashboard',
+      callback: '/auth/login'
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/oauth/token',
+            method: 'post',
+            Accept: 'application/json',
+            propertyName: 'access_token'
+          },
+          logout: { url: '/oauth/logout', method: 'post' },
+          user: {
+            url: '/api/authorized/auth',
+            method: 'get',
+            propertyName: 'data'
+          }
+        },
+        tokenRequired: true,
+        tokenType: 'Bearer'
+      }
+    },
+    fullPathRedirect: true
+  },
+
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -34,7 +70,10 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-   
+    '@nuxtjs/auth',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/axios',
+    'cookie-universal-nuxt',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
