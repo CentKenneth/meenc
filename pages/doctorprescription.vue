@@ -1,9 +1,14 @@
 <template>
+
   <v-card
     :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
     
   >
-    <v-system-bar></v-system-bar>
+  
+    <v-system-bar>
+
+      
+    </v-system-bar>
 
     <v-row
       class="px-6 py-3"

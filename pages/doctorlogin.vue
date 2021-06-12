@@ -13,16 +13,7 @@
       dark
       scroll-target="#scrolling-techniques-6"
     >
-    <v-icon
-      large
-      color="#BBDEFB">
-      mdi-arrow-left-bold-box-outline
-      
-    </v-icon>
-    <v-btn text
-      href="/">
-      Back
-    </v-btn>
+  <v-app-bar-nav-icon href="/"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
     <v-spacer></v-spacer>
         <v-toolbar-title  
           text
