@@ -13,16 +13,7 @@
       dark
       scroll-target="#scrolling-techniques-6"
     >
-    <v-icon
-      large
-      color="#BBDEFB">
-      mdi-arrow-left-bold-box-outline
-      
-    </v-icon>
-    <v-btn text
-      href="/">
-      Back
-    </v-btn>
+  <v-app-bar-nav-icon href="/secretarylogin"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
       <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
@@ -38,9 +29,6 @@
       :height="$vuetify.breakpoint.smAndDown ? '250' : '750'"
       src="https://media.istockphoto.com/photos/hospital-blurry-background-picture-id939102942?k=6&m=939102942&s=170667a&w=0&h=Df0vc28Ikv_Fk3pAiuiTMwEwLvdnFekfXmoGop2VN7s="
     ></v-img>
-
-  
-
     <div>
         <v-card color="#BBDEFB">
           <v-card-title >Sign Up

@@ -27,7 +27,6 @@
             </v-list-item-icon>
             <v-list-item-title>Edit Profile</v-list-item-title>
           </v-list-item>
-
           <v-list-item link>
             <v-list-item-icon>
               <v-icon>mdi-lock</v-icon>
@@ -35,7 +34,6 @@
             <v-list-item-title>Change Password</v-list-item-title>
           </v-list-item>
         </v-list>
-
   </v-card>
 
 <v-bottom-navigation

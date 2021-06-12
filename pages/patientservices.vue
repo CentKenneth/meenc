@@ -58,9 +58,8 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctorpatients">
-                    Patients
-
+                  href="/patientprescription">
+                    Medical prescription
                   </v-btn>
              </v-card-actions>
             </div>
@@ -82,8 +81,8 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctorprescription">
-                    Send Prescription
+                  href="/patientcreateappointment">
+                    Add Appointment
                   </v-btn>
              </v-card-actions>
             </div>
@@ -106,7 +105,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctorschedule">
+                  href="/patientschedule">
                     Appointment Schedule
 
                   </v-btn>
@@ -131,7 +130,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctorhistory">
+                  href="/patienthistory">
                     Medical History
 
                   </v-btn>
@@ -152,18 +151,18 @@
     color="#01579B"
     grow
   >
-    <v-btn href="/doctorhome">
+    <v-btn href="/dpatienthome">
       <span>Home</span>
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
-    <v-btn href="/doctorservices">
+    <v-btn href="/patientservices">
       <span>Services</span>
 
       <v-icon>mdi-calendar-range</v-icon>
     </v-btn>
 
-    <v-btn  href="/doctoraccount">
+    <v-btn  href="/patientaccount">
       <span>Account</span>
 
       <v-icon >mdi-account</v-icon>

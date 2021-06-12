@@ -5,8 +5,11 @@
       color="#01579B"
       elevation="none"
     >
-    <v-spacer></v-spacer>
-       <v-toolbar-title >
+   
+     <v-app-bar-nav-icon href="/doctorservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+       
+        <v-spacer></v-spacer>
+        <v-toolbar-title >
                <img
                 height="40"  
                 max-width="50"

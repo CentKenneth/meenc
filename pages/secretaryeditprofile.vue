@@ -36,9 +36,7 @@
         color="white"
         label="Name"
       ></v-text-field>
-
-
-
+      <div>
       <v-autocomplete
         :disabled="!isEditing"
         :items="states"
@@ -47,6 +45,7 @@
         item-text="name"
         label="Gender"
       ></v-autocomplete>
+      </div>
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
