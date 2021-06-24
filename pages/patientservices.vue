@@ -130,7 +130,7 @@
                   text
                   color="#0277BD"  
                   href="/patientprescription">
-                   Doctor's Medical prescription
+                   Doctor's prescription
                   </v-btn>
              </v-card-actions>
              <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
