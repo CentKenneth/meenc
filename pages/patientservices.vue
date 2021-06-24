@@ -30,7 +30,12 @@
      <v-card flat color="#BBDEFB" class="pa-6">
 
     <v-card-title class="d-flex justify-center">
-      <v-icon>mdi-account</v-icon>
+      <v-img
+          class="d-flex justify-center"
+          height="50"  
+          max-width="50"
+          src="https://www.stl-solutions.com/wp-content/uploads/2018/12/STL_Support_Service_Icon_07.png"
+      ></v-img>
       Services
     </v-card-title>
 
