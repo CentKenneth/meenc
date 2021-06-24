@@ -72,21 +72,42 @@
                  class="d-flex justify-center"
                     height="50"  
                     max-width="50"
-                    src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
+                    src="https://clipground.com/images/schedule-icon-png-4.png"
                 ></v-img>
                  </div> 
-              
                   <v-btn 
                   text
                   color="#0277BD"  
                   href="/patientcreateappointment">
                     Set Schedule
-                  </v-btn>
-                
+                  </v-btn> 
              </v-card-actions>
-             
              <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
-             
+            </div>
+          </v-alert>
+
+        <v-alert
+            outlined
+            color="#0277BD"
+          >
+            <div class="patients">
+              <v-card-actions>
+                 <div>   
+                 <v-img
+                 class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    src="https://cdn2.iconfinder.com/data/icons/health-27/95/Health_Doctor_Aid_Hospital_Medic_Medicine-54-512.png"
+                ></v-img>
+                 </div> 
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="/patientcreateappointment">
+                    Medical concerns
+                  </v-btn> 
+             </v-card-actions>
+             <v-card-subtitle>Send medical concerns, conditions and vital signs for your doctor</v-card-subtitle>
             </div>
           </v-alert>
 
@@ -102,14 +123,14 @@
                  class="d-flex justify-center"
                     height="50"  
                     max-width="50"
-                    src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
+                    src="https://image.flaticon.com/icons/png/512/1529/1529631.png"
                 ></v-img>
                  </div>   
                   <v-btn 
                   text
                   color="#0277BD"  
                   href="/patientprescription">
-                    Medical prescription
+                   Doctor's Medical prescription
                   </v-btn>
              </v-card-actions>
              <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
@@ -130,17 +151,17 @@
                    class="d-flex justify-center"
                     height="50"  
                     max-width="50"    
-                    src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
+                    src="https://th.bing.com/th/id/Rbca2154748ce909b9623ba26c0cd437e?rik=YL8yR6zK5LzsDg&riu=http%3a%2f%2fprestigepatienttransport.com%2fwp-content%2fuploads%2f2016%2f06%2fPPT-Appointment-Icon.png&ehk=awGXmqlXnWlrbpM%2fLdj6RcwGgWDMQ0%2fwvFJF%2fYFtgx8%3d&risl=&pid=ImgRaw"
                 ></v-img>
                 </div> 
                   <v-btn 
                   text
                   color="#0277BD"  
                   href="/patientschedule">
-                    Appointment Schedule
+                    Set Appointment Schedule
                   </v-btn>  
              </v-card-actions>
-             <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
+             <v-card-subtitle>Set appoint schedule for face to face consultation</v-card-subtitle>
             </div>
           </v-alert>
 
@@ -155,7 +176,7 @@
                     height="50"  
                     max-width="50"
                     
-                    src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
+                    src="https://cdn2.iconfinder.com/data/icons/flaticons-solid/16/history-1-512.png"
                 ></v-img>
                   <v-btn 
                   text
