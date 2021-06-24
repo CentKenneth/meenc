@@ -16,7 +16,7 @@
                 max-width="50"
                 src="~assets/M.svg"
                 >
-               </img>
+               <img>
       </v-toolbar-title>
           <v-alert
               color="#01579B"
@@ -26,6 +26,25 @@
           </v-alert>
     <v-spacer></v-spacer>
     </v-app-bar>
+
+     <v-card flat color="#BBDEFB" class="pa-6">
+
+    <v-card-title class="d-flex justify-center">
+      <v-icon>mdi-account</v-icon>
+      Services
+    </v-card-title>
+
+    <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
+   
+
+    </v-card-text>
+
+    <v-card-actions class="d-flex flex-column my-0 py-0">
+       
+
+    </v-card-actions>
+
+    </v-card>
 
     <v-card
     :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
@@ -40,21 +59,19 @@
 
 
           
-
+<v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
           <v-alert
             outlined
             color="#0277BD"
           >
             <div class="patients">
               <v-card-actions>
-                <div>  
-                  <v-img
+                 <v-img
+                 class="d-flex justify-center"
                     height="50"  
                     max-width="50"
-                    class="mx-auto"
                     src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
                 ></v-img>
-                  </div>
                   <v-btn 
                   text
                   color="#0277BD"  
@@ -65,12 +82,15 @@
             </div>
           </v-alert>
           <v-alert
+          
             outlined
             color="#0277BD"
           >
             <div class="patients">
               <v-card-actions>
-                <div>  
+               
+                <div> 
+                   
                   <v-img
                     height="50"  
                     max-width="50"
@@ -84,31 +104,34 @@
                   href="/patientcreateappointment">
                     Add Appointment
                   </v-btn>
+                  
              </v-card-actions>
             </div>
+            
           </v-alert>
 
           <v-alert
+         
             outlined
             color="#0277BD"
           >
-            <div class="patients">
+            <div class="Appointment Schedule">
               <v-card-actions>
-                <div>  
+                
+                  <div> 
                   <v-img
+                   class="d-flex justify-center"
                     height="50"  
-                    max-width="50"
-                    class="mx-auto"
+                    max-width="50"    
                     src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
                 ></v-img>
-                  </div>
+                </div> 
                   <v-btn 
                   text
                   color="#0277BD"  
                   href="/patientschedule">
                     Appointment Schedule
-
-                  </v-btn>
+                  </v-btn>  
              </v-card-actions>
             </div>
           </v-alert>
@@ -119,25 +142,23 @@
           >
             <div class="patients">
               <v-card-actions>
-                <div>  
                   <v-img
+                  class="d-flex justify-center"
                     height="50"  
                     max-width="50"
-                    class="mx-auto"
+                    
                     src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
                 ></v-img>
-                  </div>
                   <v-btn 
                   text
                   color="#0277BD"  
                   href="/patienthistory">
                     Medical History
-
                   </v-btn>
              </v-card-actions>
             </div>
           </v-alert>
-
+</v-card-text>
 
 
         </v-col>

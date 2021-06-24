@@ -20,7 +20,7 @@
                 
                 src="~assets/M.svg"
                >
-               </img>
+               <img>
      
       <v-toolbar-title  
            > <v-alert

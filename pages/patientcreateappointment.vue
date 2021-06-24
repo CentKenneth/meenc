@@ -1,11 +1,31 @@
 <template>
-<v-card>
+<v-card  
+   >
 
-    <v-app-bar color="#01579B"
+    <v-app-bar
+      
+      absolute
+      color="#01579B"
+      dark
+      scroll-target="#scrolling-techniques-6"
     >
       <v-app-bar-nav-icon href="/patientservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+   <v-spacer> </v-spacer>   
+      <v-toolbar-title  
+          text
+              color="#01579B"
+              dark
+              dense>
+              APPOINTMENT BOOKING
+      </v-toolbar-title>
+    <v-spacer> </v-spacer> 
     </v-app-bar>
-
+    <v-img
+      :height="$vuetify.breakpoint.smAndDown ? '300' : '350'"
+      src="https://media.istockphoto.com/photos/hospital-blurry-background-picture-id939102942?k=6&m=939102942&s=170667a&w=0&h=Df0vc28Ikv_Fk3pAiuiTMwEwLvdnFekfXmoGop2VN7s="
+    ></v-img>
+    
+ <v-card flat color="#BBDEFB" class="pa-1">
   <v-row justify="center">
     <v-col
     :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
@@ -17,56 +37,90 @@
             v-model="name"
             :rules="[() => !!name || 'This field is required']"
             :error-messages="errorMessages"
-            label="Full Name"
-            placeholder="John Doe"
+            label="Patient Name"
+            placeholder="Lastname, Firstname"
+             prepend-icon="mdi-account"
             required
           ></v-text-field>
+
           <v-text-field
-            ref="address"
+          v-model="form.email"
+          :rules="emailRules"
+           prepend-icon="mdi-email"
+          label="E-mail"
+        ></v-text-field>
+
+        <v-text-field
+            ref="mobile#"
+            v-model="name"
+            :rules="[() => !!name || 'This field is required']"
+            :error-messages="errorMessages"
+            label="Mobile #:"
+            placeholder="mobile number"
+             prepend-icon="mdi-phone"
+            required
+          ></v-text-field>
+
+                  <v-dialog
+                    ref="dialog"
+                    v-model="modal"
+                    :return-value.sync="date"
+                    persistent
+                    width="290px"
+                    >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        v-model="date"
+                        :rules="[() => !!name || 'This field is required']"
+                        label="Appointment date:"
+                        
+                        readonly
+                        v-bind="attrs"
+                         v-on="on"
+                          prepend-icon="mdi-calendar"
+                          
+                          
+                        ></v-text-field>
+                        </template>
+                        <v-date-picker
+                          v-model="date"
+                          scrollable
+                        >
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            text
+                            color="primary"
+                            @click="modal = false"
+                          >
+                            Cancel
+                          </v-btn>
+                          <v-btn
+                            text
+                            color="primary"
+                            @click="$refs.dialog.save(date)"
+                          >
+                            OK
+                          </v-btn>
+                        </v-date-picker>
+                      </v-dialog>
+
+           
+
+          <v-text-field
+            ref="problem"
             v-model="address"
+            prepend-icon="mdi-virus"
             :rules="[
               () => !!address || 'This field is required',
-              () => !!address && address.length <= 25 || 'Address must be less than 25 characters',
+              () => !!address && address.length <= 50 || 'Address must be less than 50 characters',
               addressCheck
             ]"
-            label="Address Line"
-            placeholder="Snowy Rock Pl"
-            counter="25"
+            label="Symptoms description :"
+            placeholder="Short Description of patient's problems"
+            counter="50"
             required
           ></v-text-field>
-          <v-text-field
-            ref="city"
-            v-model="city"
-            :rules="[() => !!city || 'This field is required', addressCheck]"
-            label="City"
-            placeholder="El Paso"
-            required
-          ></v-text-field>
-          <v-text-field
-            ref="state"
-            v-model="state"
-            :rules="[() => !!state || 'This field is required']"
-            label="State/Province/Region"
-            required
-            placeholder="TX"
-          ></v-text-field>
-          <v-text-field
-            ref="zip"
-            v-model="zip"
-            :rules="[() => !!zip || 'This field is required']"
-            label="ZIP / Postal Code"
-            required
-            placeholder="79938"
-          ></v-text-field>
-          <v-autocomplete
-            ref="country"
-            v-model="country"
-            :rules="[() => !!country || 'This field is required']"
-            :items="countries"
-            label="Country"
-            placeholder="Select..."
-            required
-          ></v-autocomplete>
+
         </v-card-text>
         <v-divider class="mt-12"></v-divider>
         <v-card-actions>
@@ -105,34 +159,10 @@
     </v-col>
   </v-row>
   </v-card>
+  </v-card>
 </template>
 <script>
   export default {
-    data: () => ({
-      countries: ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antigua &amp; Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnia &amp; Herzegovina', 'Botswana', 'Brazil', 'British Virgin Islands', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Cape Verde', 'Cayman Islands', 'Chad', 'Chile', 'China', 'Colombia', 'Congo', 'Cook Islands', 'Costa Rica', 'Cote D Ivoire', 'Croatia', 'Cruise Ship', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Estonia', 'Ethiopia', 'Falkland Islands', 'Faroe Islands', 'Fiji', 'Finland', 'France', 'French Polynesia', 'French West Indies', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guam', 'Guatemala', 'Guernsey', 'Guinea', 'Guinea Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hong Kong', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Isle of Man', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jersey', 'Jordan', 'Kazakhstan', 'Kenya', 'Kuwait', 'Kyrgyz Republic', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macau', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Montserrat', 'Morocco', 'Mozambique', 'Namibia', 'Nepal', 'Netherlands', 'Netherlands Antilles', 'New Caledonia', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Norway', 'Oman', 'Pakistan', 'Palestine', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Puerto Rico', 'Qatar', 'Reunion', 'Romania', 'Russia', 'Rwanda', 'Saint Pierre &amp; Miquelon', 'Samoa', 'San Marino', 'Satellite', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'South Africa', 'South Korea', 'Spain', 'Sri Lanka', 'St Kitts &amp; Nevis', 'St Lucia', 'St Vincent', 'St. Lucia', 'Sudan', 'Suriname', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', `Timor L'Este`, 'Togo', 'Tonga', 'Trinidad &amp; Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Turks &amp; Caicos', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe'],
-      errorMessages: '',
-      name: null,
-      address: null,
-      city: null,
-      state: null,
-      zip: null,
-      country: null,
-      formHasErrors: false,
-    }),
-
-    computed: {
-      form () {
-        return {
-          name: this.name,
-          address: this.address,
-          city: this.city,
-          state: this.state,
-          zip: this.zip,
-          country: this.country,
-        }
-      },
-    },
-
     watch: {
       name () {
         this.errorMessages = ''
@@ -164,6 +194,30 @@
           this.$refs[f].validate(true)
         })
       },
+    }, data () {
+      return {
+        valid: true,
+        form: {},
+        show1: false,
+        show2: true,
+        show3: false,
+        show4: false,
+        loading: false,
+        
+        emailRules: [
+                  v => !!v || "E-mail is required",
+                  v => /.+@.+/.test(v) || "E-mail must be valid"
+                ],
+        collapseOnScroll: true,
+      }
     },
+
+    methods: {
+      validate () {
+        this.$refs.form.validate()
+        console.log(this.$refs.form.validate())
+      }
+    }
   }
+  
 </script>

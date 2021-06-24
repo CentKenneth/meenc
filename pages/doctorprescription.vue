@@ -1,91 +1,139 @@
 <template>
-
   <v-card
-    :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
-    
+    :loading="loading"
+   :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
+   class="my-1"
   >
-  
-    <v-system-bar>
-
-      
-    </v-system-bar>
-
-    <v-row
-      class="px-6 py-3"
-      align="center"
+      <!-- head -->
+     <v-app-bar
+      :collapse="!collapseOnScroll"
+      :collapse-on-scroll="collapseOnScroll"
+      absolute
+      color="#01579B"
+      dark
+      scroll-target="#scrolling-techniques-6"
     >
-      <span class="mr-4">To</span>
-      <v-menu
-        v-model="menu"
-        bottom
-        right
-        transition="scale-transition"
-        origin="top left"
+    <v-app-bar-nav-icon href="/"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-spacer> </v-spacer>   
+      <v-toolbar-title  
+          text
+              color="#01579B"
+              dark
+              dense>
+              PRESCRIPTION
+      </v-toolbar-title>
+    </v-app-bar>
+<!-- head -->
+
+  
+
+  <v-card flat color="#BBDEFB" class="pa-6">
+
+    <v-card-title class="d-flex justify-center">
+      <v-icon>mdi-hospital</v-icon>
+      Login
+    </v-card-title>
+
+    <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
+      <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
       >
-        <template v-slot:activator="{ on }">
-          <v-chip
-            pill
-            v-on="on"
-          >
-            <v-avatar left>
-              <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-            </v-avatar>
-            John Leider
-          </v-chip>
-        </template>
-        <v-card 
-        :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'">
-          <v-list dark>
-            <v-list-item>
-              <v-list-item-avatar>
-                <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-              </v-list-item-avatar>
-              <v-list-item-content>
-                <v-list-item-title>John Leider</v-list-item-title>
-                <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
-              </v-list-item-content>
-              <v-list-item-action>
-                <v-btn
-                  icon
-                  @click="menu = false"
-                >
-                  <v-icon>mdi-close-circle</v-icon>
-                </v-btn>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list>
-          <v-list>
-            <v-list-item @click="() => {}">
-              <v-list-item-action>
-                <v-icon>mdi-briefcase</v-icon>
-              </v-list-item-action>
-              <v-list-item-subtitle>john@gmail.com</v-list-item-subtitle>
-            </v-list-item>
-          </v-list>
-        </v-card>
-      </v-menu>
-    </v-row>
 
-    <v-divider></v-divider>
+        <v-text-field
+          outlined
+          v-model="form.email"
+          :rules="emailRules"
+          label="E-mail"
+        ></v-text-field>
 
-    <v-text-field
-      full-width
-      value="Re: Vacation Request"
-      label="Subject"
-      single-line
-    ></v-text-field>
+        <v-text-field
+          outlined
+          v-model="form.password"
+          label="Password"
+          @click:append="show3 = !show3"
+          :rules="passwordRules"
+          :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="show3 ? 'text' : 'password'"
+        ></v-text-field>
 
-    <v-textarea
-      full-width
-      single-line
-      label="Message"
-    ></v-textarea>
+      </v-form>
+
+    </v-card-text>
+
+    <v-card-actions class="d-flex flex-column my-0 py-0">
+
+        <v-btn
+          rounded
+          large
+          color="primary"
+          dark
+          @click="validate"
+        >
+        Login
+        </v-btn>
+
+        <br>
+
+        <div>
+          <a href="#">Forgot Password?</a>
+        </div>
+
+        <div> 
+            <v-btn 
+              rounded
+              elevation="2"
+              color="green"
+              dark
+              @click="$router.push('/patientregister')"
+            > 
+              Create New Account
+            </v-btn>
+        </div>
+
+    </v-card-actions>
+
+    </v-card>
+
   </v-card>
+
 </template>
 <script>
   export default {
-    data: () => ({
-      menu: false,
-    }),
+    data () {
+      return {
+        valid: true,
+        form: {},
+        show1: false,
+        show2: true,
+        show3: false,
+        show4: false,
+        loading: false,
+        password: 'Password',
+        emailRules: [
+                  v => !!v || "E-mail is required",
+                  v => /.+@.+/.test(v) || "E-mail must be valid"
+                ],
+        passwordRules: [
+                    v => !!v || "Password is required",
+                    v => {
+                        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.,)(_\$%\^&\*])(?=.{8,})/;
+                        return (
+                            pattern.test(v) ||
+                            "Min. 8 characters with at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"
+                        );
+                    }
+                ],
+        collapseOnScroll: true,
+      }
+    },
+
+    methods: {
+      validate () {
+        this.$refs.form.validate()
+        console.log(this.$refs.form.validate())
+      }
+    }
   }
 </script>
