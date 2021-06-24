@@ -60,18 +60,51 @@
 
           
 <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
-          <v-alert
+
+         <v-alert
             outlined
             color="#0277BD"
           >
             <div class="patients">
               <v-card-actions>
+                 <div>   
                  <v-img
                  class="d-flex justify-center"
                     height="50"  
                     max-width="50"
                     src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
                 ></v-img>
+                 </div> 
+              
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="/patientcreateappointment">
+                    Set Schedule
+                  </v-btn>
+                
+             </v-card-actions>
+             
+             <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
+             
+            </div>
+          </v-alert>
+
+
+          <v-alert
+            outlined
+            color="#0277BD"
+          >
+            <div class="patients">
+              <v-card-actions>
+                 <div>   
+                 <v-img
+                 class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
+                ></v-img>
+                 </div>   
                   <v-btn 
                   text
                   color="#0277BD"  
@@ -79,36 +112,10 @@
                     Medical prescription
                   </v-btn>
              </v-card-actions>
+             <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
             </div>
           </v-alert>
-          <v-alert
-          
-            outlined
-            color="#0277BD"
-          >
-            <div class="patients">
-              <v-card-actions>
-               
-                <div> 
-                   
-                  <v-img
-                    height="50"  
-                    max-width="50"
-                    class="mx-auto"
-                    src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
-                ></v-img>
-                  </div>
-                  <v-btn 
-                  text
-                  color="#0277BD"  
-                  href="/patientcreateappointment">
-                    Add Appointment
-                  </v-btn>
-                  
-             </v-card-actions>
-            </div>
-            
-          </v-alert>
+ 
 
           <v-alert
          
@@ -133,6 +140,7 @@
                     Appointment Schedule
                   </v-btn>  
              </v-card-actions>
+             <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
             </div>
           </v-alert>
 
@@ -156,6 +164,7 @@
                     Medical History
                   </v-btn>
              </v-card-actions>
+             <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
             </div>
           </v-alert>
 </v-card-text>
