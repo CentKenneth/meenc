@@ -16,7 +16,7 @@
               color="#01579B"
               dark
               dense>
-              APPOINTMENT BOOKING
+              MEDICAL CONCERN
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>

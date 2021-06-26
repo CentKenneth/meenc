@@ -87,36 +87,9 @@
                     patient's Concerns
                   </v-btn> 
              </v-card-actions>
-             <v-card-subtitle>Online consultation</v-card-subtitle>
+             <v-card-subtitle>View patients consultation</v-card-subtitle>
             </div>
           </v-alert>
-
-        <v-alert
-            outlined
-            color="#0277BD"
-          >
-            <div class="patients">
-              <v-card-actions>
-                 <div>   
-                 <img
-                 class="d-flex justify-center"
-                    height="50"  
-                    max-width="50"
-                    src="~assets/icon/medical.png"
-                ><img>
-                 </div> 
-                  <v-btn 
-                  text
-                  color="#0277BD"  
-                  href="/patientcreateappointment">
-                    Medical concerns
-                  </v-btn> 
-             </v-card-actions>
-             <v-card-subtitle>Send medical concerns, conditions and vital signs for your doctor</v-card-subtitle>
-            </div>
-          </v-alert>
-
-
           <v-alert
             outlined
             color="#0277BD"
@@ -134,11 +107,11 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patientprescription">
-                   Doctor's prescription
+                  href="/doctorprescription">
+                   Create prescription
                   </v-btn>
              </v-card-actions>
-             <v-card-subtitle>View the doctor’s diagnosis and instruction</v-card-subtitle>
+             <v-card-subtitle>Provide electronic prescription to patient</v-card-subtitle>
             </div>
           </v-alert>
  
@@ -163,10 +136,10 @@
                   text
                   color="#0277BD"  
                   href="/patientschedule">
-                    Set Appointment Schedule
+                    View Appointment Schedule
                   </v-btn>  
              </v-card-actions>
-             <v-card-subtitle>Set appoint schedule for face to face consultation</v-card-subtitle>
+             <v-card-subtitle>View appoint schedule for face to face consultation</v-card-subtitle>
             </div>
           </v-alert>
 

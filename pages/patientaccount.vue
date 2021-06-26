@@ -17,7 +17,7 @@
 
       </v-list-item>
       <v-divider></v-divider>
-      <v-app-bar-nav-icon href="/patientlogin"> <v-icon color="white">mdi-power</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon href="/"> <v-icon color="white">mdi-power</v-icon> </v-app-bar-nav-icon>
     </v-app-bar>
 
     <v-list color="blue" height="530">

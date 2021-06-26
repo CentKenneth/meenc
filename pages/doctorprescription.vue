@@ -1,20 +1,16 @@
 <template>
-  <v-card
-    :loading="loading"
-   :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
-   class="my-1"
-  >
-      <!-- head -->
-     <v-app-bar
-      :collapse="!collapseOnScroll"
-      :collapse-on-scroll="collapseOnScroll"
+<v-card  
+   >
+
+    <v-app-bar
+      
       absolute
       color="#01579B"
       dark
       scroll-target="#scrolling-techniques-6"
     >
-    <v-app-bar-nav-icon href="/"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
-      <v-spacer> </v-spacer>   
+      <v-app-bar-nav-icon href="/patientservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+   <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
               color="#01579B"
@@ -22,86 +18,110 @@
               dense>
               PRESCRIPTION
       </v-toolbar-title>
+    <v-spacer> </v-spacer> 
     </v-app-bar>
-<!-- head -->
+    <v-img
+      :height="$vuetify.breakpoint.smAndDown ? '300' : '350'"
+      src="https://media.istockphoto.com/photos/hospital-blurry-background-picture-id939102942?k=6&m=939102942&s=170667a&w=0&h=Df0vc28Ikv_Fk3pAiuiTMwEwLvdnFekfXmoGop2VN7s="
+    ></v-img>
+    
+ <v-card flat color="#BBDEFB" class="pa-1">
+  <v-row justify="center">
+    <v-col
+    :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
+    >
+      <v-card ref="form">
+        <v-card-text>
+          <v-text-field
+            ref="name"
+            v-model="name"
+            :rules="[() => !!name || 'This field is required']"
+            :error-messages="errorMessages"
+            label="Patient Name"
+            placeholder="Lastname, Firstname"
+             prepend-icon="mdi-account"
+            required
+          ></v-text-field>
 
-  
-
-  <v-card flat color="#BBDEFB" class="pa-6">
-
-    <v-card-title class="d-flex justify-center">
-      <v-icon>mdi-hospital</v-icon>
-      Login
-    </v-card-title>
-
-    <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
-      <v-form
-        ref="form"
-        v-model="valid"
-        lazy-validation
-      >
-
-        <v-text-field
-          outlined
-          v-model="form.email"
-          :rules="emailRules"
-          label="E-mail"
-        ></v-text-field>
-
-        <v-text-field
-          outlined
-          v-model="form.password"
-          label="Password"
-          @click:append="show3 = !show3"
-          :rules="passwordRules"
-          :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="show3 ? 'text' : 'password'"
-        ></v-text-field>
-
-      </v-form>
-
-    </v-card-text>
-
-    <v-card-actions class="d-flex flex-column my-0 py-0">
-
-        <v-btn
-          rounded
-          large
-          color="primary"
-          dark
-          @click="validate"
-        >
-        Login
-        </v-btn>
-
-        <br>
-
-        <div>
-          <a href="#">Forgot Password?</a>
-        </div>
-
-        <div> 
-            <v-btn 
-              rounded
-              elevation="2"
-              color="green"
-              dark
-              @click="$router.push('/patientregister')"
-            > 
-              Create New Account
-            </v-btn>
-        </div>
-
-    </v-card-actions>
-
-    </v-card>
-
+          <v-file-input
+            multiple
+            label="Prescription"
+          ></v-file-input>
+                
+        </v-card-text>
+        <v-divider class="mt-12"></v-divider>
+        <v-card-actions>
+          <v-btn text>
+            Cancel
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-slide-x-reverse-transition>
+            <v-tooltip
+              v-if="formHasErrors"
+              left
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  icon
+                  class="my-0"
+                  v-bind="attrs"
+                  @click="resetForm"
+                  v-on="on"
+                >
+                  <v-icon>mdi-refresh</v-icon>
+                </v-btn>
+              </template>
+              <span>Refresh form</span>
+            </v-tooltip>
+          </v-slide-x-reverse-transition>
+          <v-btn
+            color="primary"
+            text
+            @click="submit"
+          >
+            Submit
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+  </v-row>
   </v-card>
-
+  </v-card>
 </template>
 <script>
   export default {
-    data () {
+    watch: {
+      name () {
+        this.errorMessages = ''
+      },
+    },
+
+    methods: {
+      addressCheck () {
+        this.errorMessages = this.address && !this.name
+          ? `Hey! I'm required`
+          : ''
+
+        return true
+      },
+      resetForm () {
+        this.errorMessages = []
+        this.formHasErrors = false
+
+        Object.keys(this.form).forEach(f => {
+          this.$refs[f].reset()
+        })
+      },
+      submit () {
+        this.formHasErrors = false
+
+        Object.keys(this.form).forEach(f => {
+          if (!this.form[f]) this.formHasErrors = true
+
+          this.$refs[f].validate(true)
+        })
+      },
+    }, data () {
       return {
         valid: true,
         form: {},
@@ -110,20 +130,10 @@
         show3: false,
         show4: false,
         loading: false,
-        password: 'Password',
+        
         emailRules: [
                   v => !!v || "E-mail is required",
                   v => /.+@.+/.test(v) || "E-mail must be valid"
-                ],
-        passwordRules: [
-                    v => !!v || "Password is required",
-                    v => {
-                        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.,)(_\$%\^&\*])(?=.{8,})/;
-                        return (
-                            pattern.test(v) ||
-                            "Min. 8 characters with at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"
-                        );
-                    }
                 ],
         collapseOnScroll: true,
       }
@@ -136,4 +146,5 @@
       }
     }
   }
+  
 </script>
