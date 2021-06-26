@@ -16,7 +16,7 @@
                 max-width="50"
                 src="~assets/M.svg"
                >
-               </img>
+               <img>
       </v-toolbar-title>
           <v-alert
               color="#01579B"
