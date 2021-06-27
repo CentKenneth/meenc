@@ -9,7 +9,12 @@
       color="#01579B"
       elevation="none"
     >
+    <v-app-bar-nav-icon 
+          color="white"
+          @click="drawer = true">
+      </v-app-bar-nav-icon>
     <v-spacer></v-spacer>
+
        <v-toolbar-title >
                <img
                 height="40"  
@@ -26,16 +31,100 @@
           </v-alert>
     <v-spacer></v-spacer>
     </v-app-bar>
+    
 
+
+    <!-- menu -->
     <v-card
+    height="400" 
+    outlined
+    :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
+    class="mx-auto"
+    
+  >
+   <v-navigation-drawer
+        v-model="drawer"
+        absolute
+        temporary
+        color="#0277BD"  
+      >
+      <v-list>
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-white--text text--accent-4"
+          
+        >
+
+          <v-list-item  >
+            <v-list-item-icon>
+              <v-icon
+              color="white">mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title><v-btn 
+                text
+                color="white"
+                 href="/doctorlogin" >
+                Home
+                </v-btn>
+                </v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon 
+              color="white"
+              >mdi-calendar-range</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title><v-btn 
+              text
+              color="white"
+               href="/doctorservices" >
+                Services
+                </v-btn></v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon 
+              color="white"
+              >mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title><v-btn 
+              text
+              color="white"
+               href="/doctoraccount" >
+                Account
+                </v-btn></v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon 
+              color="white"
+              >mdi-power</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title><v-btn 
+              text
+              color="white"
+               href="/" >
+                Logout
+                </v-btn></v-list-item-title>
+          </v-list-item>
+
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+  <v-img
+          src="https://qtxasset.com/fiercehealthcare/1562973884/GettyImages-898906336.jpg/GettyImages-898906336.jpg?OhHp8.hb4iZbXQ.xHf4.JzCZpWlc56My"
+          :height="$vuetify.breakpoint.smAndDown ? '250' : '750'"
+      ></v-img>
+
+       <v-card
     :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
       class="mx-auto"
       color="#01579B"
     >
-      <v-img
-          src="https://qtxasset.com/fiercehealthcare/1562973884/GettyImages-898906336.jpg/GettyImages-898906336.jpg?OhHp8.hb4iZbXQ.xHf4.JzCZpWlc56My"
-          :height="$vuetify.breakpoint.smAndDown ? '250' : '750'"
-      ></v-img>
+      
     <v-card
     color="#BBDEFB" >
       <v-row 
@@ -67,33 +156,12 @@
       </v-row>
     </v-card>
   </v-card>
-<v-card >
-  <v-bottom-navigation
-  background-color="#BBDEFB"
-    :value="value"
-    color="#01579B"
-    grow
-  >
-    <v-btn href="/doctorhome">
-      <span>Home</span>
+  
+     
+  </v-card>
+    <!-- menu -->
 
-      <v-icon>mdi-home</v-icon>
-    </v-btn>
-
-    <v-btn href="/doctorservices">
-      <span>Services</span>
-
-      <v-icon>mdi-calendar-range</v-icon>
-    </v-btn>
-
-    <v-btn  href="/doctoraccount">
-      <span>Account</span>
-
-      <v-icon >mdi-account</v-icon>
-    </v-btn>
-  </v-bottom-navigation>
-</v-card>
-
+   
   </v-container>
 
 
@@ -104,7 +172,5 @@
       drawer: false,
       group: null,
     }),
-    data: () => ({ value: 0 }),
-  
   }
 </script>
