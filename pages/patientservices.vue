@@ -9,6 +9,7 @@
       color="#01579B"
       elevation="none"
     >
+          <v-app-bar-nav-icon href="/patienthome"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
     <v-spacer></v-spacer>
        <v-toolbar-title >
                <img
@@ -28,6 +29,7 @@
     </v-app-bar>
 
      <v-card flat color="#BBDEFB" class="pa-6">
+  
 
     <v-card-title class="d-flex justify-center">
       <img
@@ -83,7 +85,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patientcreateappointment">
+                  href="/patientsetschedule">
                     Online checkup
                   </v-btn> 
              </v-card-actions>
@@ -108,7 +110,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patientconsultation">
+                  href="/patientmedicalconcern">
                     Medical concerns
                   </v-btn> 
              </v-card-actions>
