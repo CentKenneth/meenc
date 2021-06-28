@@ -1,4 +1,5 @@
-<template>
+<template
+>
 <v-container
     class="spacing-playground pa-0"
     fluid 
@@ -36,7 +37,7 @@
           max-width="50"
           src="~assets/icon/consult.png"
       ><img>
-      Patient's Concerns
+      Consultation
     </v-card-title>
 
     <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">

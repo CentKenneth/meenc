@@ -84,7 +84,7 @@
                   text
                   color="#0277BD"  
                   href="/patientcreateappointment">
-                    Set Schedule
+                    Online checkup
                   </v-btn> 
              </v-card-actions>
              <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
@@ -108,7 +108,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patientcreateappointment">
+                  href="/patientconsultation">
                     Medical concerns
                   </v-btn> 
              </v-card-actions>

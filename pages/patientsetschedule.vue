@@ -16,7 +16,7 @@
               color="#01579B"
               dark
               dense>
-              MEDICAL CONCERN
+              Schedule for Online Checkup
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
@@ -72,7 +72,7 @@
                       <v-text-field
                         v-model="date"
                         :rules="[() => !!name || 'This field is required']"
-                        label="Appointment date:"
+                        label="schedule for online checkup:"
                         
                         readonly
                         v-bind="attrs"
