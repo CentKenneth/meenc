@@ -189,7 +189,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patientsetschedule">
+                  href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2">
                      Don’t drink sugar calories
                   </v-btn> 
                   
@@ -201,7 +201,7 @@
                  
                    :style="$vuetify.breakpoint.smAndDown ? 'width:60%;' : 'width:60%;'"
                     src="~assets/tips/sugar.jpg"
-                    href="/patientsetschedule"
+                    href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2"
                 ><img>
                  </div>
                   
