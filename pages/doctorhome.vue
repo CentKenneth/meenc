@@ -149,7 +149,7 @@
             <div class="title">
               Start getting better today
             </div>
-            <v-card-subtitle>Select from our services</v-card-subtitle>
+            <v-card-subtitle>Choose from our healthy tips that would fit your need</v-card-subtitle>
             <v-card-subtitle></v-card-subtitle>
           </v-alert>
         </v-col>

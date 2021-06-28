@@ -9,7 +9,7 @@
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/patientservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon href="/doctorservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
@@ -21,7 +21,7 @@
     <v-spacer> </v-spacer> 
     </v-app-bar>
     <v-img
-      :height="$vuetify.breakpoint.smAndDown ? '300' : '350'"
+      :height="$vuetify.breakpoint.smAndDown ? '360' : '350'"
       src="https://media.istockphoto.com/photos/hospital-blurry-background-picture-id939102942?k=6&m=939102942&s=170667a&w=0&h=Df0vc28Ikv_Fk3pAiuiTMwEwLvdnFekfXmoGop2VN7s="
     ></v-img>
     

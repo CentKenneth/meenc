@@ -9,6 +9,7 @@
       color="#01579B"
       elevation="none"
     >
+    <v-app-bar-nav-icon href="/doctorhome"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
     <v-spacer></v-spacer>
        <v-toolbar-title >
                <img
@@ -135,7 +136,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patientschedule">
+                  href="/doctorviewappointmentschedule">
                     View Appointment Schedule
                   </v-btn>  
              </v-card-actions>
@@ -159,7 +160,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patienthistory">
+                  href="/doctormedicalhistory">
                     Medical History
                   </v-btn>
              </v-card-actions>
