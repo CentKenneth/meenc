@@ -24,22 +24,102 @@
       :height="$vuetify.breakpoint.smAndDown ? '360' : '350'"
       src="https://media.istockphoto.com/photos/hospital-blurry-background-picture-id939102942?k=6&m=939102942&s=170667a&w=0&h=Df0vc28Ikv_Fk3pAiuiTMwEwLvdnFekfXmoGop2VN7s="
     ></v-img>
+
+   <v-card
+    color="blue-grey darken-1"
+    dark
+    :loading="isUpdating"
+  >
+    <template v-slot:progress>
+      <v-progress-linear
+        absolute
+        color="green lighten-3"
+        height="4"
+        indeterminate
+      ></v-progress-linear>
+    </template>
+  
+    <v-form>
+      <v-container>
+        <v-row>
+          <v-col
+            cols="12"
+            md="6"
+          >
     
- <v-card flat color="#BBDEFB" class="pa-1">
-  <v-row justify="center">
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+   
+          </v-col>
+          <v-col cols="12">
+            <v-autocomplete
+              v-model="friends"
+              :disabled="isUpdating"
+              :items="people"
+              filled
+              chips
+              color="blue-grey lighten-2"
+              label="Select"
+              item-text="name"
+              item-value="name"
+              multiple
+            >
+              <template v-slot:selection="data">
+                <v-chip
+                  v-bind="data.attrs"
+                  :input-value="data.selected"
+                  close
+                  @click="data.select"
+                  @click:close="remove(data.item)"
+                >
+                  <v-avatar left>
+                    <v-img :src="data.item.avatar"></v-img>
+                  </v-avatar>
+                  {{ data.item.name }}
+                </v-chip>
+              </template>
+              <template v-slot:item="data">
+                <template v-if="typeof data.item !== 'object'">
+                  <v-list-item-content v-text="data.item"></v-list-item-content>
+                </template>
+                <template v-else>
+                  <v-list-item-avatar>
+                    <img :src="data.item.avatar">
+                  </v-list-item-avatar>
+                  <v-list-item-content>
+                    <v-list-item-title v-html="data.item.name"></v-list-item-title>
+                    <v-list-item-subtitle v-html="data.item.group"></v-list-item-subtitle>
+                  </v-list-item-content>
+                </template>
+              </template>
+            </v-autocomplete>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-form>
+    <v-divider></v-divider>
+ 
+  </v-card>
+ <v-card flat color="#BBDEFB" class="pa-1" >
+   
+  <v-row justify="center" >
+    
     <v-col
     :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
     >
-      <v-card ref="form">
+      <v-card ref="form" >
         <v-card-text>
           <v-text-field
             ref="name"
             v-model="name"
             :rules="[() => !!name || 'This field is required']"
             :error-messages="errorMessages"
-            label="Patient Name"
-            placeholder="Lastname, Firstname"
-             prepend-icon="mdi-account"
+            label="Message"
+            placeholder="Short Message"
+             prepend-icon="mdi-comment-account-outline"
             required
           ></v-text-field>
 
@@ -147,4 +227,54 @@
     }
   }
   
+</script>
+
+<script>
+  export default {
+    data () {
+      const srcs = {
+        1: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+        2: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+        3: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+        4: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
+        5: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
+      }
+
+      return {
+        autoUpdate: true,
+        friends: ['Sandra Adams', 'Britta Holt'],
+        isUpdating: false,
+        name: '',
+        people: [
+          { header: 'Patient' },
+          { name: 'Sandra Adams', group: '', avatar: srcs[1] },
+          { name: 'Ali Connors', group: '', avatar: srcs[2] },
+          { name: 'Trevor Hansen', group: '', avatar: srcs[3] },
+          { name: 'Tucker Smith', group: '', avatar: srcs[2] },
+          { divider: true },
+          { header: 'Patient' },
+          { name: 'Britta Holt', group: '', avatar: srcs[4] },
+          { name: 'Jane Smith ', group: '', avatar: srcs[5] },
+          { name: 'John Smith', group: '', avatar: srcs[1] },
+          { name: 'Sandra Williams', group: '', avatar: srcs[3] },
+        ],
+        title: 'The summer breeze',
+      }
+    },
+
+    watch: {
+      isUpdating (val) {
+        if (val) {
+          setTimeout(() => (this.isUpdating = false), 3000)
+        }
+      },
+    },
+
+    methods: {
+      remove (item) {
+        const index = this.friends.indexOf(item.name)
+        if (index >= 0) this.friends.splice(index, 1)
+      },
+    },
+  }
 </script>

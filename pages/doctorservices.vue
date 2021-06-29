@@ -85,10 +85,10 @@
                   text
                   color="#0277BD"  
                   href="/doctorviewcpatientconcern">
-                    patient's Concerns
+                    Online Consultation
                   </v-btn> 
              </v-card-actions>
-             <v-card-subtitle>View patients consultation</v-card-subtitle>
+             <v-card-subtitle>View patients Online consultation</v-card-subtitle>
             </div>
           </v-alert>
           <v-alert
@@ -174,31 +174,7 @@
       </v-row>
     </v-card>
   </v-card>
-<v-card >
-  <v-bottom-navigation
-  background-color="#BBDEFB"
-    :value="value"
-    color="#01579B"
-    grow
-  >
-    <v-btn href="/patienthome">
-      <span>Home</span>
-      <v-icon>mdi-home</v-icon>
-    </v-btn>
 
-    <v-btn href="/patientservices">
-      <span>Services</span>
-
-      <v-icon>mdi-calendar-range</v-icon>
-    </v-btn>
-
-    <v-btn  href="/patientaccount">
-      <span>Account</span>
-
-      <v-icon >mdi-account</v-icon>
-    </v-btn>
-  </v-bottom-navigation>
-</v-card>
 
   </v-container>
 

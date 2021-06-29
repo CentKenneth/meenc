@@ -14,7 +14,7 @@
       <v-toolbar-title  
           text
               color="#01579B"
-              dark
+              
               dense>
               Medical Concern
       </v-toolbar-title>
@@ -28,21 +28,22 @@
     >
     </v-col>
   </v-row>
-  </v-card>
+
+  </v-card
+  >
 
     <v-toolbar
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+     
 
 
-      <v-spacer></v-spacer>
 
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-toolbar>
 
-    <v-list subheader>
+    <v-list subheader  height="570">
       <v-subheader>Doctors</v-subheader>
 
       <v-list-item
@@ -69,7 +70,6 @@
       </v-list-item>
     </v-list>
 
-    <v-divider></v-divider>
   </v-card>
   
 </template>

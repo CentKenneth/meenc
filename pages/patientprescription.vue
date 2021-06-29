@@ -16,7 +16,7 @@
               color="#01579B"
               dark
               dense>
-              Appointment
+              Prescription
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
@@ -138,11 +138,11 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">Are you sure you want to approve this appointment?</v-card-title>
+            <v-card-title class="text-h5">Are you sure you want to buy this prescription?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="green darken-1" text @click="deleteItemConfirm">Yes</v-btn>
+              <v-btn color="green darken-1" href="/patientprescription" text @click="deleteItemConfirm">Buy</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -152,12 +152,13 @@
     <template v-slot:item.actions="{ item }">
      
       <v-icon
-        small
+        
         @click="deleteItem(item)"
+        color="blue"
       >
-        mdi-thumb-up
+        mdi-cloud-download
       </v-icon>
-      Approve
+     
     </template>
     <template v-slot:no-data>
       <v-btn
@@ -239,78 +240,15 @@
             date: '06-13-2021',
             
           },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-          {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
+  
+   
+  
+    
+  
+  
+  
+     
+        
         ]
       },
 

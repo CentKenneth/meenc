@@ -9,7 +9,7 @@
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/patientmedicalconcern"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon href="/doctorservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
@@ -42,28 +42,10 @@
     <v-list subheader height="500">
       <v-subheader></v-subheader>
    
-    <v-list-item>
-        <v-list-item-avatar>
-          <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"> </v-img>
-          
-        </v-list-item-avatar>
-        <v-list-item-title > <h6> Get enough sleep </h6> </v-list-item-title>
-      </v-list-item>
-      <v-spacer></v-spacer>
-       
-    
-      <br>
-      <br>
-      <v-list-item>
-        <v-list-item-avatar>
-          <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"> </v-img>
-          
-        </v-list-item-avatar>
-        <v-list-item-title > <h6> The importance of getting enough quality sleep </h6> <br>
-        <h6>  cannot be overstated. </h6> </v-list-item-title>
+   
+     
         
-        
-      </v-list-item>
+     
       <v-spacer></v-spacer>
        
     
@@ -122,7 +104,7 @@
     data: () => ({
       password: 'Password',
       show: false,
-      message: 'Hey!',
+      message: 'Good day!',
       marker: true,
       iconIndex: 0,
       icons: [

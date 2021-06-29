@@ -63,7 +63,7 @@
             <v-list-item-title><v-btn 
                 text
                 color="white"
-                 href="/doctorlogin" >
+                 href="/doctorhome" >
                 Home
                 </v-btn>
                 </v-list-item-title>
@@ -136,7 +136,7 @@
             dark
           >
           <v-card-title class="text-h5">
-             Hi, Cent!
+             Hi!
             </v-card-title>
 
             <v-card-subtitle>How can we help you?</v-card-subtitle>
@@ -153,57 +153,114 @@
             <v-card-subtitle></v-card-subtitle>
           </v-alert>
         </v-col>
+         <v-col cols="12">
+        </v-col>
       </v-row>
-    <v-timeline
-    align-top
-    :dense="$vuetify.breakpoint.smAndDown"
-  >
-    <v-timeline-item
-      v-for="(item, i) in items"
-      :key="i"
-      :color="item.color"
-      :icon="item.icon"
-      fill-dot
+    </v-card>
+    <v-card
+    :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
+      class="mx-auto"
+      color="#01579B"
     >
-      <v-card
-        :color="item.color"
-        dark
-      >
-        <v-card-title class="text-h6">
-          Lorem Ipsum Dolor
-        </v-card-title>
-        <v-card-text class="white text--primary">
-          <p>Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.</p>
-          <v-btn
-            :color="item.color"
-            class="mx-0"
+    <v-card
+    color="#BBDEFB">
+      <v-row dense>
+        <v-col cols="12">
+
+
+
+          
+<v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:95%;'" class="mx-auto">
+
+         <v-alert
             outlined
+            color="#0277BD"
           >
-            Button
-          </v-btn>
-        </v-card-text>
-      </v-card>
-    </v-timeline-item>
-  </v-timeline>
+            <div class="patients">
+              <v-card-actions>
+                 <div>   
+                 <img
+                 class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    src="~assets/tips/drink.png"
+                ><img>
+                 </div> 
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2">
+                     Don’t drink sugar calories
+                  </v-btn> 
+                  
+             </v-card-actions>
+             <v-card-subtitle>Sugary drinks are among the most fattening items you can put into your body.</v-card-subtitle>
+              <v-card-subtitle> This is because your brain doesn’t measure calories from liquid sugar the same way it does for solid food (1Trusted Source).</v-card-subtitle>
+             <div class="d-flex justify-center">   
+                 <img
+                 
+                   :style="$vuetify.breakpoint.smAndDown ? 'width:60%;' : 'width:60%;'"
+                    src="~assets/tips/sugar.jpg"
+                    href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2"
+                ><img>
+                 </div>
+                  
+            </div>
+            
+          </v-alert>
+           <v-alert
+            outlined
+            color="#0277BD"
+          >
+            <div class="patients">
+              <v-card-actions>
+                 <div>   
+                 <img
+                 class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    src="~assets/tips/drink.png"
+                ><img>
+                 </div> 
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2">
+                     Avoid processed junk food (eat real food instead)
+                  </v-btn> 
+                  
+             </v-card-actions>
+             <v-card-subtitle>Processed junk food is incredibly unhealthy.</v-card-subtitle>
+              <v-card-subtitle> These foods have been engineered to trigger your pleasure centers, so they trick your brain into overeating — even promoting food addiction in some people (15Trusted Source).</v-card-subtitle>
+             <div class="d-flex justify-center">   
+                 <img
+                 
+                   :style="$vuetify.breakpoint.smAndDown ? 'width:60%;' : 'width:60%;'"
+                    src="~assets/tips/junk.jpg"
+                    href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2"
+                ><img>
+                 </div>
+                  
+            </div>
+            
+          </v-alert>
+</v-card-text>
+
+
+        </v-col>
+      </v-row>
     </v-card>
   </v-card>
-  
-     
+  </v-card>  
   </v-card>
     <!-- menu -->
-
-   
-  </v-container>
-
-
+</v-container>
 </template>
 <script>
   export default {
     data: () => ({
       drawer: false,
       group: null,
-    }),
-
-    
+    })
   }
 </script>
