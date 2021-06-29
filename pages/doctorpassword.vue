@@ -9,8 +9,7 @@
       flat
       color="#01579B"
     >
-   
-      <v-app-bar-nav-icon href="/patientaccount"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon href="/doctoraccount"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
 
       <v-spacer></v-spacer>
       <v-btn
@@ -32,7 +31,7 @@
       <v-text-field
         :disabled="!isEditing"
         color="white"
-        label="Name"
+        label="Password"
       ></v-text-field>
 
 
@@ -43,7 +42,7 @@
         :filter="customFilter"
         color="white"
         item-text="name"
-        label="Email"
+        label="New Password"
       ></v-autocomplete>
     </v-card-text>
     <v-divider></v-divider>
