@@ -9,6 +9,7 @@
       color="#01579B"
       elevation="none"
     >
+    <v-app-bar-nav-icon href="/doctorhome"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
     <v-spacer></v-spacer>
        <v-toolbar-title >
                <img
@@ -16,7 +17,7 @@
                 max-width="50"
                 src="~assets/M.svg"
                 >
-               </img>
+               <img>
       </v-toolbar-title>
           <v-alert
               color="#01579B"
@@ -26,6 +27,30 @@
           </v-alert>
     <v-spacer></v-spacer>
     </v-app-bar>
+
+     <v-card flat color="#BBDEFB" class="pa-6">
+
+    <v-card-title class="d-flex justify-center">
+      <img
+          class="d-flex justify-center"
+          height="50"  
+          max-width="50"
+          src="~assets/icon/services.png"
+      ><img>
+      Services
+    </v-card-title>
+
+    <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
+   
+
+    </v-card-text>
+
+    <v-card-actions class="d-flex flex-column my-0 py-0">
+       
+
+    </v-card-actions>
+
+    </v-card>
 
     <v-card
     :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
@@ -40,29 +65,30 @@
 
 
           
+<v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
 
-          <v-alert
+         <v-alert
             outlined
             color="#0277BD"
           >
             <div class="patients">
               <v-card-actions>
-                <div>  
-                  <v-img
+                 <div>   
+                 <img
+                 class="d-flex justify-center"
                     height="50"  
                     max-width="50"
-                    class="mx-auto"
-                    src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
-                ></v-img>
-                  </div>
+                    src="~assets/icon/consult.png"
+                ><img>
+                 </div> 
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctorpatients">
-                    Patients
-
-                  </v-btn>
+                  href="/doctorviewcpatientconcern">
+                    Online Consultation
+                  </v-btn> 
              </v-card-actions>
+             <v-card-subtitle>View patients Online consultation</v-card-subtitle>
             </div>
           </v-alert>
           <v-alert
@@ -71,21 +97,50 @@
           >
             <div class="patients">
               <v-card-actions>
-                <div>  
-                  <v-img
+                 <div>   
+                 <img
+                 class="d-flex justify-center"
                     height="50"  
                     max-width="50"
-                    class="mx-auto"
-                    src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
-                ></v-img>
-                  </div>
+                    src="~assets/icon/prescription.png"
+                ><img>
+                 </div>   
                   <v-btn 
                   text
                   color="#0277BD"  
                   href="/doctorprescription">
-                    Send Prescription
+                   Create prescription
                   </v-btn>
              </v-card-actions>
+             <v-card-subtitle>Provide electronic prescription to patient</v-card-subtitle>
+            </div>
+          </v-alert>
+ 
+
+          <v-alert
+         
+            outlined
+            color="#0277BD"
+          >
+            <div class="Appointment Schedule">
+              <v-card-actions>
+                
+                  <div> 
+                  <img
+                   class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"    
+                    src="~assets/icon/appointment.png"
+                ><img>
+                </div> 
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="/doctorviewappointmentschedule">
+                    View Appointment Schedule
+                  </v-btn>  
+             </v-card-actions>
+             <v-card-subtitle>View appoint schedule for face to face consultation</v-card-subtitle>
             </div>
           </v-alert>
 
@@ -95,81 +150,31 @@
           >
             <div class="patients">
               <v-card-actions>
-                <div>  
-                  <v-img
+                  <img
+                  class="d-flex justify-center"
                     height="50"  
                     max-width="50"
-                    class="mx-auto"
-                    src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
-                ></v-img>
-                  </div>
+                    
+                    src="~assets/icon/history.png"
+                ><img>
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctorschedule">
-                    Appointment Schedule
-
-                  </v-btn>
-             </v-card-actions>
-            </div>
-          </v-alert>
-
-          <v-alert
-            outlined
-            color="#0277BD"
-          >
-            <div class="patients">
-              <v-card-actions>
-                <div>  
-                  <v-img
-                    height="50"  
-                    max-width="50"
-                    class="mx-auto"
-                    src="https://image.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg"
-                ></v-img>
-                  </div>
-                  <v-btn 
-                  text
-                  color="#0277BD"  
-                  href="/doctorhistory">
+                  href="/doctormedicalhistory">
                     Medical History
-
                   </v-btn>
              </v-card-actions>
+             <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
             </div>
           </v-alert>
-
+</v-card-text>
 
 
         </v-col>
       </v-row>
     </v-card>
   </v-card>
-<v-card >
-  <v-bottom-navigation
-  background-color="#BBDEFB"
-    :value="value"
-    color="#01579B"
-    grow
-  >
-    <v-btn href="/doctorhome">
-      <span>Home</span>
-      <v-icon>mdi-home</v-icon>
-    </v-btn>
 
-    <v-btn href="/doctorservices">
-      <span>Services</span>
-
-      <v-icon>mdi-calendar-range</v-icon>
-    </v-btn>
-
-    <v-btn  href="/doctoraccount">
-      <span>Account</span>
-
-      <v-icon >mdi-account</v-icon>
-    </v-btn>
-  </v-bottom-navigation>
-</v-card>
 
   </v-container>
 

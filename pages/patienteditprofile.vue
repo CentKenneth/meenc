@@ -43,7 +43,7 @@
         :filter="customFilter"
         color="white"
         item-text="name"
-        label="Gender"
+        label="Email"
       ></v-autocomplete>
     </v-card-text>
     <v-divider></v-divider>
