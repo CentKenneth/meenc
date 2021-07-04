@@ -24,6 +24,84 @@
       :height="$vuetify.breakpoint.smAndDown ? '300' : '350'"
       src="https://media.istockphoto.com/photos/hospital-blurry-background-picture-id939102942?k=6&m=939102942&s=170667a&w=0&h=Df0vc28Ikv_Fk3pAiuiTMwEwLvdnFekfXmoGop2VN7s="
     ></v-img>
+     <v-card
+    color="blue-grey darken-1"
+    dark
+    :loading="isUpdating"
+  >
+    <template v-slot:progress>
+      <v-progress-linear
+        absolute
+        color="green lighten-3"
+        height="4"
+        indeterminate
+      ></v-progress-linear>
+    </template>
+  
+    <v-form>
+      <v-container>
+        <v-row>
+          <v-col
+            cols="12"
+            md="6"
+          >
+    
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+   
+          </v-col>
+          <v-col cols="12">
+            <v-autocomplete
+              v-model="friends"
+              :disabled="isUpdating"
+              :items="people"
+              filled
+              chips
+              color="blue-grey lighten-2"
+              label="Send to"
+              item-text="name"
+              item-value="name"
+              multiple
+            >
+              <template v-slot:selection="data">
+                <v-chip
+                  v-bind="data.attrs"
+                  :input-value="data.selected"
+                  close
+                  @click="data.select"
+                  @click:close="remove(data.item)"
+                >
+                  <v-avatar left>
+                    <v-img :src="data.item.avatar"></v-img>
+                  </v-avatar>
+                  {{ data.item.name }}
+                </v-chip>
+              </template>
+              <template v-slot:item="data">
+                <template v-if="typeof data.item !== 'object'">
+                  <v-list-item-content v-text="data.item"></v-list-item-content>
+                </template>
+                <template v-else>
+                  <v-list-item-avatar>
+                    <img :src="data.item.avatar">
+                  </v-list-item-avatar>
+                  <v-list-item-content>
+                    <v-list-item-title v-html="data.item.name"></v-list-item-title>
+                    <v-list-item-subtitle v-html="data.item.group"></v-list-item-subtitle>
+                  </v-list-item-content>
+                </template>
+              </template>
+            </v-autocomplete>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-form>
+    <v-divider></v-divider>
+ 
+  </v-card>
     
  <v-card flat color="#BBDEFB" class="pa-1">
   <v-row justify="center">
@@ -60,7 +138,7 @@
              prepend-icon="mdi-phone"
             required
           ></v-text-field>
-
+                  <!-- date -->
                   <v-dialog
                     ref="dialog"
                     v-model="modal"
@@ -104,9 +182,48 @@
                         </v-date-picker>
                       </v-dialog>
 
-           
-
+                  <!-- time -->
+           <v-dialog
+        ref="dialog"
+        v-model="modal2"
+        :return-value.sync="time"
+        persistent
+        width="290px"
+      >
+        <template v-slot:activator="{ on, attrs }">
           <v-text-field
+            v-model="time"
+            label="Time"
+            prepend-icon="mdi-clock-time-four-outline"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-time-picker
+          v-if="modal2"
+          v-model="time"
+          full-width
+        >
+          <v-spacer></v-spacer>
+          <v-btn
+            text
+            color="primary"
+            @click="modal2 = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            text
+            color="primary"
+            @click="$refs.dialog.save(time)"
+          >
+            OK
+          </v-btn>
+        </v-time-picker>
+      </v-dialog>
+
+          <v-textarea
             ref="problem"
             v-model="address"
             prepend-icon="mdi-virus"
@@ -119,7 +236,7 @@
             placeholder="Short Description of patient's problems"
             counter="50"
             required
-          ></v-text-field>
+          ></v-textarea>
 
         </v-card-text>
         <v-divider class="mt-12"></v-divider>

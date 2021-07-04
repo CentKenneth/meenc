@@ -208,7 +208,7 @@
             </div>
             
           </v-alert>
-           <v-alert
+          <v-alert
             outlined
             color="#0277BD"
           >
@@ -226,23 +226,25 @@
                   text
                   color="#0277BD"  
                   href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2">
-                     Avoid processed junk food (eat real food instead)
+                     Don’t drink sugar calories
                   </v-btn> 
                   
              </v-card-actions>
-             <v-card-subtitle>Processed junk food is incredibly unhealthy.</v-card-subtitle>
-              <v-card-subtitle> These foods have been engineered to trigger your pleasure centers, so they trick your brain into overeating — even promoting food addiction in some people (15Trusted Source).</v-card-subtitle>
-             <div class="d-flex justify-center">   
+             <v-card-subtitle>Sugary drinks are among the most fattening items you can put into your body.</v-card-subtitle>
+              <v-card-subtitle> This is because your brain doesn’t measure calories from liquid sugar the same way it does for solid food (1Trusted Source).</v-card-subtitle>
+             <div class="d-flex justify-center" >   
                  <img
                  
                    :style="$vuetify.breakpoint.smAndDown ? 'width:60%;' : 'width:60%;'"
-                    src="~assets/tips/junk.jpg"
+                    src="~assets/tips/sugar.jpg"
                     href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2"
                 ><img>
-                 </div> 
+                 </div>
+                  
             </div>
-
+            
           </v-alert>
+
         </v-card-text>
         </v-col>
       </v-row>

@@ -22,7 +22,7 @@
               color="#01579B"
               dark
               dense>
-              SECRETARY
+             DOCTOR
       </v-toolbar-title>
     </v-app-bar>
     <!-- head -->

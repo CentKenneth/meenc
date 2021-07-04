@@ -89,7 +89,7 @@
               elevation="2"
               color="green"
               dark
-              @click="$router.push('/doctoregister')"
+              @click="$router.push('/doctorregister')"
             > 
               Create New Account
             </v-btn>
