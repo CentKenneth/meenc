@@ -99,6 +99,8 @@
 
     </v-card>
 
+    <notifications group="foo" />
+
   </v-card>
 
 </template>
@@ -149,7 +151,16 @@
               client_secret: process.env.CLIENT_SECRET_KEY
             }
 
-            await this.$auth.loginWith('local', { data: login })
+            const res = await this.$auth.loginWith('local', { data: login })
+
+            if (res.status == 200) {
+              this.$notify({
+                type: 'success',
+                group: 'foo',
+                title: 'Success!',
+                text: 'Successfully login!'
+              })
+            }
 
           }
 
