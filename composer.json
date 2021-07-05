@@ -1,5 +1,0 @@
-{
-    "require": {
-        "spatie/laravel-fractal": "^5.8"
-    }
-}

@@ -14,7 +14,7 @@
       scroll-target="#scrolling-techniques-6"
     >
     <v-btn icon>
-           <v-app-bar-nav-icon href="/secretaryhome"> <v-icon color="white">mdi-home</v-icon> </v-app-bar-nav-icon>
+           <v-app-bar-nav-icon href="/doctorlogin"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
           </v-btn>
       <v-spacer> </v-spacer>   
       <v-toolbar-title  
@@ -35,7 +35,7 @@
   
 
     <div>
-        <v-card color="#BBDEFB">
+        <v-card color="#BBDEFB" class="rounded-xl pa-6" :disabled="submitting">
           <v-card-title >Create Doctor's Account
             <v-icon
             >mdi-doctor</v-icon>
@@ -46,11 +46,9 @@
               md="6"
             >
               <v-text-field
-                v-model="firstname"
-                :rules="nameRules"
+                v-model="form['firstname']"
                 :counter="10"
                 label="First name"
-                required
               ></v-text-field>
             </v-col>
 
@@ -59,16 +57,13 @@
                 md="6"
               >
                 <v-text-field
-                  v-model="lastname"
-                  :rules="nameRules"
+                  v-model="form['lastname']"
                   :counter="10"
                   label="Last name"
-                  required
                 ></v-text-field>
               </v-col>
-            </v-row>
-
-                        <!-- ccc -->
+          </v-row>
+          <!-- ccc -->
           <v-container fluid>
                 <v-row align="center">
                   <v-col
@@ -79,7 +74,7 @@
                   <v-dialog
                     ref="dialog"
                     v-model="modal"
-                    :return-value.sync="date"
+                    :return-value.sync="form['bday']"
                     persistent
                     width="290px"
                     >
@@ -91,62 +86,76 @@
                         readonly
                         v-bind="attrs"
                          v-on="on"
-                        ></v-text-field>
-                        </template>
-                        <v-date-picker
-                          v-model="date"
-                          scrollable
-                        >
-                          <v-spacer></v-spacer>
-                          <v-btn
-                            text
-                            color="primary"
-                            @click="modal = false"
-                          >
-                            Cancel
-                          </v-btn>
-                          <v-btn
-                            text
-                            color="primary"
-                            @click="$refs.dialog.save(date)"
-                          >
-                            OK
-                          </v-btn>
-                        </v-date-picker>
-                      </v-dialog>
-                         </v-col>
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="date"
+                      scrollable
+                    >
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="modal = false"
+                      >
+                        Cancel
+                      </v-btn>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.dialog.save(date)"
+                      >
+                        OK
+                      </v-btn>
+                    </v-date-picker>
+                  </v-dialog>
+                </v-col>
             <!-- gender -->
             
-                  <v-col
+                <v-col
                   class="d-flex"
                   cols="12"
                   sm="6"
                   >
-                <v-select
-                  :items="items"
-                  label="Gender"
-                ></v-select>
-              </v-col>
-              </v-row>
-          </v-container>
-            <!-- vvv -->
+                  <v-select
+                    v-model="form['gender']"
+                    :items="items"
+                    label="Gender"
+                  ></v-select>
+                </v-col>
+              
           
-            <v-text-field
-            v-model="Clinic"
-            label="Clinic Name"
-            required>
-            </v-text-field>
-
-             <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required>
-            </v-text-field>
-  
+            <!-- vvv -->
+              <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+              >
+                <v-text-field
+                  v-model="form['clinic']"
+                  label="Clinic Name">
+                </v-text-field>
+              </v-col>
+              <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+              >
+                <v-text-field
+                  v-model="form['email']"
+                  :rules="emailRules"
+                  label="E-mail">
+                </v-text-field>
+              </v-col>
+              <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+              >
                   <v-text-field
                     :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                    :rules="[rules.required, rules.min]"
+                    :rules="passwordRules"
+                    v-model="form['password']"
                     :type="show3 ? 'text' : 'password'"
                     name="input-10-2"
                     label="Password"
@@ -155,11 +164,16 @@
                     class="input-group--focused"
                     @click:append="show3 = !show3">
                   </v-text-field>
-
+              </v-col>
+              <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+              >
                   <v-text-field
                     :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                    :rules="[rules.required, rules.min]"
                     :type="show3 ? 'text' : 'password'"
+                    v-model="form['password_confirmation']"
                     name="input-10-2"
                     label="Confirm Password"
                     hint="At least 8 characters"
@@ -167,20 +181,29 @@
                     class="input-group--focused"
                     @click:append="show3 = !show3">
                     </v-text-field>
-            
+              </v-col>
+            </v-row>
+        </v-container>
             <div class="text-center">
                 <div class="col-md .offset-md">
                 <v-btn
                 rounded
                 color="green"
                 dark
+                :disabled="submitting"
+                @click="register"
                 >
-                Add
+                Register
                 </v-btn>
                 </div>
+                <div class="col-md .offset-md">Already have an account?
+                <a href="/Doctorlogin">Login
+                </a>
+                </div>
             </div>
-        </v-card>
-      </div>
+      </v-card>
+    </div>
+     <notifications group="foo" />
   </v-card>
 </template>
 <script>
@@ -191,15 +214,81 @@
         show2: true,
         show3: false,
         show4: false,
+          modal: false,
+        submitting: false,
+        date: '',
         password: 'Password',
-        rules: {
-          required: value => !!value || 'Required.',
-          min: v => v.length >= 8 || 'Min 8 characters',
-          emailMatch: () => (`The email and password you entered don't match`),
-         
-        },
-          items: ['Male', 'Female', 'Custom'], collapseOnScroll: true,
-      } 
+        form: {
+          'firstname': '',
+          'lastname': '',
+          'bday': '',
+          'gender': '',
+          'clinic': '',
+          'email': '',
+          'password': '',
+          'password_confirmation': '',
+          'role': 'doctor',
+        },  
+       emailRules: [
+          v => !!v || "E-mail is required",
+          v => /.+@.+/.test(v) || "E-mail must be valid"
+        ],
+        passwordRules: [
+            v => !!v || "Password is required",
+            v => {
+                const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.,)(_\$%\^&\*])(?=.{8,})/;
+                return (
+                    pattern.test(v) ||
+                    "Min. 8 characters with at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"
+                );
+            }
+        ],
+        items: ['Male', 'Female', 'Custom'], collapseOnScroll: true,
+
+      }
+     
+    },
+
+    methods: {
+      async register() {
+
+        try {
+
+          this.submitting = true
+
+          const res = await this.$axios.post('api/register', this.form)
+
+          if (res.status === 201) {
+
+            this.$notify({
+              type: 'success',
+              group: 'foo',
+              title: 'Success!',
+              text: 'Successfully Created'
+            })
+
+            this.form = {}
+
+            this.$router.push('/doctorlogin')
+
+          }
+
+        } catch (err) {
+
+          this.$notify({
+            type: 'error',
+            group: 'foo',
+            title: 'Error!',
+            text: err.message
+          })
+
+        } finally {
+
+          this.submitting = false
+
+        }
+      }
     }
+
   }
 </script>

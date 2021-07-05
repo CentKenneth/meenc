@@ -137,18 +137,16 @@
           <!-- gender -->
           
                 <v-col
-                class="d-flex"
-                cols="12"
-                sm="6"
+                  class="d-flex"
+                  cols="12"
+                  sm="6"
                 >
-              <v-select
-                v-model="form['gender']"
-                :items="items"
-                label="Gender"
-              ></v-select>
-            </v-col>
-
-      
+                  <v-select
+                    v-model="form['gender']"
+                    :items="items"
+                    label="Gender"
+                  ></v-select>
+              </v-col>
           <!-- vvv -->
           <v-col
             class="d-flex"
@@ -244,7 +242,7 @@
                   @click:append="show3 = !show3">
                   </v-text-field>
               </v-col>
-                </v-row>
+            </v-row>
         </v-container>
         <div class="text-center">
             <div class="col-md .offset-md">
