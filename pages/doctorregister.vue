@@ -63,9 +63,35 @@
                 ></v-text-field>
               </v-col>
           </v-row>
+
+
+
           <!-- ccc -->
           <v-container fluid>
                 <v-row align="center">
+                  <v-col
+                  class="d-flex"
+                  cols="12"
+                  sm="6"
+                  >
+                  <v-select
+                    v-model="form['degreelevel']"
+                    :items="dlevels"
+                    label="Degree Level"
+                  ></v-select>
+                </v-col>
+
+                <v-col
+                  class="d-flex"
+                  cols="12"
+                  sm="6"
+                  >
+                  <v-select
+                    v-model="form['degreefield']"
+                    :items="dfields"
+                    label="Degree Field"
+                  ></v-select>
+                </v-col>
                   <v-col
                     class="d-flex"
                     cols="12"
@@ -119,7 +145,7 @@
                   >
                   <v-select
                     v-model="form['gender']"
-                    :items="items"
+                    :items="genders"
                     label="Gender"
                   ></v-select>
                 </v-col>
@@ -132,8 +158,8 @@
                 sm="6"
               >
                 <v-text-field
-                  v-model="form['clinic']"
-                  label="Clinic Name">
+                  v-model="form['clinicname']"
+                  label="Medical Clinic Name">
                 </v-text-field>
               </v-col>
               <v-col
@@ -221,9 +247,11 @@
         form: {
           'firstname': '',
           'lastname': '',
+          'degreelevel': '',
+          'degreefield': '',
           'bday': '',
           'gender': '',
-          'clinic': '',
+          'clinicname': '',
           'email': '',
           'password': '',
           'password_confirmation': '',
@@ -243,7 +271,11 @@
                 );
             }
         ],
-        items: ['Male', 'Female', 'Custom'], collapseOnScroll: true,
+        dlevels: ['Doctorate', 'Professional', 'Master'+'s'], collapseOnScroll: true,
+        dfields: ['Anesthesiologists', 'Dermatologists', 'Internists', 'Obstetricians and gynecologists','Ophthalmologists'
+        , 'Pediatricians','Physicians', 'Psychiatrists', 'Surgeons'], collapseOnScroll: true,
+        genders: ['Male', 'Female', 'Custom'], collapseOnScroll: true,
+
 
       }
      
