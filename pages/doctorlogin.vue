@@ -23,7 +23,7 @@
               DOCTOR
       </v-toolbar-title>
     </v-app-bar>
-<!-- head -->
+    <!-- head -->
 
     <v-img
       :height="$vuetify.breakpoint.smAndDown ? '250' : '750'"
@@ -133,9 +133,51 @@
     },
 
     methods: {
-      validate () {
-        this.$refs.form.validate()
-        console.log(this.$refs.form.validate())
+      async validate () {
+        try {
+
+          const valid = this.$refs.form.validate()
+          this.loading = true
+
+          if (valid) {
+
+            const login = {
+              username: this.form.email,
+              password: this.form.password,
+              grant_type: process.env.CLIENT_GRANT_TYPE,
+              client_id: process.env.CLIENT_ID,
+              client_secret: process.env.CLIENT_SECRET_KEY
+            }
+
+            const res = await this.$auth.loginWith('local', { data: login })
+
+            if (res.status == 201) {
+              this.$notify({
+                type: 'success',
+                group: 'foo',
+                title: 'Success!',
+                text: 'Successfully login!'
+              })
+            }
+
+          }
+
+        } catch (err) {
+
+          // message if error
+          this.$notify({
+            type: 'error',
+            group: 'foo',
+            title: 'Error!',
+            text: err.message
+          })
+
+        } finally {
+
+          this.loading = true
+          
+        }
+
       }
     }
   }
