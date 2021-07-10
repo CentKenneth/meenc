@@ -49,6 +49,7 @@
           v-model="form.email"
           :rules="emailRules"
           label="E-mail"
+          append-icon="mdi-email"
         ></v-text-field>
 
         <v-text-field
@@ -153,7 +154,7 @@
 
             const res = await this.$auth.loginWith('local', { data: login })
 
-            if (res.status == 200) {
+            if (res.status == 201) {
               this.$notify({
                 type: 'success',
                 group: 'foo',

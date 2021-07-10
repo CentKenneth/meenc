@@ -208,42 +208,6 @@
             </div>
             
           </v-alert>
-           <v-alert
-            outlined
-            color="#0277BD"
-          >
-            <div class="patients">
-              <v-card-actions>
-                 <div>   
-                 <img
-                 class="d-flex justify-center"
-                    height="50"  
-                    max-width="50"
-                    src="~assets/tips/drink.png"
-                ><img>
-                 </div> 
-                  <v-btn 
-                  text
-                  color="#0277BD"  
-                  href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2">
-                     Avoid processed junk food (eat real food instead)
-                  </v-btn> 
-                  
-             </v-card-actions>
-             <v-card-subtitle>Processed junk food is incredibly unhealthy.</v-card-subtitle>
-              <v-card-subtitle> These foods have been engineered to trigger your pleasure centers, so they trick your brain into overeating — even promoting food addiction in some people (15Trusted Source).</v-card-subtitle>
-             <div class="d-flex justify-center">   
-                 <img
-                 
-                   :style="$vuetify.breakpoint.smAndDown ? 'width:60%;' : 'width:60%;'"
-                    src="~assets/tips/junk.jpg"
-                    href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2"
-                ><img>
-                 </div>
-                  
-            </div>
-            
-          </v-alert>
 </v-card-text>
 
 
