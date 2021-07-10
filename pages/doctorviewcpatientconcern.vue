@@ -25,7 +25,7 @@
   
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="transactions"
     sort-by="calories"
     class="elevation-1"
   >
@@ -174,6 +174,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
   export default {
     data: () => ({
       dialog: false,
@@ -186,13 +187,12 @@
           value: 'name',
         },
         { text: 'Email', value: 'email' },
-        { text: 'Mobile #', value: 'mobile' },
-         { text: 'Schedule', value: 'date' },
+        { text: 'Mobile #', value: 'phone' },
+        { text: 'Schedule', value: 'schedule_date' },
         { text: 'Sysmptoms', value: 'sysmptoms' },
-        
-       
         { text: 'Actions', value: 'actions', sortable: false },
       ],
+      transactions: [],
       desserts: [],
       editedIndex: -1,
       editedItem: {
@@ -212,6 +212,9 @@
     }),
 
     computed: {
+      ...mapState('auth', [
+        'user'
+      ]),
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
@@ -226,94 +229,34 @@
       },
     },
 
-    created () {
+    mounted () {
       this.initialize()
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            mobile: '09308573912',
-            sysmptoms: 'stomach pains',
-            date: '06-13-2021',
-            
-          },
-           {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            mobile: '09308573912',
-            sysmptoms: 'stomach pains',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            mobile: '09308573912',
-            sysmptoms: 'stomach pains',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            mobile: '09308573912',
-            sysmptoms: 'stomach pains',
-            date: '06-13-2021',
-            
-          },
-          {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            mobile: '09308573912',
-            sysmptoms: 'stomach pains',
-            date: '06-13-2021',
-            
-          },
-          {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            mobile: '09308573912',
-            sysmptoms: 'stomach pains',
-            date: '06-13-2021',
-            
-          },
-          {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            mobile: '09308573912',
-            sysmptoms: 'stomach pains',
-            date: '06-13-2021',
-            
-          },
-          {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            mobile: '09308573912',
-            sysmptoms: 'stomach pains',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            mobile: '09308573912',
-            sysmptoms: 'stomach pains',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            mobile: '09308573912',
-            sysmptoms: 'stomach pains',
-            date: '06-13-2021',
-            
-          },
-        ]
+      async initialize () {
+        try {
+
+          // api request
+          const transaction = await this.$axios.get(`api/authorized/transaction-by-doctors-email/${this.user.email}`)
+
+          // filter doctor email
+          if (transaction?.data) {
+            transaction.data.map((el) => {
+              // push data to array
+              this.transactions.push({
+                  "name": el.name,
+                  "email": el.email,
+                  "phone": el.phone,
+                  "schedule_date": el.schedule_date,
+                  "sysmptoms": el.sysmptoms,
+              })
+            })
+          }
+
+        } catch (err) {
+
+        }
       },
 
       editItem (item) {
