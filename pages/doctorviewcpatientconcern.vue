@@ -174,6 +174,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
   export default {
     data: () => ({
       dialog: false,
@@ -211,6 +212,9 @@
     }),
 
     computed: {
+      ...mapState('auth', [
+        'user'
+      ]),
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
@@ -225,7 +229,7 @@
       },
     },
 
-    created () {
+    mounted () {
       this.initialize()
     },
 
