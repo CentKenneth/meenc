@@ -40,8 +40,11 @@
             <v-icon
             >mdi-doctor</v-icon>
           </v-card-title>
-          <v-row>
-            <v-col
+          <!-- ccc -->
+          <v-container fluid>
+                <v-row align="center">
+
+                   <v-col
               cols="12"
               md="6"
             >
@@ -49,6 +52,7 @@
                 v-model="form['firstname']"
                 :counter="10"
                 label="First name"
+                prepend-icon="mdi-account-details"
               ></v-text-field>
             </v-col>
 
@@ -60,15 +64,9 @@
                   v-model="form['lastname']"
                   :counter="10"
                   label="Last name"
+                   prepend-icon="mdi-account-details"
                 ></v-text-field>
               </v-col>
-          </v-row>
-
-
-
-          <!-- ccc -->
-          <v-container fluid>
-                <v-row align="center">
                   <v-col
                   class="d-flex"
                   cols="12"
@@ -78,6 +76,7 @@
                     v-model="form['degreelevel']"
                     :items="dlevels"
                     label="Degree Level"
+                    prepend-icon="mdi-stairs"
                   ></v-select>
                 </v-col>
 
@@ -90,6 +89,7 @@
                     v-model="form['degreefield']"
                     :items="dfields"
                     label="Degree Field"
+                    prepend-icon="mdi-doctor"
                   ></v-select>
                 </v-col>
                   <v-col
@@ -108,7 +108,7 @@
                       <v-text-field
                         v-model="date"
                         label="Birthday"
-                        prepend-icon="mdi-calendar"
+                        prepend-icon="mdi-cake-variant"
                         readonly
                         v-bind="attrs"
                          v-on="on"
@@ -147,6 +147,7 @@
                     v-model="form['gender']"
                     :items="genders"
                     label="Gender"
+                    prepend-icon="mdi-gender-male-female"
                   ></v-select>
                 </v-col>
               
@@ -159,7 +160,8 @@
               >
                 <v-text-field
                   v-model="form['clinicname']"
-                  label="Medical Clinic Name">
+                  label="Medical Clinic Name"
+                  prepend-icon="mdi-hospital-building">
                 </v-text-field>
               </v-col>
               <v-col
@@ -170,7 +172,8 @@
                 <v-text-field
                   v-model="form['email']"
                   :rules="emailRules"
-                  label="E-mail">
+                  label="E-mail"
+                  prepend-icon="mdi-email">
                 </v-text-field>
               </v-col>
               <v-col
@@ -188,7 +191,8 @@
                     hint="At least 8 characters"
                     value=""
                     class="input-group--focused"
-                    @click:append="show3 = !show3">
+                    @click:append="show3 = !show3"
+                    prepend-icon="mdi-form-textbox-password">
                   </v-text-field>
               </v-col>
               <v-col
@@ -205,7 +209,8 @@
                     hint="At least 8 characters"
                     value=""
                     class="input-group--focused"
-                    @click:append="show3 = !show3">
+                    @click:append="show3 = !show3"
+                    prepend-icon="mdi-form-textbox-password">
                     </v-text-field>
               </v-col>
             </v-row>

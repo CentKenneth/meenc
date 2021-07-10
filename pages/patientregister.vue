@@ -36,8 +36,11 @@
           <v-icon
           >mdi-account</v-icon>
         </v-card-title>
-        <v-row>
-          <v-col
+    
+        <!-- form-->
+        <v-container fluid>
+              <v-row align="center">
+                            <v-col
             cols="12"
             md="6"
           >
@@ -45,6 +48,7 @@
               v-model="form['firstname']"
               :counter="10"
               label="First name"
+              prepend-icon="mdi-account-details"
             ></v-text-field>
           </v-col>
 
@@ -56,10 +60,9 @@
                 v-model="form['lastname']"
                 :counter="10"
                 label="Last name"
+                prepend-icon="mdi-account-details"
               ></v-text-field>
             </v-col>
-        </v-row>
-        <v-row>
 
           <v-col
             cols="12"
@@ -69,7 +72,8 @@
               v-model="form['height']"
               type="number"
               label="Height"
-              placeholder="cm" >
+              placeholder="cm" 
+              prepend-icon="mdi-human-male-height">
             </v-text-field>
 
           </v-col>
@@ -83,33 +87,29 @@
                 type="number"
                 label="Weight"
                 placeholder="kg"
+                prepend-icon="mdi-weight-kilogram"
               ></v-text-field>
             </v-col>
-        </v-row>
-
-        <!-- ccc -->
-        <v-container fluid>
-              <v-row align="center">
                 <v-col
                   class="d-flex"
                   cols="12"
                   sm="6"
                   >
-                <v-dialog
-                  ref="dialog"
-                  v-model="modal"
-                  :return-value.sync="form['bday']"
-                  persistent
-                  width="290px"
+                  <v-dialog
+                    ref="dialog"
+                    v-model="modal"
+                    :return-value.sync="form['bday']"
+                    persistent
+                    width="290px"
                   >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                       v-model="form['bday']"
                       label="Birthday"
-                      prepend-icon="mdi-calendar"
+                      prepend-icon="mdi-cake-variant"
                       readonly
                       v-bind="attrs"
-                        v-on="on"
+                      v-on="on"
                       ></v-text-field>
                       </template>
                       <v-date-picker
@@ -132,10 +132,9 @@
                           OK
                         </v-btn>
                       </v-date-picker>
-                    </v-dialog>
-                        </v-col>
+                  </v-dialog>
+                </v-col>
           <!-- gender -->
-          
                 <v-col
                   class="d-flex"
                   cols="12"
@@ -145,21 +144,23 @@
                     v-model="form['gender']"
                     :items="items"
                     label="Gender"
+                    prepend-icon="mdi-gender-male-female"
                   ></v-select>
               </v-col>
           <!-- vvv -->
-          <v-col
-            class="d-flex"
-            cols="12"
-            sm="6"
-          >
-            <v-text-field
-              v-model="form['email']"
-              :rules="emailRules"
-              label="E-mail"
-            >
-            </v-text-field>
-            </v-col>
+              <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+              >
+                <v-text-field
+                  v-model="form['email']"
+                  :rules="emailRules"
+                  label="E-mail"
+                  prepend-icon="mdi-email"
+                >
+                </v-text-field>
+              </v-col>
 
             <v-col
               class="d-flex"
@@ -174,6 +175,7 @@
                   hint="input 11 integers"
                   value=""
                   class="input-group--focused"
+                  prepend-icon="mdi-card-account-phone"
                 >
               </v-text-field>
             </v-col>
@@ -189,6 +191,7 @@
                     label="Street Address"
                     value=""
                     class="input-group--focused"
+                    prepend-icon="mdi-google-street-view"
                   >
                 </v-text-field>
             </v-col>
@@ -203,6 +206,7 @@
                   label="City"
                   value=""
                   class="input-group--focused"
+                  prepend-icon="mdi-city-variant-outline"
                 >
                 </v-text-field>
             </v-col>
@@ -222,7 +226,8 @@
                   hint="At least 8 characters"
                   value=""
                   class="input-group--focused"
-                  @click:append="show3 = !show3">
+                  @click:append="show3 = !show3"
+                  prepend-icon="mdi-form-textbox-password">
                 </v-text-field>
               </v-col>
               <v-col
@@ -239,7 +244,8 @@
                   hint="At least 8 characters"
                   value=""
                   class="input-group--focused"
-                  @click:append="show3 = !show3">
+                  @click:append="show3 = !show3"
+                  prepend-icon="mdi-form-textbox-password">
                   </v-text-field>
               </v-col>
             </v-row>
