@@ -138,11 +138,11 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">Are you sure you want to buy this prescription?</v-card-title>
+            <v-card-title class="text-h5">Are you sure you want to download this prescription?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="green darken-1" href="/patientprescription" text @click="deleteItemConfirm">Buy</v-btn>
+              <v-btn color="green darken-1" href="/patientprescription" text @click="deleteItemConfirm">Download</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
