@@ -32,10 +32,10 @@ export default {
   // auth configuration
   auth: {
     redirect: {
-      login: '/patientlogin',
-      logout: '/patientlogin',
-      home: '/patienthome',
-      callback: '/patientlogin'
+      login: false,
+      logout: false,
+      callback: false,
+      home: false
     },
     strategies: {
       local: {

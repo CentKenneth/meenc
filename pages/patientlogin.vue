@@ -154,7 +154,8 @@
 
             const res = await this.$auth.loginWith('local', { data: login })
 
-            if (res.status == 201) {
+            if (res.status == 200) {
+              this.$router.push('/patienthome')
               this.$notify({
                 type: 'success',
                 group: 'foo',

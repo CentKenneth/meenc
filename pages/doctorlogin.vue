@@ -98,7 +98,7 @@
     </v-card-actions>
 
     </v-card>
-
+  <notifications group="foo" />
   </v-card>
 
 </template>
@@ -151,7 +151,8 @@
 
             const res = await this.$auth.loginWith('local', { data: login })
 
-            if (res.status == 201) {
+            if (res.status == 200) {
+              this.$router.push('/doctorhome')
               this.$notify({
                 type: 'success',
                 group: 'foo',
