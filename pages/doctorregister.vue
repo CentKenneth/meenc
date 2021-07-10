@@ -1,6 +1,6 @@
 <template>
     <v-card
-        :loading="loading"
+        :loading="submitting"
         :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
         class="my-1"    
     >
@@ -288,7 +288,7 @@
 
           this.submitting = true
 
-          const res = await this.$axios.post('api/register', this.form)
+          const res = await this.$axios.post('api/register-doctor', this.form)
 
           if (res.status === 201) {
 
