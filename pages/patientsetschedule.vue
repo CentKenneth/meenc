@@ -32,128 +32,124 @@
     >
       <v-card ref="form">
         <v-card-text>
-            <v-autocomplete
-              v-model="form['']"
-              :loading="loading"
-              :items="items"
-              :search-input.sync="search"
-              cache-items
-              class="mx-4"
-              flat
-              hide-no-data
-              hide-details
-              label="Send to"
-              solo-inverted>
-          </v-autocomplete>
+
+          <v-select
+            label="Send To"
+            :items="doctor"
+            item-value="email"
+            item-text="name"
+            v-model="form['sendto']"
+          >
+          </v-select>
 
           <v-text-field
-          v-model="form['email']"
-          :rules="emailRules"
-           prepend-icon="mdi-email"
-          label="E-mail"
-        ></v-text-field>
+            v-model="form['name']"
+            prepend-icon="mdi-email"
+            label="Name"
+          ></v-text-field>
 
-        <v-text-field
-            ref="mobile#"
+          <v-text-field
+            v-model="form['email']"
+            prepend-icon="mdi-email"
+            label="E-mail"
+          ></v-text-field>
+
+          <v-text-field
             v-model="form['phone']"
-            :rules="[() => !!name || 'This field is required']"
-            :error-messages="errorMessages"
             label="Mobile #:"
             placeholder="mobile number"
-             prepend-icon="mdi-phone"
+            prepend-icon="mdi-phone"
           ></v-text-field>
-                  <!-- date -->
-
-
-               <v-dialog
-                  ref="dialog1"
-                  v-model="modal"
-                  :return-value.sync="form['schedule_date']"
-                  persistent
-                  width="290px"
-                  >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="form['schedule_date']"
-                      label="Date Schedule"
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker
-                    v-model="date"
-                    scrollable
-                  >
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="modal = false"
-                        >
-                          Cancel
-                        </v-btn>
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="$refs.dialog1.save(date)"
-                        >
-                          OK
-                        </v-btn>
-                      </v-date-picker>
-                    </v-dialog>
+          
+          <!-- date -->
+          <v-dialog
+              ref="dialog1"
+              v-model="modal"
+              :return-value.sync="form['schedule_date']"
+              persistent
+              width="290px"
+              >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="form['schedule_date']"
+                  label="Date Schedule"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="date"
+                scrollable
+              >
+                <v-spacer></v-spacer>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="modal = false"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.dialog1.save(date)"
+                >
+                  OK
+                </v-btn>
+              </v-date-picker>
+          </v-dialog>
 
                   <!-- time -->
-            <v-dialog
+          <v-dialog
               ref="dialog2"
               v-model="modal2"
               :return-value.sync="form['schedule_time']"
               persistent
               width="290px"
             >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                 v-model="form['schedule_time']"
-                label="Time Schedule"
-                prepend-icon="mdi-clock-time-four-outline"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-time-picker
-              v-if="modal2"
-              v-model="time"
-              full-width
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="form['schedule_time']"
+                  label="Time Schedule"
+                  prepend-icon="mdi-clock-time-four-outline"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-time-picker
+                v-if="modal2"
+                v-model="time"
+                full-width
+              >
+            <v-spacer></v-spacer>
+            <v-btn
+              text
+              color="primary"
+              @click="modal2 = false"
             >
-          <v-spacer></v-spacer>
-          <v-btn
-            text
-            color="primary"
-            @click="modal2 = false"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            text
-            color="primary"
-            @click="$refs.dialog2.save(time)"
-          >
-            OK
-          </v-btn>
-        </v-time-picker>
-      </v-dialog>
+              Cancel
+            </v-btn>
+            <v-btn
+              text
+              color="primary"
+              @click="$refs.dialog2.save(time)"
+            >
+              OK
+            </v-btn>
+          </v-time-picker>
+        </v-dialog>
 
-          <v-textarea
-            ref="problem"
-            v-model="form['sysmptoms']"
-            prepend-icon="mdi-virus"
-         
-            label="Symptoms description :"
-            placeholder="Short Description of patient's problems"
-            counter="10"
-          ></v-textarea>
+        <v-textarea
+          ref="problem"
+          prepend-icon="mdi-virus"
+          v-model="form['sysmptoms']"
+          label="Symptoms description :"
+          placeholder="Short Description of patient's problems"
+          counter="10"
+        ></v-textarea>
 
         </v-card-text>
         <v-divider class="mt-12"></v-divider>
@@ -175,72 +171,81 @@
     </v-col>
   </v-row>
   </v-card>
+  <notifications group="foo" />
   </v-card>
 </template>
 <script>
+  import { mapState } from 'vuex'
   export default {
     data () {
       return {
-        show1: false,
-        show2: true,
-        show3: false,
-        show4: false,
-        modal: false,
-        modal2: false,
+        form: {},
         submitting: false,
+        modal2: false,
+        modal: false,
+        doctor: [],
         date: '',
-        time: null,
-        form: {
-          'email': '',
-          'phone': '',
-          'schedule_date': '',
-          'schedule_time': '',
-          'sysmptoms': '',
-        },
-        emailRules: [
-          v => !!v || "E-mail is required",
-          v => /.+@.+/.test(v) || "E-mail must be valid"
-        ],
-        passwordRules: [
-            v => !!v || "Password is required",
-            v => {
-                const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.,)(_\$%\^&\*])(?=.{8,})/;
-                return (
-                    pattern.test(v) ||
-                    "Min. 8 characters with at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"
-                );
-            }
-        ],
-
+        time: ''
       }
      
     },
 
-    methods: {
-      async register() {
+    computed: {
+      ...mapState('auth', [
+        'user'
+      ]),
+    },
 
+    mounted() {
+      this.getDoctor()
+    },
+
+    methods: {
+      async getDoctor() {
+
+        // api request
+        const doctor = await this.$axios.get('api/authorized/doctor-email')
+
+        // filter doctor email
+        if (doctor?.data) {
+          doctor.data.map((el) => {
+            // push data to array
+            this.doctor.push({'id': el.id, 'email': el.email, name: 'Dr. ' + el.lastname})
+          })
+        }
+
+      },
+      async submit() {
         try {
 
-          this.submitting = true
+          if (Object.keys(this.form).length > 0) {
 
-          const res = await this.$axios.post('api/schedule', this.form)
+            // submitting to true
+            this.submitting = true
 
-          if (res.status === 201) {
+            // put user id to form
+            this.form['user_id'] = this.user.id
 
-            this.$notify({
-              type: 'success',
-              group: 'foo',
-              title: 'Success!',
-              text: 'Successfully set an online consultation'
-            })
+            // api request
+            const data = await this.$axios.post('api/authorized/schedule', this.form)
 
-            this.form = {}
+            // if status = 201 means created
+            if (data.status == 201) {
 
-            this.$router.push('/patientsetschedule')
+              this.$notify({
+                type: 'success',
+                group: 'foo',
+                title: 'Success!',
+                text: 'Successfully Scheduled'
+              })
+
+              this.form = {}
+
+            }
 
           }
 
-        } catch (err) {
+        } catch(err) {
 
           this.$notify({
             type: 'error',
@@ -250,10 +255,9 @@
           })
 
         } finally {
-
           this.submitting = false
-
         }
+        
       }
     }
 
