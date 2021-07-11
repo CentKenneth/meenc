@@ -40,7 +40,7 @@
         <!-- form-->
         <v-container fluid>
               <v-row align="center">
-                            <v-col
+          <v-col
             cols="12"
             md="6"
           >

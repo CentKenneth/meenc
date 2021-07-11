@@ -33,6 +33,11 @@
     >
       <v-card ref="form">
         <v-card-text>
+          <v-row align="center">
+           <v-col
+            cols="12"
+            md="6"
+          >
 
           <v-select
             label="Send To"
@@ -40,20 +45,39 @@
             item-value="email"
             item-text="name"
             v-model="form['sendto']"
+            prepend-icon="mdi-send"
           >
           </v-select>
+          </v-col>
+          <v-col
+          class="d-flex"
+          cols="12"
+          sm="6"
+          >
 
-          <v-text-field
-            v-model="form['name']"
-            prepend-icon="mdi-email"
-            label="Name"
-          ></v-text-field>
-
+            <v-text-field
+              v-model="form['name']"
+              prepend-icon="mdi-email"
+              label="Name"
+            ></v-text-field>
+          </v-col>
+              <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+              >
           <v-text-field
             v-model="form['email']"
             prepend-icon="mdi-email"
             label="E-mail"
           ></v-text-field>
+          </v-col>
+            <v-col
+            class="d-flex"
+            cols="12"
+            sm="6"
+            >
+
           <v-text-field
             name="input-13-2"
             v-model="form['address']"
@@ -63,14 +87,24 @@
             prepend-icon="mdi-map-marker-outline"
           >
           </v-text-field>
-
+        </v-col>
+              <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+              >
           <v-text-field
             v-model="form['phone']"
             label="Mobile #:"
             placeholder="mobile number"
             prepend-icon="mdi-phone"
           ></v-text-field>
-          
+          </v-col>
+              <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+              >
           <!-- date -->
           <v-dialog
               ref="dialog1"
@@ -110,8 +144,14 @@
                 </v-btn>
               </v-date-picker>
           </v-dialog>
+          </v-col>
+              <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+              >
 
-                  <!-- time -->
+                 
           <v-dialog
               ref="dialog2"
               v-model="modal2"
@@ -151,7 +191,12 @@
             </v-btn>
           </v-time-picker>
         </v-dialog>
-
+        </v-col>
+              <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+              >
         <v-textarea
           ref="problem"
           prepend-icon="mdi-virus"
@@ -160,7 +205,8 @@
           placeholder="Short Description of patient's problems"
           counter="10"
         ></v-textarea>
-
+        </v-col>
+          </v-row>  
         </v-card-text>
         <v-divider class="mt-12"></v-divider>
         <v-card-actions>
@@ -241,6 +287,8 @@
 
             // put user id to form
             this.form['user_id'] = this.user.id
+              this.form['transactiontype'] = "Appointment"
+              this.form['status'] = "Pending"
             
 
             // api request

@@ -25,7 +25,7 @@
   
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="transactions"
     sort-by="calories"
     class="elevation-1"
   >
@@ -142,7 +142,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="green darken-1" href="/patientprescription" text @click="deleteItemConfirm">Download</v-btn>
+              <v-btn href="#" color="green darken-1" text @click="deleteItemConfirm">Download</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -156,9 +156,9 @@
         @click="deleteItem(item)"
         color="blue"
       >
-        mdi-cloud-download
+        mdi-download
       </v-icon>
-     
+
     </template>
     <template v-slot:no-data>
       <v-btn
@@ -174,13 +174,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
   export default {
     data: () => ({
       dialog: false,
       dialogDelete: false,
       headers: [
         {
-          text: 'Patient Name',
+          text: 'Doctor Name',
           align: 'start',
           sortable: false,
           value: 'name',
@@ -188,10 +189,12 @@
         { text: 'Email', value: 'email' },
         { text: 'Message', value: 'message' },
         { text: 'Prescription', value: 'prescription' },
+        { text: 'Price', value: 'price' },
+        { text: 'Actions', value: 'actions' },
+
         
-        { text: 'Date', value: 'date' },
-        { text: 'Actions', value: 'actions', sortable: false },
       ],
+      transactions: [],
       desserts: [],
       editedIndex: -1,
       editedItem: {
@@ -211,6 +214,9 @@
     }),
 
     computed: {
+      ...mapState('auth', [
+        'user'
+      ]),
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
@@ -225,31 +231,34 @@
       },
     },
 
-    created () {
+    mounted () {
       this.initialize()
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-  
-   
-  
-    
-  
-  
-  
-     
-        
-        ]
+      async initialize () {
+        try {
+
+          // api request
+          const transaction = await this.$axios.get(`api/authorized/prescription-by-doctors-email/${this.user.email}`)
+
+          // filter doctor email
+          if (transaction?.data) {
+            transaction.data.map((el) => {
+              // push data to array
+              this.transactions.push({
+                  "name": el.name,
+                  "email": el.email,
+                  "message": el.message,
+                  "prescription": el.prescription,
+                  "price": el.price,
+              })
+            })
+          }
+
+        } catch (err) {
+
+        }
       },
 
       editItem (item) {
@@ -296,3 +305,4 @@
     },
   }
 </script>
+

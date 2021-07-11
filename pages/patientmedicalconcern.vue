@@ -50,17 +50,17 @@
         v-for="chat in recent"
         :key="chat.title"
       >
-        <v-list-item-avatar>
-          <v-img
-            :alt="`${chat.title} avatar`"
-            :src="chat.avatar"
-          ></v-img>
-        </v-list-item-avatar>
+        <v-list-item-icon>
+         <v-app-bar-nav-icon href="/patientdoctorinfo"> <v-icon  >
+            mdi-information
+          </v-icon>
+            </v-app-bar-nav-icon>
+        </v-list-item-icon>
 
         <v-list-item-content>
           <v-list-item-title v-text="chat.title"></v-list-item-title>
         </v-list-item-content>
-
+<!--  -->
         <v-list-item-icon>
          <v-app-bar-nav-icon href="/patientchat"> <v-icon :color="chat.active ? 'deep-purple accent-4' : 'grey'">
             mdi-message-outline
@@ -80,7 +80,7 @@
         {
           active: true,
           avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Jason Oner',
+          title: 'Sam Gabito',
         },
         {
           active: true,

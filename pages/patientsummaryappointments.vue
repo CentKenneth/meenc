@@ -9,24 +9,25 @@
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/doctorservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon href="/patientservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    <v-spacer> </v-spacer>   
+   
       <v-toolbar-title  
           text
               color="#01579B"
               dark
               dense>
-              Appointment
+              My Appointments
       </v-toolbar-title>
+      
     <v-spacer> </v-spacer> 
     </v-app-bar>
 
 
   
-
   <v-data-table
     :headers="headers"
-    :items="transactions"
+    :items="desserts"
     sort-by="calories"
     class="elevation-1"
   >
@@ -139,11 +140,11 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">Are you sure you want to diagnose this patient?</v-card-title>
+            <v-card-title class="text-h5">Are you sure you want to download this prescription?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn href="/doctorconsultations" color="green darken-1" text @click="deleteItemConfirm">Yes</v-btn>
+              <v-btn color="green darken-1" href="/patientprescription" text @click="deleteItemConfirm">Download</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -157,9 +158,9 @@
         @click="deleteItem(item)"
         color="blue"
       >
-        mdi-comment-processing
+        mdi-cloud-download
       </v-icon>
-
+     
     </template>
     <template v-slot:no-data>
       <v-btn
@@ -175,7 +176,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
   export default {
     data: () => ({
       dialog: false,
@@ -187,16 +187,12 @@ import { mapState } from 'vuex'
           sortable: false,
           value: 'name',
         },
-        { text: 'Email', value: 'email' },
-        { text: 'Mobile #', value: 'phone' },
-        { text: 'Appointment Date', value: 'schedule_date' },
-        { text: 'Appointment Time', value: 'schedule_date' },
-        { text: 'Sysmptoms', value: 'sysmptoms' },
-        { text: 'Address', value: 'address' },
-
+       { text: 'Doctor', value: 'doctor' },
+       { text: 'Transaction Type', value: 'transactiontype' },
+        { text: 'Date', value: 'date' },
+        { text: 'Time', value: 'time' },
         { text: 'Status', value: 'status', sortable: false },
       ],
-      transactions: [],
       desserts: [],
       editedIndex: -1,
       editedItem: {
@@ -216,9 +212,6 @@ import { mapState } from 'vuex'
     }),
 
     computed: {
-      ...mapState('auth', [
-        'user'
-      ]),
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
@@ -233,37 +226,53 @@ import { mapState } from 'vuex'
       },
     },
 
-    mounted () {
+    created () {
       this.initialize()
     },
 
     methods: {
-      async initialize () {
-        try {
-
-          // api request
-          const transaction = await this.$axios.get(`api/authorized/appointment-by-patients-email/${this.user.email}`)
-
-          // filter doctor email
-          if (transaction?.data) {
-            transaction.data.map((el) => {
-              // push data to array
-              this.transactions.push({
-                  "name": el.name,
-                  "email": el.email,
-                  "phone": el.phone,
-                  "schedule_date": el.schedule_date,
-                  "schedule_time": el.schedule_time,
-                  "sysmptoms": el.sysmptoms,
-                  "address": el.address,
-                  "status": el.status,
-              })
-            })
-          }
-
-        } catch (err) {
-
-        }
+      initialize () {
+        this.desserts = [
+          {
+            name: 'Cent Kenneth Peria',
+            doctor: 'Sam Gabito',
+            clinic: 'Medical Clinic',
+            transactiontype: 'Schedule',
+            date: '07-30-2021',
+            time: '13:00',
+            status:'Pending'
+            
+          },
+          {
+            name: 'Cent Kenneth Peria',
+            doctor: 'Sam Gabito',
+            clinic: 'Medical Clinic',
+            transactiontype: 'Appointment',
+            date: '06-13-2021',
+            time: '14:00',
+            status:'Approve'
+            
+          },
+          {
+            name: 'Cent Kenneth Peria',
+            doctor: 'Sam Gabito',
+            clinic: 'Medical Clinic',
+            transactiontype: 'Schedule',
+            date: '06-11-2021',
+            time: '18:00',
+            status:'Approve'
+            
+          },
+  
+   
+  
+    
+  
+  
+  
+     
+        
+        ]
       },
 
       editItem (item) {

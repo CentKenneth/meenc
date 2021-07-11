@@ -191,7 +191,7 @@ import { mapState } from 'vuex'
         { text: 'Schedule Date', value: 'schedule_date' },
         { text: 'Schedule Time', value: 'schedule_time' },
         { text: 'Sysmptoms', value: 'sysmptoms' },
-        { text: 'Status', value: 'status', sortable: false },
+        
       ],
       transactions: [],
       desserts: [],

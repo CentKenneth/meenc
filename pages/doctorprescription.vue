@@ -33,6 +33,11 @@
     >
       <v-card ref="form">
         <v-card-text>
+          <v-row align="center">
+          <v-col
+            cols="12"
+            md="6"
+          >
 
           <v-select
             label="Send To"
@@ -42,36 +47,72 @@
             v-model="form['sendto']"
           >
           </v-select>
+          </v-col>
+
+            <v-col
+              cols="12"
+              md="6"
+            >
 
           <v-text-field
             v-model="form['name']"
             prepend-icon="mdi-email"
             label="Name"
           ></v-text-field>
+          </v-col>
 
+            <v-col
+              cols="12"
+              md="6"
+            >
           <v-text-field
             v-model="form['email']"
             prepend-icon="mdi-email"
             label="E-mail"
           ></v-text-field>
 
-        
+          </v-col>
 
-        <v-textarea
-          ref="message"
-          prepend-icon="mdi-message"
-          v-model="form['message']"
-          label="Message:"
-          placeholder="Short Message"
-          counter="10"
-        ></v-textarea>
+            <v-col
+              cols="12"
+              md="6"
+            >
 
-        <v-file-input
-         ref="prescription"
-          accept="image/*"
+            <v-text-field
+              ref="message"
+              prepend-icon="mdi-message"
+              v-model="form['message']"
+              label="Short Message:"
+              placeholder="Short Message"
+              counter="10"
+            ></v-text-field>
+            </v-col>
+
+            <v-col
+              cols="12"
+              md="6"
+            >
+         
+          <!-- <v-text-field
           v-model="form['prescription']"
           label="Prescription"
-        ></v-file-input>
+          placeholder="Prescription"
+          prepend-icon="mdi-note-text-outline"
+        ></v-text-field> -->
+
+        <v-file-input
+          :rules="rules"
+          accept="image/png, image/jpeg, "
+          placeholder="Pick an avatar"
+          prepend-icon="mdi-camera"
+          label="Prescription"
+      ></v-file-input>
+        </v-col>
+
+            <v-col
+              cols="12"
+              md="6"
+            >
 
         <v-text-field
           v-model="form['price']"
@@ -79,7 +120,8 @@
           placeholder="Price"
           prepend-icon="mdi-cash"
         ></v-text-field>
-
+        </v-col>
+      </v-row>
         </v-card-text>
         <v-divider class="mt-12"></v-divider>
         <v-card-actions>
@@ -154,6 +196,8 @@
 
             // put user id to form
             this.form['user_id'] = this.user.id
+            this.form['transactiontype'] = "Prescription"
+            this.form['prescription'] = "DSCF8095.JPG"
 
             // api request
             const data = await this.$axios.post('api/authorized/prescription-transaction', this.form)
@@ -165,7 +209,7 @@
                 type: 'success',
                 group: 'foo',
                 title: 'Success!',
-                text: 'Successfully Scheduled'
+                text: 'Prescription Successfully Created'
               })
 
               this.form = {}
@@ -187,8 +231,13 @@
           this.submitting = false
         }
         
-      }
+      },
+      rules: [
+        value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+      ],
     }
+      
+   
 
   }
 </script>

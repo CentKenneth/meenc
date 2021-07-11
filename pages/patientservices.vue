@@ -188,13 +188,63 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patienthistory">
+                  href="/patientmedicalhistory">
                     Medical History
                   </v-btn>
              </v-card-actions>
              <v-card-subtitle>Patient medical history</v-card-subtitle>
             </div>
           </v-alert>
+
+           <v-alert
+            outlined
+            color="#0277BD"
+            >
+            <div class="patients">
+              <v-card-actions>
+                  <img
+                  class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    
+                    src="~assets/icon/ma.png"
+                ><img>
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="/patientsummaryappointments">
+                    My Appointments
+                  </v-btn>
+             </v-card-actions>
+             <v-card-subtitle>Summary of appointments</v-card-subtitle>
+            </div>
+          </v-alert>
+
+          <v-alert
+            outlined
+            color="#0277BD"
+          >
+            <div class="patients">
+              <v-card-actions>
+                  <img
+                  class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    
+                    src="~assets/icon/rb.png"
+                ><img>
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="/patientbillingstatement">
+                    Recent Payment Bills
+                  </v-btn>
+             </v-card-actions>
+             <v-card-subtitle>Billing statement</v-card-subtitle>
+            </div>
+          </v-alert>
+
+          
 </v-card-text>
 
 
