@@ -23,9 +23,10 @@
 
 
   
+
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="transactions"
     sort-by="calories"
     class="elevation-1"
   >
@@ -138,11 +139,11 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">Are you sure you want to approve this appointment?</v-card-title>
+            <v-card-title class="text-h5">Are you sure you want to diagnose this patient?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="green darken-1" text @click="deleteItemConfirm">Yes</v-btn>
+              <v-btn href="/doctorconsultations" color="green darken-1" text @click="deleteItemConfirm">Yes</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -152,12 +153,13 @@
     <template v-slot:item.actions="{ item }">
      
       <v-icon
-        small
+        
         @click="deleteItem(item)"
+        color="blue"
       >
-        mdi-thumb-up
+        mdi-comment-processing
       </v-icon>
-      Approve
+
     </template>
     <template v-slot:no-data>
       <v-btn
@@ -173,6 +175,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
   export default {
     data: () => ({
       dialog: false,
@@ -185,12 +188,15 @@
           value: 'name',
         },
         { text: 'Email', value: 'email' },
-        { text: 'Message', value: 'message' },
-        { text: 'Prescription', value: 'prescription' },
-        
-        { text: 'Date', value: 'date' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'Mobile #', value: 'phone' },
+        { text: 'Appointment Date', value: 'schedule_date' },
+        { text: 'Appointment Time', value: 'schedule_date' },
+        { text: 'Sysmptoms', value: 'sysmptoms' },
+        { text: 'Address', value: 'address' },
+
+        { text: 'Status', value: 'status', sortable: false },
       ],
+      transactions: [],
       desserts: [],
       editedIndex: -1,
       editedItem: {
@@ -210,6 +216,9 @@
     }),
 
     computed: {
+      ...mapState('auth', [
+        'user'
+      ]),
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
@@ -224,94 +233,37 @@
       },
     },
 
-    created () {
+    mounted () {
       this.initialize()
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-          {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-         {
-            name: 'Cent Kenneth Peria',
-            email: 'cent@gmail.com',
-            message: 'Good day',
-            prescription: 'prescription.png',
-            date: '06-13-2021',
-            
-          },
-        ]
+      async initialize () {
+        try {
+
+          // api request
+          const transaction = await this.$axios.get(`api/authorized/transaction-by-doctors-email/${this.user.email}`)
+
+          // filter doctor email
+          if (transaction?.data) {
+            transaction.data.map((el) => {
+              // push data to array
+              this.transactions.push({
+                  "name": el.name,
+                  "email": el.email,
+                  "phone": el.phone,
+                  "schedule_date": el.schedule_date,
+                  "schedule_time": el.schedule_time,
+                  "sysmptoms": el.sysmptoms,
+                  "address": el.address,
+                  "status": el.status,
+              })
+            })
+          }
+
+        } catch (err) {
+
+        }
       },
 
       editItem (item) {

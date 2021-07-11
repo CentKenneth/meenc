@@ -1,15 +1,13 @@
 <template>
 <v-card  
    >
-
     <v-app-bar
-      
       absolute
       color="#01579B"
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/patientservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon href="/doctorservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
@@ -44,25 +42,25 @@
     </v-toolbar>
 
     <v-list subheader  height="570">
-      <v-subheader>Doctors</v-subheader>
+      <v-subheader>patients</v-subheader>
 
       <v-list-item
         v-for="chat in recent"
         :key="chat.title"
       >
-        <v-list-item-avatar>
-          <v-img
-            :alt="`${chat.title} avatar`"
-            :src="chat.avatar"
-          ></v-img>
-        </v-list-item-avatar>
+        <v-list-item-icon>
+         <v-app-bar-nav-icon href="/doctorpatientinfo"> <v-icon  >
+            mdi-information
+          </v-icon>
+            </v-app-bar-nav-icon>
+        </v-list-item-icon>
 
         <v-list-item-content>
           <v-list-item-title v-text="chat.title"></v-list-item-title>
         </v-list-item-content>
 
         <v-list-item-icon>
-         <v-app-bar-nav-icon href="/patientchat"> <v-icon :color="chat.active ? 'deep-purple accent-4' : 'grey'">
+         <v-app-bar-nav-icon href="/doctorchat"> <v-icon :color="chat.active ? 'deep-purple accent-4' : 'grey'">
             mdi-message-outline
           </v-icon>
             </v-app-bar-nav-icon>
@@ -80,7 +78,7 @@
         {
           active: true,
           avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Jason Oner',
+          title: 'Cent Kenneth Peria',
         },
         {
           active: true,

@@ -188,9 +188,10 @@ import { mapState } from 'vuex'
         },
         { text: 'Email', value: 'email' },
         { text: 'Mobile #', value: 'phone' },
-        { text: 'Schedule', value: 'schedule_date' },
+        { text: 'Schedule Date', value: 'schedule_date' },
+        { text: 'Schedule Time', value: 'schedule_time' },
         { text: 'Sysmptoms', value: 'sysmptoms' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'Status', value: 'status', sortable: false },
       ],
       transactions: [],
       desserts: [],
@@ -249,7 +250,9 @@ import { mapState } from 'vuex'
                   "email": el.email,
                   "phone": el.phone,
                   "schedule_date": el.schedule_date,
+                  "schedule_time": el.schedule_time,
                   "sysmptoms": el.sysmptoms,
+                  "status": el.status,
               })
             })
           }

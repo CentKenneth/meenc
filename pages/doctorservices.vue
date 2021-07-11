@@ -85,10 +85,34 @@
                   text
                   color="#0277BD"  
                   href="/doctorviewcpatientconcern">
-                    Online Consultation
+                    Online Schedule
                   </v-btn> 
              </v-card-actions>
              <v-card-subtitle>View patients Online consultation</v-card-subtitle>
+            </div>
+          </v-alert>
+                  <v-alert
+            outlined
+            color="#0277BD"
+          >
+            <div class="patients">
+              <v-card-actions>
+                 <div>   
+                 <img
+                 class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    src="~assets/icon/chat.png"
+                ><img>
+                 </div> 
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="/doctormedicalconcern">
+                    Medical concerns
+                  </v-btn> 
+             </v-card-actions>
+             <v-card-subtitle>Send medical concerns, conditions and vital signs for your doctor</v-card-subtitle>
             </div>
           </v-alert>
           <v-alert
