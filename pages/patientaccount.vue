@@ -15,7 +15,7 @@
         <v-list-item-avatar>
           <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
         </v-list-item-avatar>
-        <v-list-item-title style="color:white">Patient </v-list-item-title>
+        <v-list-item-title style="color:white">Cent kenneth Peria </v-list-item-title>
       </v-list-item>
 
 <br>

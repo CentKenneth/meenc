@@ -15,7 +15,7 @@
         <v-list-item-avatar>
           <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
         </v-list-item-avatar>
-        <v-list-item-title style="color:white">Jason Oner </v-list-item-title>
+        <v-list-item-title style="color:white">Sam Gabito </v-list-item-title>
       </v-list-item>
 
 <br>

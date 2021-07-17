@@ -168,6 +168,30 @@
             </div>
           </v-alert>
 
+            <v-alert
+            outlined
+            color="#0277BD"
+            >
+            <div class="patients">
+              <v-card-actions>
+                  <img
+                  class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    
+                    src="~assets/icon/ma.png"
+                ><img>
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="/doctorsummaryappointment">
+                    Approve Appointments
+                  </v-btn>
+             </v-card-actions>
+             <v-card-subtitle>Summary of appointments</v-card-subtitle>
+            </div>
+          </v-alert>
+
           <v-alert
             outlined
             color="#0277BD"

@@ -104,7 +104,7 @@
                  class="d-flex justify-center"
                     height="50"  
                     max-width="50"
-                    src="~assets/icon/medical.png"
+                    src="~assets/icon/chat.png"
                 ><img>
                  </div> 
                   <v-btn 
