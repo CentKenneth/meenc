@@ -75,6 +75,20 @@
                 Patient
                 </v-btn></v-list-item-title>
           </v-list-item>
+
+           <v-list-item>
+            <v-list-item-icon>
+              <v-icon 
+              color="white"
+              >mdi-hospital</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title><v-btn 
+              text
+              color="white"
+               href="/secretarylogin" >
+                Staff
+                </v-btn></v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>

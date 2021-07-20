@@ -14,7 +14,7 @@
       scroll-target="#scrolling-techniques-6"
     >
     <v-btn icon>
-           <v-app-bar-nav-icon href="/doctorlogin"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+           <v-app-bar-nav-icon href="/secretarylogin"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
           </v-btn>
       <v-spacer> </v-spacer>   
       <v-toolbar-title  
@@ -22,7 +22,7 @@
               color="#01579B"
               dark
               dense>
-             DOCTOR
+             SECRETARY
       </v-toolbar-title>
     </v-app-bar>
     <!-- head -->
@@ -36,9 +36,9 @@
 
     <div>
         <v-card color="#BBDEFB" class="rounded-xl pa-6" :disabled="submitting">
-          <v-card-title >Create Doctor's Account
+          <v-card-title >Create Secretary Account
             <v-icon
-            >mdi-doctor</v-icon>
+            >mdi-hospital</v-icon>
           </v-card-title>
           <!-- ccc -->
           <v-container fluid>
@@ -67,31 +67,7 @@
                    prepend-icon="mdi-account-details"
                 ></v-text-field>
               </v-col>
-                  <v-col
-                  class="d-flex"
-                  cols="12"
-                  sm="6"
-                  >
-                  <v-select
-                    v-model="form['degreelevel']"
-                    :items="dlevels"
-                    label="Degree Level"
-                    prepend-icon="mdi-stairs"
-                  ></v-select>
-                </v-col>
-
-                <v-col
-                  class="d-flex"
-                  cols="12"
-                  sm="6"
-                  >
-                  <v-select
-                    v-model="form['degreefield']"
-                    :items="dfields"
-                    label="Degree Field"
-                    prepend-icon="mdi-doctor"
-                  ></v-select>
-                </v-col>
+  
                   <v-col
                     class="d-flex"
                     cols="12"
@@ -214,7 +190,7 @@
                     </v-text-field>
               </v-col>
             </v-row>
-          </v-container>
+        </v-container>
             <div class="text-center">
                 <div class="col-md .offset-md">
                 <v-btn
@@ -228,7 +204,7 @@
                 </v-btn>
                 </div>
                 <div class="col-md .offset-md">Already have an account?
-                <a href="/doctorlogin">Login
+                <a href="/secretarylogin">Login
                 </a>
                 </div>
             </div>
@@ -252,15 +228,15 @@
         form: {
           'firstname': '',
           'lastname': '',
-          'degreelevel': '',
-          'degreefield': '',
+          
+          
           'bday': '',
           'gender': '',
           'clinicname': '',
           'email': '',
           'password': '',
           'password_confirmation': '',
-          'role': 'doctor',
+          'role': 'secretary',
         },  
        emailRules: [
           v => !!v || "E-mail is required",
@@ -276,9 +252,7 @@
                 );
             }
         ],
-        dlevels: ['Doctorate', 'Professional', 'Master'+'s'], collapseOnScroll: true,
-        dfields: ['Anesthesiologists', 'Dermatologists', 'Internists', 'Obstetricians and gynecologists','Ophthalmologists'
-        , 'Pediatricians','Physicians', 'Psychiatrists', 'Surgeons'], collapseOnScroll: true,
+      
         genders: ['Male', 'Female', 'Custom'], collapseOnScroll: true,
 
 
@@ -293,7 +267,7 @@
 
           this.submitting = true
 
-          const res = await this.$axios.post('api/register-doctor', this.form)
+          const res = await this.$axios.post('api/register-secretary', this.form)
 
           if (res.status === 201) {
 
@@ -306,7 +280,7 @@
 
             this.form = {}
 
-            this.$router.push('/doctorlogin')
+            this.$router.push('/secretarylogin')
 
           }
 

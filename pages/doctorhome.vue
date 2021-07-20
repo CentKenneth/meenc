@@ -73,13 +73,27 @@
             <v-list-item-icon>
               <v-icon 
               color="white"
-              >mdi-calendar-range</v-icon>
+              >mdi-medical-bag</v-icon>
             </v-list-item-icon>
             <v-list-item-title><v-btn 
               text
               color="white"
                href="/doctorservices" >
                 Services
+                </v-btn></v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon 
+              color="white"
+              >mdi-calendar-range</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title><v-btn 
+              text
+              color="white"
+               href="/doctorcanlendar" >
+                Calendar
                 </v-btn></v-list-item-title>
           </v-list-item>
 

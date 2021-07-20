@@ -63,7 +63,7 @@
             <v-list-item-title><v-btn 
                 text
                 color="white"
-                 href="/patienthome" >
+                 href="/secretaryhome" >
                 Home
                 </v-btn>
                 </v-list-item-title>
@@ -78,7 +78,7 @@
             <v-list-item-title><v-btn 
               text
               color="white"
-               href="/patientservices" >
+               href="/secretaryservices" >
                 Services
                 </v-btn></v-list-item-title>
           </v-list-item>
@@ -92,7 +92,7 @@
             <v-list-item-title><v-btn 
               text
               color="white"
-               href="/patientaccount" >
+               href="/secretaryaccount" >
                 Account
                 </v-btn></v-list-item-title>
           </v-list-item>
@@ -196,20 +196,17 @@
              </v-card-actions>
              <v-card-subtitle>Sugary drinks are among the most fattening items you can put into your body.</v-card-subtitle>
               <v-card-subtitle> This is because your brain doesn’t measure calories from liquid sugar the same way it does for solid food (1Trusted Source).</v-card-subtitle>
-             <div class="d-flex justify-center" >   
+             <div class="d-flex justify-center">   
                  <img
                  
                    :style="$vuetify.breakpoint.smAndDown ? 'width:60%;' : 'width:60%;'"
                     src="~assets/tips/sugar.jpg"
                     href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2"
                 ><img>
-                 </div>
-                  
-            </div>
-            
+                 </div>                
+            </div>  
           </v-alert>
-
-          <v-alert
+            <v-alert
             outlined
             color="#0277BD"
           >
@@ -228,21 +225,19 @@
                   color="#0277BD"  
                   href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2">
                     Get enough sleep
-                  </v-btn> 
-                  
+                  </v-btn>     
              </v-card-actions>
              <v-card-subtitle>The importance of getting enough quality sleep cannot be overstated.</v-card-subtitle>
               <v-card-subtitle> Poor sleep can drive insulin resistance, disrupt your appetite hormones, and reduce your physical and mental performance</v-card-subtitle>
              <div class="d-flex justify-center" >   
                  <img
-                 
                    :style="$vuetify.breakpoint.smAndDown ? 'width:60%;' : 'width:60%;'"
                     src="https://th.bing.com/th/id/R.aa0d51a760c8881b5e65b2f8dc40c8b1?rik=rIJHLds5Fu5Blg&riu=http%3a%2f%2fbackgroundcheckall.com%2fwp-content%2fuploads%2f2017%2f12%2fsleep-background-1.jpg&ehk=3vjJZTceQmAjWfpoz4FCtuaPoZe0Hl5sAUhwhSiRehg%3d&risl=&pid=ImgRaw"
                     href="https://www.healthline.com/nutrition/27-health-and-nutrition-tips#TOC_TITLE_HDR_2"
                 ><img>
-                 </div>       
+                 </div>        
             </div>
-             </v-alert>
+          </v-alert>
         </v-card-text>
         </v-col>
       </v-row>
