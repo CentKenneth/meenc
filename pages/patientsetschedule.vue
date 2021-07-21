@@ -239,7 +239,7 @@
         if (doctor?.data) {
           doctor.data.map((el) => {
             // push data to array
-            this.doctor.push({'id': el.id, 'email': el.email, name: 'Dr. ' + el.lastname})
+            this.doctor.push({'id': el.id, 'email': el.email, name: 'Dr. ' + el.lastname + ' ' + el.firstname + ' ' + '('+ el.degreefield +')'})
           })
         }
 

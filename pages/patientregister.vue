@@ -46,6 +46,7 @@
           >
             <v-text-field
               v-model="form['firstname']"
+              :rules="fieldRules"
               :counter="10"
               label="First name"
               prepend-icon="mdi-account-details"
@@ -58,6 +59,7 @@
             >
               <v-text-field
                 v-model="form['lastname']"
+                :rules="fieldRules"
                 :counter="10"
                 label="Last name"
                 prepend-icon="mdi-account-details"
@@ -70,6 +72,7 @@
 
             <v-text-field
               v-model="form['height']"
+              :rules="fieldRules"
               type="number"
               label="Height"
               placeholder="cm" 
@@ -84,6 +87,7 @@
             >
               <v-text-field
                 v-model="form['weight']"
+                :rules="fieldRules"
                 type="number"
                 label="Weight"
                 placeholder="kg"
@@ -105,6 +109,7 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                       v-model="form['bday']"
+                      :rules="fieldRules"
                       label="Birthday"
                       prepend-icon="mdi-cake-variant"
                       readonly
@@ -142,6 +147,7 @@
                 >
                   <v-select
                     v-model="form['gender']"
+                    :rules="fieldRules"
                     :items="items"
                     label="Gender"
                     prepend-icon="mdi-gender-male-female"
@@ -169,6 +175,7 @@
               >
               <v-text-field
                   :type="show3 ? 'integers' : 'number'"
+                  :rules="fieldRules"
                   v-model="form['phone']"
                   name="input-13-2"
                   label="Phone"
@@ -188,6 +195,7 @@
                 <v-text-field
                     name="input-13-2"
                     v-model="form['street_address']"
+                    :rules="fieldRules"
                     label="Street Address"
                     value=""
                     class="input-group--focused"
@@ -203,6 +211,7 @@
                 <v-text-field
                   name="input-13-2"
                   v-model="form['city']"
+                  :rules="fieldRules"
                   label="City"
                   value=""
                   class="input-group--focused"
@@ -302,6 +311,9 @@
         emailRules: [
           v => !!v || "E-mail is required",
           v => /.+@.+/.test(v) || "E-mail must be valid"
+        ],
+         fieldRules: [
+          v => !!v || "this field is required",
         ],
         passwordRules: [
             v => !!v || "Password is required",

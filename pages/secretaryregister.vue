@@ -50,6 +50,7 @@
             >
               <v-text-field
                 v-model="form['firstname']"
+                :rules="fieldRules"
                 :counter="10"
                 label="First name"
                 prepend-icon="mdi-account-details"
@@ -62,6 +63,7 @@
               >
                 <v-text-field
                   v-model="form['lastname']"
+                  :rules="fieldRules"
                   :counter="10"
                   label="Last name"
                    prepend-icon="mdi-account-details"
@@ -83,6 +85,7 @@
                     <template v-slot:activator="{ on, attrs }">
                       <v-text-field
                         v-model="date"
+                        :rules="fieldRules"
                         label="Birthday"
                         prepend-icon="mdi-cake-variant"
                         readonly
@@ -121,6 +124,7 @@
                   >
                   <v-select
                     v-model="form['gender']"
+                    :rules="fieldRules"
                     :items="genders"
                     label="Gender"
                     prepend-icon="mdi-gender-male-female"
@@ -136,6 +140,7 @@
               >
                 <v-text-field
                   v-model="form['clinicname']"
+                  :rules="fieldRules"
                   label="Medical Clinic Name"
                   prepend-icon="mdi-hospital-building">
                 </v-text-field>
@@ -251,6 +256,9 @@
                     "Min. 8 characters with at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character"
                 );
             }
+        ],
+        fieldRules: [
+          v => !!v || "this field is required",
         ],
       
         genders: ['Male', 'Female', 'Custom'], collapseOnScroll: true,

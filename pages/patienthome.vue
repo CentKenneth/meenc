@@ -69,6 +69,20 @@
                 </v-list-item-title>
           </v-list-item>
 
+           <v-list-item>
+            <v-list-item-icon>
+              <v-icon 
+              color="white"
+              >mdi-doctor</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title><v-btn 
+              text
+              color="white"
+               href="/patientdoctors" >
+                Doctors
+                </v-btn></v-list-item-title>
+          </v-list-item>
+
           <v-list-item>
             <v-list-item-icon>
               <v-icon 

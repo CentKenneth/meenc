@@ -139,6 +139,32 @@
              <v-card-subtitle>Provide electronic prescription to patient</v-card-subtitle>
             </div>
           </v-alert>
+
+          <v-alert
+            outlined
+            color="#0277BD"
+          >
+            <div class="Appointment Schedule">
+              <v-card-actions>
+                
+                  <div> 
+                  <img
+                   class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"    
+                    src="~assets/icon/appointment.png"
+                ><img>
+                </div> 
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="/doctorschedule">
+                   Add Appointment slot
+                  </v-btn>  
+             </v-card-actions>
+             <v-card-subtitle>View appoint schedule for face to face consultation</v-card-subtitle>
+            </div>
+          </v-alert>
  
 
           <v-alert

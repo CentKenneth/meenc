@@ -1,5 +1,31 @@
 <template>
+<v-card> 
+     <v-app-bar
+      
+      absolute
+      color="#01579B"
+      dark
+      scroll-target="#scrolling-techniques-6"
+    >
+      <v-app-bar-nav-icon href="/doctorservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+   <v-spacer> </v-spacer>   
+   
+      <v-toolbar-title  
+          text
+              color="#01579B"
+              dark
+              dense>
+              Appointment slot
+      </v-toolbar-title>
+      
+    <v-spacer> </v-spacer> 
+    </v-app-bar>
+<br>
+<br>
+<br>
+
   <v-container class="pt-6">
+      
     <v-row class="text-center">
       <v-col col="12">
         <v-sheet height="100%">
@@ -142,6 +168,7 @@
     </v-dialog>
     <notifications group="foo" />
   </v-container>
+  </v-card>
 </template>
 <script>
 import moment from 'moment'

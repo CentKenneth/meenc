@@ -50,9 +50,11 @@
             >
               <v-text-field
                 v-model="form['firstname']"
+                :rules="fieldRules"
                 :counter="10"
                 label="First name"
                 prepend-icon="mdi-account-details"
+
               ></v-text-field>
             </v-col>
 
@@ -62,6 +64,7 @@
               >
                 <v-text-field
                   v-model="form['lastname']"
+                  :rules="fieldRules"
                   :counter="10"
                   label="Last name"
                    prepend-icon="mdi-account-details"
@@ -74,6 +77,7 @@
                   >
                   <v-select
                     v-model="form['degreelevel']"
+                    :rules="fieldRules"
                     :items="dlevels"
                     label="Degree Level"
                     prepend-icon="mdi-stairs"
@@ -87,6 +91,7 @@
                   >
                   <v-select
                     v-model="form['degreefield']"
+                    :rules="fieldRules"
                     :items="dfields"
                     label="Degree Field"
                     prepend-icon="mdi-doctor"
@@ -101,6 +106,7 @@
                     ref="dialog"
                     v-model="modal"
                     :return-value.sync="form['bday']"
+                    :rules="fieldRules"
                     persistent
                     width="290px"
                     >
@@ -145,6 +151,7 @@
                   >
                   <v-select
                     v-model="form['gender']"
+                    :rules="fieldRules"
                     :items="genders"
                     label="Gender"
                     prepend-icon="mdi-gender-male-female"
@@ -160,6 +167,7 @@
               >
                 <v-text-field
                   v-model="form['clinicname']"
+                  :rules="fieldRules"
                   label="Medical Clinic Name"
                   prepend-icon="mdi-hospital-building">
                 </v-text-field>
@@ -265,6 +273,10 @@
        emailRules: [
           v => !!v || "E-mail is required",
           v => /.+@.+/.test(v) || "E-mail must be valid"
+        ],
+
+        fieldRules: [
+          v => !!v || "this field is required",
         ],
         passwordRules: [
             v => !!v || "Password is required",
