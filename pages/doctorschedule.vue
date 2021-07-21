@@ -57,9 +57,15 @@
                     >
                     </v-select>
                 </div>
+                <v-btn
+                    large
+                    class="ml-4 mt-n3"
+                    color="primary"
+                    @click="addEvent"
+                >
+                    Add Event
+                </v-btn>
             </v-toolbar>
-
-            
             
             <v-calendar
                 ref="calendar"
@@ -68,15 +74,9 @@
                 :events="events"
                 color="primary"
                 :event-ripple="false"
-                @mousedown:event="startDrag"
-                @mousedown:time="startTime"
-                @mousemove:time="mouseMove"
-                @click:date="startTime"
                 @click:more="viewDay"
-                @change="getEvents"
+                @change="fetchData"
                 @click:event="showDialog"
-                @mouseup:time="endDrag"
-                @mouseleave.native="cancelDrag"
             >
                 <template v-slot:day-body="{ date, week }">
                     <div
@@ -86,16 +86,16 @@
                     ></div>
                 </template>
 
-                <template v-slot:event="{ event, timed, eventSummary }">
+                <template v-slot:event="{ eventSummary }">
                     <div
                         class="v-event-draggable"
                         v-html="eventSummary()"
                     ></div>
-                    <div
+                    <!-- <div
                         v-if="timed"
                         class="v-event-drag-bottom"
                         @mousedown.stop="extendBottom(event)"
-                    ></div>
+                    ></div> -->
                 </template>
 
             </v-calendar>
@@ -103,30 +103,44 @@
         </v-sheet>
       </v-col>
     </v-row>
-    <v-dialog v-model="dialog" persistent width="500">
-        <v-card flat>
+    <v-dialog v-model="dialog" persistent scrollable width="500">
+        <v-card flat :disabled="disabled">
             <v-card-title>
                 Event
             </v-card-title>
             <v-card-text class="py-0 my-0 pt-4">
-                <v-text-field outlined label="Name" v-model="event_name">
 
+                <v-text-field outlined label="Name" v-model="form.name">
                 </v-text-field>
+
+                <v-text-field outlined label="Start Date" type="date" v-model="form.start_date">
+                </v-text-field>
+
+                <v-text-field outlined label="Start Time" type="time" v-model="form.start_time">
+                </v-text-field>
+
+                <v-text-field outlined label="End Date" type="date" v-model="form.end_date">
+                </v-text-field>
+
+                <v-text-field outlined label="End Time" type="time" v-model="form.end_time">
+                </v-text-field>
+
             </v-card-text>
             <v-card-actions class="px-6 pb-4">
                 <v-spacer></v-spacer>
                 <v-btn class="justify-center white--text" color="grey darken-2" @click="dialog = false">
                     Cancel
                 </v-btn>
-                <v-btn class="justify-center" color="primary" @click="dialog = false">
-                    Update
+                <v-btn class="justify-center" color="primary" @click="saveSchedule">
+                    {{action}}
                 </v-btn>
-                <v-btn class="justify-center white--text" color="red" @click="dialog = false">
+                <v-btn v-if="action == 'Update'" class="justify-center white--text" color="red" @click="deleteEvent">
                     Delete
                 </v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
+    <notifications group="foo" />
   </v-container>
 </template>
 <script>
@@ -136,6 +150,9 @@ export default {
     name: "Schedule",
     data() {
         return {
+            disabled: false,
+            action: 'Add',
+            form: {},
             event_name: '',
             dialog: false,
             dragEvent: null,
@@ -176,7 +193,97 @@ export default {
     },
 
     methods: {
+        async deleteEvent() {
+            this.disabled = true
+            const data = await this.$axios.post('api/authorized/schedule-doctor-delete/' + this.form.id)
+
+            if (data.status == 200) {
+
+                this.dialog = false
+
+                this.$notify({
+                    type: 'success',
+                    group: 'foo',
+                    title: 'Success!',
+                    text: 'Successfully Deleted!'
+                })
+
+                await this.fetchData()
+
+            }
+
+            this.disabled = false
+        },
+        addEvent() {
+            this.form = {}
+            this.action = "Add"
+            this.dialog = true
+        },
+        async saveSchedule() {
+            if (this.action == 'Add') {
+
+                this.disabled = true
+
+                this.form.start = this.form.start_date + ' ' + (this.form.start_time ? this.form.start_time : '00:00:00')
+                this.form.user_id = this.user.id
+
+                if (this.form.end_date)
+                    this.form.end = this.form.end_date + ' ' + (this.form.end_time ? this.form.end_time : '00:00:00')
+                else
+                    this.form.end = this.form.start
+
+                const data = await this.$axios.post('api/authorized/schedule-doctor-create', this.form)
+
+                if (data.status == 201) {
+
+                    this.dialog = false
+
+                    this.$notify({
+                        type: 'success',
+                        group: 'foo',
+                        title: 'Success!',
+                        text: 'Successfully Created!'
+                    })
+
+                    await this.fetchData()
+
+                }
+
+                this.disabled = false
+
+            } else {
+                this.disabled = true
+
+                this.form.start = this.form.start_date + ' ' + (this.form.start_time ? this.form.start_time : '00:00:00')
+
+                if (this.form.end_date)
+                    this.form.end = this.form.end_date + ' ' + (this.form.end_time ? this.form.end_time : '00:00:00')
+                else
+                    this.form.end = this.form.start
+
+                const data = await this.$axios.post('api/authorized/schedule-doctor-update', this.form)
+
+                if (data.status == 200) {
+
+                    this.dialog = false
+
+                    this.$notify({
+                        type: 'success',
+                        group: 'foo',
+                        title: 'Success!',
+                        text: 'Successfully Updated!'
+                    })
+
+                    await this.fetchData()
+
+                }
+
+                this.disabled = false
+
+            }
+        },
         async fetchData() {
+            this.events = []
             const data = await this.$axios.get('api/authorized/schedule-doctor-get', {
                 params: {
                     user_id: this.user.id,
@@ -188,13 +295,13 @@ export default {
             if (data?.data?.data) {
                 data.data.data.forEach(element => {
                     element.timed = true
+                    if (moment(element.start).format('HH:mm') == '00:00')
+                        element.start = moment(element.start).format('YYYY-MM-DD')
                     if(element.start == element.end)
                         delete element.end
                     this.events.push(element)
                 })
             }
-
-            console.log(this.events)
 
         },
         viewDay ({ date }) {
@@ -202,8 +309,20 @@ export default {
             this.type = 'day'
         },
         showDialog(event) {
-            console.log(event)
-            this.event_name = event.event.name
+            
+            this.action = 'Update'
+            this.form.name = event.event.name
+            this.form.start_date = moment(event.event.start).format('yyyy-MM-DD')
+            this.form.start_time = moment(event.event.start).format('HH:mm')
+
+            if (event.event.id)
+                this.form.id = event.event.id
+
+            if (event.event?.end) {
+                this.form.end_date = moment(event.event.end).format('yyyy-MM-DD')
+                this.form.end_time = moment(event.event.end).format('HH:mm')
+            }
+
             this.dialog = true
         },
         setToday() {
@@ -242,7 +361,6 @@ export default {
                 const start = this.dragEvent.start
 
                 this.dragTime = mouse - start
-                console.log(this.dragTime)
                 } else {
 
                 this.createStart = this.roundTime(mouse)
