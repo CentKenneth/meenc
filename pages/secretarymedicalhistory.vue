@@ -9,20 +9,23 @@
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/patientservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon href="/secretaryreports"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
               color="#01579B"
               dark
               dense>
-              Prescription
+              History
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
+
+
+  
   <v-data-table
     :headers="headers"
-    :items="transactions"
+    :items="desserts"
     sort-by="calories"
     class="elevation-1"
   >
@@ -135,11 +138,11 @@
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">Are you sure you want to download this prescription?</v-card-title>
+            <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn href="#" color="green darken-1" text @click="deleteItemConfirm">Download</v-btn>
+              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -147,15 +150,12 @@
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
-     
       <v-icon
-        
+        small
         @click="deleteItem(item)"
-        color="blue"
       >
-        mdi-download
+        mdi-delete
       </v-icon>
-
     </template>
     <template v-slot:no-data>
       <v-btn
@@ -171,14 +171,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
   export default {
     data: () => ({
       dialog: false,
       dialogDelete: false,
       headers: [
         {
-          text: 'Doctor Name',
+          text: 'Patient Name',
           align: 'start',
           sortable: false,
           value: 'name',
@@ -186,12 +185,10 @@ import { mapState } from 'vuex'
         { text: 'Email', value: 'email' },
         { text: 'Message', value: 'message' },
         { text: 'Prescription', value: 'prescription' },
-        { text: 'Price', value: 'price' },
-        { text: 'Actions', value: 'actions' },
-
         
+        { text: 'Date', value: 'date' },
+        { text: 'Actions', value: 'actions', sortable: false },
       ],
-      transactions: [],
       desserts: [],
       editedIndex: -1,
       editedItem: {
@@ -211,9 +208,6 @@ import { mapState } from 'vuex'
     }),
 
     computed: {
-      ...mapState('auth', [
-        'user'
-      ]),
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
@@ -228,34 +222,94 @@ import { mapState } from 'vuex'
       },
     },
 
-    mounted () {
+    created () {
       this.initialize()
     },
 
     methods: {
-      async initialize () {
-        try {
-
-          // api request
-          const transaction = await this.$axios.get(`api/authorized/prescription-by-doctors-email/${this.user.email}`)
-
-          // filter doctor email
-          if (transaction?.data) {
-            transaction.data.map((el) => {
-              // push data to array
-              this.transactions.push({
-                  "name": el.name,
-                  "email": el.email,
-                  "message": el.message,
-                  "prescription": el.prescription,
-                  "price": el.price,
-              })
-            })
-          }
-
-        } catch (err) {
-
-        }
+      initialize () {
+        this.desserts = [
+          {
+            name: 'Cent Kenneth Peria',
+            email: 'cent@gmail.com',
+            message: 'Good day',
+            prescription: 'prescription.png',
+            date: '06-13-2021',
+            
+          },
+         {
+            name: 'Cent Kenneth Peria',
+            email: 'cent@gmail.com',
+            message: 'Good day',
+            prescription: 'prescription.png',
+            date: '06-13-2021',
+            
+          },
+         {
+            name: 'Cent Kenneth Peria',
+            email: 'cent@gmail.com',
+            message: 'Good day',
+            prescription: 'prescription.png',
+            date: '06-13-2021',
+            
+          },
+         {
+            name: 'Cent Kenneth Peria',
+            email: 'cent@gmail.com',
+            message: 'Good day',
+            prescription: 'prescription.png',
+            date: '06-13-2021',
+            
+          },
+         {
+            name: 'Cent Kenneth Peria',
+            email: 'cent@gmail.com',
+            message: 'Good day',
+            prescription: 'prescription.png',
+            date: '06-13-2021',
+            
+          },
+         {
+            name: 'Cent Kenneth Peria',
+            email: 'cent@gmail.com',
+            message: 'Good day',
+            prescription: 'prescription.png',
+            date: '06-13-2021',
+            
+          },
+         {
+            name: 'Cent Kenneth Peria',
+            email: 'cent@gmail.com',
+            message: 'Good day',
+            prescription: 'prescription.png',
+            date: '06-13-2021',
+            
+          },
+          {
+            name: 'Cent Kenneth Peria',
+            email: 'cent@gmail.com',
+            message: 'Good day',
+            prescription: 'prescription.png',
+            date: '06-13-2021',
+            
+          },
+         {
+            name: 'Cent Kenneth Peria',
+            email: 'cent@gmail.com',
+            message: 'Good day',
+            prescription: 'prescription.png',
+            date: '06-13-2021',
+            
+          },
+         {
+            name: 'Cent Kenneth Peria',
+            email: 'cent@gmail.com',
+            message: 'Good day',
+            prescription: 'prescription.png',
+            date: '06-13-2021',
+            
+          },
+        ]
       },
 
       editItem (item) {
@@ -302,4 +356,3 @@ import { mapState } from 'vuex'
     },
   }
 </script>
-

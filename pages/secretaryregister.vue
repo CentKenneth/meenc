@@ -14,7 +14,7 @@
       scroll-target="#scrolling-techniques-6"
     >
     <v-btn icon>
-           <v-app-bar-nav-icon href="/secretarylogin"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+           <v-app-bar-nav-icon href="/doctorhome"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
           </v-btn>
       <v-spacer> </v-spacer>   
       <v-toolbar-title  
@@ -205,17 +205,14 @@
                 :disabled="submitting"
                 @click="register"
                 >
-                Register
+                Add
                 </v-btn>
                 </div>
-                <div class="col-md .offset-md">Already have an account?
-                <a href="/secretarylogin">Login
-                </a>
-                </div>
+               
             </div>
-      </v-card>
-    </div>
-     <notifications group="foo" />
+        </v-card>
+      </div>
+    <notifications group="foo" />
   </v-card>
 </template>
 <script>

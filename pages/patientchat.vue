@@ -9,7 +9,7 @@
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/patientmedicalconcern"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon href="/patientdoctorinfo"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
@@ -105,14 +105,14 @@
       recent: [
         {
           active: true,
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+          avatar: 'assets/doctor/R.png',
           title: 'Don’t drink sugar calories. Sugary drinks are among the most fattening items you can put into your body.',
         },   
         
       ],
       previous: [{
         title: 'Travis Howard',
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+        avatar: 'assets/doctor/R.png',
        }],
     }),
   }

@@ -8,7 +8,7 @@
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/patientmedicalconcern"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon href="/patientdoctors"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
@@ -19,19 +19,72 @@
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
+    
+    
+    <br>
+    <br>
+    <v-card flat color="#BBDEFB" class="pa-6">
+      <v-app-bar-nav-icon href="/patientchat"> <v-icon color="blue">mdi-chat</v-icon> Chat</v-app-bar-nav-icon>
+    <v-card-title class="d-flex justify-center">
+      <img
+          class="d-flex justify-center"
+          height="50"  
+          max-width="50"
+          src="~assets/doctor/R.png"
+      ><img>
+      DR. ERICK GARCIA
+    </v-card-title >
+    
+      <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
+   
 
+    <v-card-title class="d-flex justify-center">
+    Dermatologist</v-card-title>
+    <v-divider></v-divider>
+   </v-card-text>
 
-  <v-img
+<v-card-title class="d-flex justify-center">
+     <v-icon color="blue">mdi-at</v-icon>
+    erickgarcia@gmail.com
+    </v-card-title>
+    <br>
+    <v-card-title class="d-flex justify-center">
+     <v-icon color="blue">mdi-phone</v-icon>
+    09305843532
+    </v-card-title>
+
+<br><br><br><br>
+   <v-card-title class="d-flex justify-center">
+     <img
+          class="d-flex justify-center"
+          height="50"  
+          max-width="50"
+          src="~assets/icon/calendar.png"
+      ><img>
+    Monday, Tuesday, Thursday
+    </v-card-title>
+    <v-card-title class="d-flex justify-center">
+    9AM-12NN</v-card-title>
+   <br><br><br><br>
+   
+    <br>
+
+    
+    <v-card-actions class="d-flex flex-column my-0 py-0">
+       
+
+    </v-card-actions>
+
+    </v-card>
+    
+  <!-- <v-img
       :height="$vuetify.breakpoint.smAndDown ? '650' : '750'"
       src="https://i1.wp.com/www.success.com/wp-content/uploads/legacy/sites/default/files/main/articles/searchresults.jpg?fit=1024%2C1024&ssl=1"
     >
 
 
-  
-       
-    <br>
-    <br>
-    <br>
+    
+   
         
         <v-container fluid>
               <v-row align="center" >
@@ -42,7 +95,7 @@
           >
             <v-list-item-title class="text-h6"
             >
-               Name: Sam Gabito
+               Doctor: Sam Gabito
               </v-list-item-title>
           </v-col>
 
@@ -73,8 +126,7 @@
                 Weight: 57
               </v-list-item-title>
             </v-col>
-                
-          <!-- gender -->
+        
             <v-col
               class="d-flex"
               cols="12"
@@ -84,7 +136,7 @@
                 Birthday: 2000-07-12
               </v-list-item-title>
             </v-col>
-          <!-- vvv -->
+          
             <v-col
               class="d-flex"
               cols="12"
@@ -126,7 +178,7 @@
             </v-col>
           </v-row>
         </v-container>
-    </v-img>
+    </v-img> -->
 </v-card>
 
 

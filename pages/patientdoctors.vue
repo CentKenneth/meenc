@@ -32,13 +32,19 @@
         hide-details
       ></v-text-field>
 
-  <v-data-table
+  <!-- <v-data-table
     :headers="headers"
     :items="transactions"
     :search="search"
     
   >
-  </v-data-table>
+  </v-data-table> -->
+ <v-data-table
+    :headers="headers"
+    :items="transactions"
+    sort-by="calories"
+    class="elevation-1"
+  >
     <template v-slot:top>
       <v-toolbar
         flat
@@ -54,14 +60,95 @@
           v-model="dialog"
           max-width="500px"
         >
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+ 
           <v-card>
-            <v-card-title class="text-h5">Are you sure you want to download this prescription?</v-card-title>
+            <v-card-title>
+              <span class="text-h5">{{ formTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.name"
+                      label="Dessert name"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.calories"
+                      label="Calories"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.fat"
+                      label="Fat (g)"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.carbs"
+                      label="Carbs (g)"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.protein"
+                      label="Protein (g)"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="close"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="save"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogDelete" max-width="520px">
+          <v-card>
+            <v-card-title class="text-h5">Are you sure you want to view this doctor?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn href="#" color="green darken-1" text @click="deleteItemConfirm">Download</v-btn>
+              <v-btn href="patientdoctorinfo" color="green darken-1" text @click="deleteItemConfirm">view</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -72,9 +159,10 @@
      
       <v-icon
         
-        
+        @click="deleteItem(item)"
+        color="blue"
       >
-        mdi-message
+        mdi-information
       </v-icon>
 
     </template>
@@ -86,7 +174,7 @@
         Reset
       </v-btn>
     </template>
-  
+  </v-data-table>
 
 </v-card>
 </template>
@@ -113,28 +201,24 @@ import { mapState } from 'vuex'
         { text: 'Actions', value: 'actions' },
 
         
-      ],
+      
+         ],
       transactions: [],
-      degreefield: [],
+      desserts: [],
       editedIndex: -1,
       editedItem: {
         name: '',
-        email: '',
-        degreefield: '',
-        degreelevel: '',
-        bday: '',
-        gender:'',
-        clinicname:'',
-
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0,
       },
       defaultItem: {
         name: '',
-        email: '',
-        degreefield: '',
-        degreelevel: '',
-        bday: '',
-        gender:'',
-        clinicname:'',
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0,
       },
     }),
 
@@ -165,11 +249,11 @@ import { mapState } from 'vuex'
         try {
 
           // api request
-          const user = await this.$axios.get(`api/authorized/doctor-email`)
+          const transaction = await this.$axios.get(`api/authorized/doctor-email`)
 
           // filter doctor email
-          if (user?.data) {
-            user.data.map((el) => {
+          if (transaction?.data) {
+            transaction.data.map((el) => {
               // push data to array
               this.transactions.push({
                   "name": el.name,
@@ -188,7 +272,7 @@ import { mapState } from 'vuex'
         }
       },
 
-      editItem (item) {
+       editItem (item) {
         this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
@@ -232,4 +316,3 @@ import { mapState } from 'vuex'
     },
   }
 </script>
-

@@ -27,9 +27,7 @@
           </v-alert>
     <v-spacer></v-spacer>
     </v-app-bar>
-
-     <v-card flat color="#BBDEFB" class="pa-6">
-
+    <v-card flat color="#BBDEFB" class="pa-6">
     <v-card-title class="d-flex justify-center">
       <img
           class="d-flex justify-center"
@@ -37,21 +35,13 @@
           max-width="50"
           src="~assets/icon/services.png"
       ><img>
-      Services
+      Reports
     </v-card-title>
-
     <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
-   
-
     </v-card-text>
-
     <v-card-actions class="d-flex flex-column my-0 py-0">
-       
-
     </v-card-actions>
-
     </v-card>
-
     <v-card
     :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
       class="mx-auto"
@@ -61,101 +51,21 @@
     color="#BBDEFB">
       <v-row dense>
         <v-col cols="12">
-
-
-
-          
 <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
 
-         <v-alert
-            outlined
-            color="#0277BD"
-          >
-            <div class="patients">
-              <v-card-actions>
-                 <div>   
-                 <img
-                 class="d-flex justify-center"
-                    height="50"  
-                    max-width="50"
-                    src="~assets/icon/consult.png"
-                ><img>
-                 </div> 
-                  <v-btn 
-                  text
-                  color="#0277BD"  
-                  href="/secretaryviewcpatientconcern">
-                    Online Schedule
-                  </v-btn> 
-             </v-card-actions>
-             <v-card-subtitle>View patients Online consultation</v-card-subtitle>
-            </div>
-          </v-alert>
-                  <v-alert
-            outlined
-            color="#0277BD"
-          >
-            <div class="patients">
-              <v-card-actions>
-                 <div>   
-                 <img
-                 class="d-flex justify-center"
-                    height="50"  
-                    max-width="50"
-                    src="~assets/icon/chat.png"
-                ><img>
-                 </div> 
-                  <v-btn 
-                  text
-                  color="#0277BD"  
-                  href="/secretarymedicalconcern">
-                    Medical concerns
-                  </v-btn> 
-             </v-card-actions>
-             <v-card-subtitle>Send medical concerns, conditions and vital signs for your doctor</v-card-subtitle>
-            </div>
-          </v-alert>
-          <v-alert
-            outlined
-            color="#0277BD"
-          >
-            <div class="patients">
-              <v-card-actions>
-                 <div>   
-                 <img
-                 class="d-flex justify-center"
-                    height="50"  
-                    max-width="50"
-                    src="~assets/icon/prescription.png"
-                ><img>
-                 </div>   
-                  <v-btn 
-                  text
-                  color="#0277BD"  
-                  href="/secretaryprescription">
-                   Create prescription
-                  </v-btn>
-             </v-card-actions>
-             <v-card-subtitle>Provide electronic prescription to patient</v-card-subtitle>
-            </div>
-          </v-alert>
- 
-
-          <v-alert
-         
+          <v-alert  
             outlined
             color="#0277BD"
           >
             <div class="Appointment Schedule">
               <v-card-actions>
-                
-                  <div> 
+                <div> 
                   <img
                    class="d-flex justify-center"
                     height="50"  
                     max-width="50"    
                     src="~assets/icon/appointment.png"
-                ><img>
+                  ><img>
                 </div> 
                   <v-btn 
                   text

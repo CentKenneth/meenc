@@ -144,8 +144,7 @@
             </div>
           </v-alert>
  
-
-          <v-alert
+         <!-- <v-alert
          
             outlined
             color="#0277BD"
@@ -169,6 +168,33 @@
                   </v-btn>  
              </v-card-actions>
              <v-card-subtitle>Set appoint schedule for face to face consultation</v-card-subtitle>
+            </div>
+          </v-alert> -->
+
+          <v-alert
+         
+            outlined
+            color="#0277BD"
+          >
+            <div class="Appointment Schedule">
+              <v-card-actions>
+                
+                  <div> 
+                  <img
+                   class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"    
+                    src="~assets/icon/appointment.png"
+                ><img>
+                </div> 
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="/patientviewappointmentslot">
+                    view Appointment Slot
+                  </v-btn>  
+             </v-card-actions>
+             <v-card-subtitle> appointment schedule for face to face consultation</v-card-subtitle>
             </div>
           </v-alert>
 

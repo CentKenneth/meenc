@@ -79,8 +79,8 @@
       recent: [
         {
           active: true,
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Sam Gabito',
+          avatar: 'assets/doctor/R.png',
+          title: 'Erick Garcia',
         },
         {
           active: true,

@@ -48,7 +48,7 @@
               v-model="form['firstname']"
               :rules="fieldRules"
               :counter="10"
-              label="First name"
+              label="Patient First name"
               prepend-icon="mdi-account-details"
             ></v-text-field>
           </v-col>
@@ -61,40 +61,61 @@
                 v-model="form['lastname']"
                 :rules="fieldRules"
                 :counter="10"
-                label="Last name"
+                label="Patient Last name"
                 prepend-icon="mdi-account-details"
               ></v-text-field>
             </v-col>
 
-          <v-col
-            cols="12"
-            md="6" >
+              <v-col
+                class="d-flex"
+                cols="12"
+                sm="6"
+              >
+                <v-text-field
+                  v-model="form['email']"
+                  :rules="emailRules"
+                  label="E-mail"
+                  prepend-icon="mdi-email"
+                >
+                </v-text-field>
+              </v-col>
 
-            <v-text-field
-              v-model="form['height']"
-              :rules="fieldRules"
-              type="number"
-              label="Height"
-              placeholder="cm" 
-              prepend-icon="mdi-human-male-height">
-            </v-text-field>
+            <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+              >
+              <v-text-field
+                  :type="show3 ? 'integers' : 'number'"
+                  :rules="fieldRules"
+                  v-model="form['phone']"
+                  name="input-13-2"
+                  label="Phone"
+                  hint="input 11 integers"
+                  value=""
+                  class="input-group--focused"
+                  prepend-icon="mdi-card-account-phone"
+                >
+              </v-text-field>
+            </v-col>
 
-          </v-col>
+         
 
             <v-col
               cols="12"
               md="6"
             >
               <v-text-field
-                v-model="form['weight']"
+                v-model="form['bday']"
                 :rules="fieldRules"
                 type="number"
-                label="Weight"
-                placeholder="kg"
-                prepend-icon="mdi-weight-kilogram"
+                label="Age"
+                placeholder="Age"
+                prepend-icon="mdi-cake-layered"
               ></v-text-field>
             </v-col>
-                <v-col
+
+                <!-- <v-col
                   class="d-flex"
                   cols="12"
                   sm="6"
@@ -138,7 +159,7 @@
                         </v-btn>
                       </v-date-picker>
                   </v-dialog>
-                </v-col>
+                </v-col> -->
           <!-- gender -->
                 <v-col
                   class="d-flex"
@@ -153,39 +174,61 @@
                     prepend-icon="mdi-gender-male-female"
                   ></v-select>
               </v-col>
-          <!-- vvv -->
-              <v-col
-                class="d-flex"
-                cols="12"
-                sm="6"
-              >
-                <v-text-field
-                  v-model="form['email']"
-                  :rules="emailRules"
-                  label="E-mail"
-                  prepend-icon="mdi-email"
-                >
-                </v-text-field>
-              </v-col>
+               <v-col
+            cols="12"
+            md="6" >
+
+            <v-text-field
+              v-model="form['height']"
+              :rules="fieldRules"
+              type="number"
+              label="Height"
+              placeholder="cm" 
+              prepend-icon="mdi-human-male-height">
+            </v-text-field>
+
+          </v-col>
 
             <v-col
-              class="d-flex"
               cols="12"
-              sm="6"
-              >
+              md="6"
+            >
               <v-text-field
-                  :type="show3 ? 'integers' : 'number'"
-                  :rules="fieldRules"
-                  v-model="form['phone']"
-                  name="input-13-2"
-                  label="Phone"
-                  hint="input 11 integers"
-                  value=""
-                  class="input-group--focused"
-                  prepend-icon="mdi-card-account-phone"
-                >
-              </v-text-field>
+                v-model="form['weight']"
+                :rules="fieldRules"
+                type="number"
+                label="Weight"
+                placeholder="kg"
+                prepend-icon="mdi-weight-kilogram"
+              ></v-text-field>
             </v-col>
+          <!-- vvv -->
+          <v-col>
+               <v-text-field
+              v-model="form['bp']"
+              :rules="fieldRules"
+              
+              label="bp"
+              placeholder="Blood Pressure" 
+              prepend-icon="mdi-water">
+            </v-text-field>
+
+          </v-col>
+
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-text-field
+                v-model="form['temp']"
+                :rules="fieldRules"
+                type="number"
+                label="temp"
+                placeholder="Temperature"
+                prepend-icon="mdi-thermometer-lines"
+              ></v-text-field>
+            </v-col>
+            
             
             <v-col
               class="d-flex"
@@ -299,6 +342,8 @@
           'lastname': '',
           'height': '',
           'weight': '',
+          'bp': '',
+          'temp': '',
           'bday': '',
           'gender': '',
           'email': '',

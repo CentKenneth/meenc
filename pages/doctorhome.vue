@@ -54,49 +54,6 @@
           active-class="deep-white--text text--accent-4"
           
         >
-
-          <v-list-item  >
-            <v-list-item-icon>
-              <v-icon
-              color="white">mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title><v-btn 
-                text
-                color="white"
-                 href="/doctorhome" >
-                Home
-                </v-btn>
-                </v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon 
-              color="white"
-              >mdi-medical-bag</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title><v-btn 
-              text
-              color="white"
-               href="/doctorservices" >
-                Services
-                </v-btn></v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon 
-              color="white"
-              >mdi-calendar-range</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title><v-btn 
-              text
-              color="white"
-               href="/doctorcanlendar" >
-                Calendar
-                </v-btn></v-list-item-title>
-          </v-list-item>
-
           <v-list-item>
             <v-list-item-icon>
               <v-icon 
@@ -108,6 +65,36 @@
               color="white"
                href="/doctoraccount" >
                 Account
+                </v-btn></v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon 
+              color="white"
+              >mdi-hospital</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title><v-btn 
+              text
+              color="white"
+               href="/secretaryregister" >
+                Add Secretary
+                </v-btn></v-list-item-title>
+          </v-list-item>
+
+        
+
+           <v-list-item>
+            <v-list-item-icon>
+              <v-icon 
+              color="white"
+              >mdi-medical-bag</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title><v-btn 
+              text
+              color="white"
+               href="/doctorservices" >
+                Services
                 </v-btn></v-list-item-title>
           </v-list-item>
 

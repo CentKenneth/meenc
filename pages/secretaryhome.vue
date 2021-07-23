@@ -78,8 +78,8 @@
             <v-list-item-title><v-btn 
               text
               color="white"
-               href="/secretaryservices" >
-                Services
+               href="/secretaryreports" >
+                Reports
                 </v-btn></v-list-item-title>
           </v-list-item>
 

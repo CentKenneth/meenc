@@ -38,20 +38,12 @@
           src="~assets/icon/services.png"
       ><img>
       Services
-    </v-card-title>
-
+      </v-card-title>
     <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
-   
-
     </v-card-text>
-
     <v-card-actions class="d-flex flex-column my-0 py-0">
-       
-
     </v-card-actions>
-
     </v-card>
-
     <v-card
     :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
       class="mx-auto"
@@ -132,8 +124,33 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctorprescription">
+                  href="/doctorcreateprescription">
                    Create prescription
+                  </v-btn>
+             </v-card-actions>
+             <v-card-subtitle>Create electronic prescription to patient</v-card-subtitle>
+            </div>
+          </v-alert>
+
+           <v-alert
+            outlined
+            color="#0277BD"
+          >
+            <div class="patients">
+              <v-card-actions>
+                 <div>   
+                 <img
+                 class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    src="~assets/icon/prescription.png"
+                ><img>
+                 </div>   
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  href="/doctorprescription">
+                   Send prescription
                   </v-btn>
              </v-card-actions>
              <v-card-subtitle>Provide electronic prescription to patient</v-card-subtitle>
@@ -167,7 +184,7 @@
           </v-alert>
  
 
-          <v-alert
+          <!-- <v-alert
          
             outlined
             color="#0277BD"
@@ -192,9 +209,9 @@
              </v-card-actions>
              <v-card-subtitle>View appoint schedule for face to face consultation</v-card-subtitle>
             </div>
-          </v-alert>
+          </v-alert> -->
 
-            <v-alert
+            <!-- <v-alert
             outlined
             color="#0277BD"
             >
@@ -216,7 +233,7 @@
              </v-card-actions>
              <v-card-subtitle>Summary of appointments</v-card-subtitle>
             </div>
-          </v-alert>
+          </v-alert> -->
 
           <v-alert
             outlined
