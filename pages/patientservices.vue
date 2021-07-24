@@ -85,7 +85,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patientsetschedule">
+                  href="/patientschedule">
                     Online checkup
                   </v-btn> 
              </v-card-actions>
@@ -171,7 +171,7 @@
             </div>
           </v-alert> -->
 
-          <v-alert
+          <!-- <v-alert
          
             outlined
             color="#0277BD"
@@ -196,7 +196,7 @@
              </v-card-actions>
              <v-card-subtitle> appointment schedule for face to face consultation</v-card-subtitle>
             </div>
-          </v-alert>
+          </v-alert> -->
 
           <v-alert
             outlined

@@ -1,6 +1,26 @@
 <template>
-    <v-container>
-        <v-card flat>
+ <v-card flat>
+   
+    <v-app-bar
+      
+      absolute
+      color="#01579B"
+      dark
+      scroll-target="#scrolling-techniques-6"
+    >
+      <v-app-bar-nav-icon href="/patientservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+   <v-spacer> </v-spacer>   
+      <v-toolbar-title  
+          text
+              color="#01579B"
+              dark
+              dense>
+              Schedule for Online Checkup
+      </v-toolbar-title>
+    <v-spacer> </v-spacer> 
+    </v-app-bar>
+  
+       
 
             <v-card-text>
                 <v-select :items="doctors" item-value="id" item-text="name" label="Select Doctor">
