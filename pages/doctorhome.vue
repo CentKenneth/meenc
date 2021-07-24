@@ -104,12 +104,15 @@
               color="white"
               >mdi-power</v-icon>
             </v-list-item-icon>
-            <v-list-item-title><v-btn 
-              text
-              color="white"
-               href="/" >
+            <v-list-item-title>
+              <v-btn 
+                text
+                color="white"
+                @click="logout"
+              >
                 Logout
-                </v-btn></v-list-item-title>
+              </v-btn>
+            </v-list-item-title>
           </v-list-item>
 
         </v-list-item-group>
@@ -263,6 +266,12 @@
     data: () => ({
       drawer: false,
       group: null,
-    })
+    }),
+    methods: {
+      async logout() {
+        await this.$cookies.removeAll()
+        await this.$router.push('/doctorlogin')
+      }
+    }
   }
 </script>

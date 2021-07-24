@@ -1,174 +1,169 @@
 <template>
-<v-card> 
-     <v-app-bar
+    <v-card flat> 
+        <v-app-bar
+            absolute
+            color="#01579B"
+            dark
+            scroll-target="#scrolling-techniques-6"
+        >
+            <v-app-bar-nav-icon href="/doctorservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+            <v-spacer> </v-spacer>   
+            <v-toolbar-title  
+            text
+                color="#01579B"
+                dark
+                dense>
+                Appointment slot
+            </v-toolbar-title>
       
-      absolute
-      color="#01579B"
-      dark
-      scroll-target="#scrolling-techniques-6"
-    >
-      <v-app-bar-nav-icon href="/doctorservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
-   <v-spacer> </v-spacer>   
-   
-      <v-toolbar-title  
-          text
-              color="#01579B"
-              dark
-              dense>
-              Appointment slot
-      </v-toolbar-title>
-      
-    <v-spacer> </v-spacer> 
-    </v-app-bar>
-<br>
-<br>
-<br>
+            <v-spacer> </v-spacer> 
+        </v-app-bar>
 
-  <v-container class="pt-6">
-      
-    <v-row class="text-center">
-      <v-col col="12">
-        <v-sheet height="100%">
-
-            <v-toolbar flat>
-
-                <v-btn
-                    outlined
-                    large
-                    class="mr-4"
-                    color="grey darken-2"
-                    @click="setToday"
-                >
-                    Today
-                </v-btn>
-
-                <v-btn
-                    fab
-                    text
-                    small
-                    color="grey darken-2"
-                    @click="prev"
-                >
-                    <v-icon small>
-                    mdi-chevron-left
-                    </v-icon>
-                </v-btn>
-
-                <v-btn
-                    fab
-                    text
-                    small
-                    color="grey darken-2"
-                    class="mr-2"
-                    @click="next"
-                >
-                    <v-icon small>
-                    mdi-chevron-right
-                    </v-icon>
-                </v-btn>
-
-                <v-toolbar-title v-if="$refs.calendar">
-                    {{ $refs.calendar.title }}
-                </v-toolbar-title>
-
-                <v-spacer></v-spacer>
-
-                <div style="width:220px;" class="mb-n4">
-                    <v-select
-                        v-model="type"
-                        solo
-                        :items="types"
-                        item-value="value"
-                        item-text="name"
-                    >
-                    </v-select>
-                </div>
-                <v-btn
-                    large
-                    class="ml-4 mt-n3"
-                    color="primary"
-                    @click="addEvent"
-                >
-                    Add Event
-                </v-btn>
-            </v-toolbar>
+        <v-container class="pt-10 mt-10">
             
-            <v-calendar
-                ref="calendar"
-                v-model="focus"
-                :type="type"
-                :events="events"
-                color="primary"
-                :event-ripple="false"
-                @click:more="viewDay"
-                @change="fetchData"
-                @click:event="showDialog"
-            >
-                <template v-slot:day-body="{ date, week }">
-                    <div
-                        class="v-current-time"
-                        :class="{ first: date === week[0].date }"
-                        :style="{ top: nowY }"
-                    ></div>
-                </template>
+            <v-row class="text-center">
+                <v-col col="12">
+                    <v-sheet height="100%">
 
-                <template v-slot:event="{ eventSummary }">
-                    <div
-                        class="v-event-draggable"
-                        v-html="eventSummary()"
-                    ></div>
-                    <!-- <div
-                        v-if="timed"
-                        class="v-event-drag-bottom"
-                        @mousedown.stop="extendBottom(event)"
-                    ></div> -->
-                </template>
+                        <v-toolbar flat>
 
-            </v-calendar>
+                            <v-btn
+                                outlined
+                                large
+                                class="mr-4"
+                                color="grey darken-2"
+                                @click="setToday"
+                            >
+                                Today
+                            </v-btn>
 
-        </v-sheet>
-      </v-col>
-    </v-row>
-    <v-dialog v-model="dialog" persistent scrollable width="500">
-        <v-card flat :disabled="disabled">
-            <v-card-title>
-                Event
-            </v-card-title>
-            <v-card-text class="py-0 my-0 pt-4">
+                            <v-btn
+                                fab
+                                text
+                                small
+                                color="grey darken-2"
+                                @click="prev"
+                            >
+                                <v-icon small>
+                                mdi-chevron-left
+                                </v-icon>
+                            </v-btn>
 
-                <v-text-field outlined label="Name" v-model="form.name">
-                </v-text-field>
+                            <v-btn
+                                fab
+                                text
+                                small
+                                color="grey darken-2"
+                                class="mr-2"
+                                @click="next"
+                            >
+                                <v-icon small>
+                                mdi-chevron-right
+                                </v-icon>
+                            </v-btn>
 
-                <v-text-field outlined label="Start Date" type="date" v-model="form.start_date">
-                </v-text-field>
+                            <v-toolbar-title v-if="$refs.calendar">
+                                {{ $refs.calendar.title }}
+                            </v-toolbar-title>
 
-                <v-text-field outlined label="Start Time" type="time" v-model="form.start_time">
-                </v-text-field>
+                            <v-spacer></v-spacer>
 
-                <v-text-field outlined label="End Date" type="date" v-model="form.end_date">
-                </v-text-field>
+                            <div style="width:220px;" class="mb-n4">
+                                <v-select
+                                    v-model="type"
+                                    solo
+                                    :items="types"
+                                    item-value="value"
+                                    item-text="name"
+                                >
+                                </v-select>
+                            </div>
+                            <v-btn
+                                large
+                                class="ml-4 mt-n3"
+                                color="primary"
+                                @click="addEvent"
+                            >
+                                Add Event
+                            </v-btn>
+                        </v-toolbar>
+                        
+                        <v-calendar
+                            ref="calendar"
+                            v-model="focus"
+                            :type="type"
+                            :events="events"
+                            color="primary"
+                            :event-ripple="false"
+                            @click:more="viewDay"
+                            @change="fetchData"
+                            @click:event="showDialog"
+                        >
+                            <template v-slot:day-body="{ date, week }">
+                                <div
+                                    class="v-current-time"
+                                    :class="{ first: date === week[0].date }"
+                                    :style="{ top: nowY }"
+                                ></div>
+                            </template>
 
-                <v-text-field outlined label="End Time" type="time" v-model="form.end_time">
-                </v-text-field>
+                            <template v-slot:event="{ eventSummary }">
+                                <div
+                                    class="v-event-draggable"
+                                    v-html="eventSummary()"
+                                ></div>
+                                <!-- <div
+                                    v-if="timed"
+                                    class="v-event-drag-bottom"
+                                    @mousedown.stop="extendBottom(event)"
+                                ></div> -->
+                            </template>
 
-            </v-card-text>
-            <v-card-actions class="px-6 pb-4">
-                <v-spacer></v-spacer>
-                <v-btn class="justify-center white--text" color="grey darken-2" @click="dialog = false">
-                    Cancel
-                </v-btn>
-                <v-btn class="justify-center" color="primary" @click="saveSchedule">
-                    {{action}}
-                </v-btn>
-                <v-btn v-if="action == 'Update'" class="justify-center white--text" color="red" @click="deleteEvent">
-                    Delete
-                </v-btn>
-            </v-card-actions>
-        </v-card>
-    </v-dialog>
-    <notifications group="foo" />
-  </v-container>
-  </v-card>
+                        </v-calendar>
+
+                    </v-sheet>
+                </v-col>
+            </v-row>
+            <v-dialog v-model="dialog" persistent scrollable width="500">
+                <v-card flat :disabled="disabled">
+                    <v-card-title>
+                        Event
+                    </v-card-title>
+                    <v-card-text class="py-0 my-0 pt-4">
+
+                        <v-text-field outlined label="Name" v-model="form.name">
+                        </v-text-field>
+
+                        <v-text-field outlined label="Start Date" type="date" v-model="form.start_date">
+                        </v-text-field>
+
+                        <v-text-field outlined label="Start Time" type="time" v-model="form.start_time">
+                        </v-text-field>
+
+                        <v-text-field outlined label="End Date" type="date" v-model="form.end_date">
+                        </v-text-field>
+
+                        <v-text-field outlined label="End Time" type="time" v-model="form.end_time">
+                        </v-text-field>
+
+                    </v-card-text>
+                    <v-card-actions class="px-6 pb-4">
+                        <v-spacer></v-spacer>
+                        <v-btn class="justify-center white--text" color="grey darken-2" @click="dialog = false">
+                            Cancel
+                        </v-btn>
+                        <v-btn class="justify-center" color="primary" @click="saveSchedule">
+                            {{action}}
+                        </v-btn>
+                        <v-btn v-if="action == 'Update'" class="justify-center white--text" color="red" @click="deleteEvent">
+                            Delete
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <notifications group="foo" />
+        </v-container>
+    </v-card>
 </template>
 <script>
 import moment from 'moment'
