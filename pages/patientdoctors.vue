@@ -193,7 +193,7 @@ import { mapState } from 'vuex'
           value: 'name',
         },
         { text: 'Email', value: 'email' },
-        { text: 'Degree Field', value: 'degreefield' },
+        { text: 'Specialization', value: 'degreefield' },
         { text: 'Degree Level', value: 'degreelevel' },
         { text: 'Birthday', value: 'bday' },
         { text: 'Gender', value: 'gender' },

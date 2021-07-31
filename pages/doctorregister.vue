@@ -93,7 +93,7 @@
                     v-model="form['degreefield']"
                     :rules="fieldRules"
                     :items="dfields"
-                    label="Degree Field"
+                    label="Specialization"
                     prepend-icon="mdi-doctor"
                   ></v-select>
                 </v-col>
