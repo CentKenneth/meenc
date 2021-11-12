@@ -9,37 +9,22 @@
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/patienthome"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon href="/doctorservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
               color="#01579B"
               dark
               dense>
-              List of Doctors
+              Appointment
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
-<br>
-<br>
-<br>
-   <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
 
-  <!-- <v-data-table
-    :headers="headers"
-    :items="transactions"
-    :search="search"
-    
-  >
-  </v-data-table> -->
- <v-data-table
+
+  
+
+  <v-data-table
     :headers="headers"
     :items="transactions"
     sort-by="calories"
@@ -49,7 +34,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>Doctors</v-toolbar-title>
+        <v-toolbar-title>My CRUD</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -60,7 +45,17 @@
           v-model="dialog"
           max-width="500px"
         >
- 
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              v-bind="attrs"
+              v-on="on"
+            >
+              New Item
+            </v-btn>
+          </template>
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
@@ -142,13 +137,13 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="520px">
+        <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5">Are you sure you want to view this doctor?</v-card-title>
+            <v-card-title class="text-h5">Are you sure you want to diagnose this patient?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn href="patientdoctorinfo" color="green darken-1" text @click="deleteItemConfirm">view</v-btn>
+              <v-btn href="/doctorconsultations" color="green darken-1" text @click="deleteItemConfirm">Yes</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -162,7 +157,7 @@
         @click="deleteItem(item)"
         color="blue"
       >
-        mdi-information
+        mdi-comment-processing
       </v-icon>
 
     </template>
@@ -187,19 +182,20 @@ import { mapState } from 'vuex'
       dialogDelete: false,
       headers: [
         {
-          text: 'Doctor Name',
+          text: 'Patient Name',
           align: 'start',
           sortable: false,
           value: 'name',
         },
         { text: 'Email', value: 'email' },
-        { text: 'Specialization', value: 'degreefield' },
-        { text: 'Degree Level', value: 'degreelevel' },
-        { text: 'Birthday', value: 'bday' },
-        { text: 'Gender', value: 'gender' },
-        { text: 'Clinic Name', value: 'clinicname' },
-        { text: 'Actions', value: 'actions' },
-         ],
+        { text: 'Mobile #', value: 'phone' },
+        { text: 'Appointment Date', value: 'schedule_date' },
+        { text: 'Appointment Time', value: 'schedule_date' },
+        { text: 'Sysmptoms', value: 'sysmptoms' },
+        { text: 'Address', value: 'address' },
+
+        { text: 'Status', value: 'status', sortable: false },
+      ],
       transactions: [],
       desserts: [],
       editedIndex: -1,
@@ -246,7 +242,7 @@ import { mapState } from 'vuex'
         try {
 
           // api request
-          const transaction = await this.$axios.get(`api/authorized/doctor-email`)
+          const transaction = await this.$axios.get(`api/authorized/appointment-by-patients-email/${this.user.email}`)
 
           // filter doctor email
           if (transaction?.data) {
@@ -255,11 +251,12 @@ import { mapState } from 'vuex'
               this.transactions.push({
                   "name": el.name,
                   "email": el.email,
-                  "degreefield": el.degreefield,
-                  "degreelevel": el.degreelevel,
-                  "bday": el.bday,
-                  "gender": el.gender,
-                  "clinicname": el.clinicname,
+                  "phone": el.phone,
+                  "schedule_date": el.schedule_date,
+                  "schedule_time": el.schedule_time,
+                  "sysmptoms": el.sysmptoms,
+                  "address": el.address,
+                  "status": el.status,
               })
             })
           }
@@ -269,7 +266,7 @@ import { mapState } from 'vuex'
         }
       },
 
-       editItem (item) {
+      editItem (item) {
         this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true

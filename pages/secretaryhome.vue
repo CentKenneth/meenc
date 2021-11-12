@@ -52,9 +52,7 @@
         <v-list-item-group
           v-model="group"
           active-class="deep-white--text text--accent-4"
-          
         >
-
           <v-list-item  >
             <v-list-item-icon>
               <v-icon
