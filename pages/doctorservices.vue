@@ -255,7 +255,7 @@
                     Medical History
                   </v-btn>
              </v-card-actions>
-             <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
+             <v-card-subtitle>View dortor's history </v-card-subtitle>
             </div>
           </v-alert>
 </v-card-text>

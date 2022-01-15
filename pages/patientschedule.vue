@@ -1,6 +1,31 @@
 <template>
-    <v-container>
-        <v-card flat>
+ <v-card flat>
+   
+    <v-app-bar
+      absolute
+      color="#01579B"
+      dark
+      scroll-target="#scrolling-techniques-6"
+    >
+      <v-app-bar-nav-icon href="/patientservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+   <v-spacer> </v-spacer>   
+      <v-toolbar-title  
+          text
+              color="#01579B"
+              dark
+              dense>
+              Schedule for Online Checkup
+      </v-toolbar-title>
+        <v-spacer> </v-spacer> 
+        </v-app-bar>
+  
+     <br>
+     <br>
+        <br>
+        <v-card-text>
+                <v-select :items="specialization" item-value="id" item-text="name" label="Category">
+                </v-select>
+            </v-card-text>
 
             <v-card-text>
                 <v-select :items="doctors" item-value="id" item-text="name" label="Select Doctor">
@@ -12,11 +37,16 @@
                     <v-card-title>
                         Doctor Information
                     </v-card-title>
-                    <v-card-text>
+                    <v-card-text >
                         <v-row class="px-4">
                             <v-col cols="12">
                                 <div>
                                     Name:
+                                </div>
+                            </v-col>
+                            <v-col cols="12">
+                                <div>
+                                    Gender:
                                 </div>
                             </v-col>
                             <v-col cols="12">
@@ -26,7 +56,7 @@
                             </v-col>
                             <v-col cols="12">
                                 <div>
-                                    Degree Field:
+                                    Specialization:
                                 </div>
                             </v-col>
                             <v-col cols="12">
@@ -197,7 +227,7 @@
             </v-card-actions>
 
         </v-card>
-    </v-container>
+   
 </template>
 <script>
 
@@ -208,6 +238,17 @@ export default {
                 {name: 'leonhail', id: 1},
                 {name: 'test', id: 2},
                 {name: 'man', id: 3}
+            ],
+            specialization: [
+                {name: 'Anesthesiologists', id: 1},
+                {name: 'Dermatologists', id: 2},
+                {name: 'Internists', id: 3},
+                {name: 'gynecologists', id: 4},
+                {name: 'Ophthalmologists', id: 5},
+                {name: 'Pediatricians', id: 6},
+                {name: 'Physicians', id: 7},
+                {name: 'Psychiatrists', id: 8},
+                {name: 'Surgeons', id: 9}
             ]
         }
     },

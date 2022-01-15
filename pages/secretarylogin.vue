@@ -78,23 +78,6 @@
         </v-btn>
 
         <br>
-
-        <div>
-          <a href="#">Forgot Password?</a>
-        </div>
-
-        <div> 
-            <v-btn 
-              rounded
-              elevation="2"
-              color="green"
-              dark
-              @click="$router.push('/secretaryregister')"
-            > 
-              Create New Account
-            </v-btn>
-        </div>
-
     </v-card-actions>
 
     </v-card>
