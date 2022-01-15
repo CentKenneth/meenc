@@ -1,16 +1,13 @@
 <template>
-<v-card  
-   >
-
+  <div>
     <v-app-bar
-      
       absolute
       color="#01579B"
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/doctormedicalconcern"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
-   <v-spacer> </v-spacer>   
+      <v-app-bar-nav-icon @click="$router.push('/doctormedicalconcern')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
               color="#01579B"
@@ -20,171 +17,105 @@
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
-    
- <v-card flat color="#BBDEFB" class="pa-1">
-  <v-row justify="center">
-    <v-col
-    :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
-    >
-    </v-col>
-  </v-row>
-  </v-card>
-
-    <v-toolbar
-    >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-    </v-toolbar>
-
-    <v-list subheader height="500">
-      <v-subheader></v-subheader>
-   
-    <v-list-item>
+    <v-card flat class="mt-16">
+      <v-card-title>
         <v-list-item-avatar>
           <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"> </v-img>
-          
         </v-list-item-avatar>
-        <v-list-item-title > <h6> Get enough sleep </h6> </v-list-item-title>
-      </v-list-item>
-      <v-spacer></v-spacer>
-       
-    
-      <br>
-      <br>
-      <v-list-item>
-        <v-list-item-avatar>
-          <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"> </v-img>
-          
-        </v-list-item-avatar>
-        <v-list-item-title > <h6> The importance of getting enough quality sleep </h6> <br>
-        <h6>  cannot be overstated. </h6> </v-list-item-title>
-        
-        
-      </v-list-item>
-      <v-spacer></v-spacer>
-       
-    
-      <br>
-      
+          {{patient.patient_name}}
+      </v-card-title>
 
-    </v-list>
- <v-form>
-    <v-container>
-      <v-row>
-        <v-col cols="12">
-             <v-file
-   
-   
-   
-  ></v-file>
-      
-          <v-text-field
-            prepend-icon="mdi-paperclip"
-           
-            v-model="message"
-            :append-icon="marker ? 'mdi-map-marker' : 'mdi-map-marker-off'"
-            :append-outer-icon="message ? 'mdi-send' : 'mdi-microphone'"
-             filled
-            clear-icon="mdi-close-circle"
-            clearable
-            label="Message"
-            type="text"
-            @click:append="toggleMarker"
-            @click:append-outer="sendMessage"
-            @click:prepend="changeIcon"
-            @click:clear="clearMessage"
-           
-          ></v-text-field>
+      <div v-for="item in recent" :key="item.id">
+        <div class="d-flex" :class="item.whosend == 'Patient' ? 'justify-start': 'justify-end'">
+          <v-card @click="viewImage(item)" width="50%" flat class="pa-2 ma-3 primary rounded-lg white--text" :class="item.whosend == 'Patient' ? 'lighten-1': ''">
+            {{item.messages}}
+          </v-card>
+        </div>
+      </div>
 
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-form>
-  </v-card>
-  
-  
-  
+    </v-card>
+    <v-app-bar
+      absolute
+      bottom
+    >
+      <v-text-field
+        v-model="message"
+        append-icon="mdi-send"
+        filled
+        bottom
+        clear-icon="mdi-close-circle"
+        clearable
+        label="Message"
+        @click:append="send"
+        type="text"
+      ></v-text-field>
+    </v-app-bar>
+
+  </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
   export default {
-    data: () => ({
-      recent: [
-        {
-          active: true,
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Don’t drink sugar calories. Sugary drinks are among the most fattening items you can put into your body.',
-        },   
-        
-      ],
-      previous: [{
-        title: 'Travis Howard',
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-       }],
-    }),
-  }
-</script>
-<script>
-  export default {
-    data: () => ({
-      password: 'Password',
-      show: false,
-      message: 'Hey!',
-      marker: true,
-      iconIndex: 0,
-      icons: [
-        'mdi-emoticon',
-        'mdi-emoticon-cool',
-        'mdi-emoticon-dead',
-        'mdi-emoticon-excited',
-        'mdi-emoticon-happy',
-        'mdi-emoticon-neutral',
-        'mdi-emoticon-sad',
-        'mdi-emoticon-tongue',
-      ],
-    }),
-
+    data() {
+      return {
+        message: null,
+        recent: []
+      }
+    },
     computed: {
-      icon () {
-        return this.icons[this.iconIndex]
-      },
+      ...mapState('chat', [
+        'patient'
+      ]),
+      ...mapState('auth', [
+        'user'
+      ]),
     },
-
+    mounted(){
+      if(!this.patient) this.$router.push('/doctormedicalconcern')
+      this.initialize()
+    },
     methods: {
-      toggleMarker () {
-        this.marker = !this.marker
+      async initialize(){
+
+        let form = {
+          patient_id: this.patient.patient_id,
+          doctor_id: this.user.id,
+        }
+
+        let res = await this.$axios.post(`api/authorized/get-doctor-chats-by-patient`, form)
+
+        if(res.status === 200) {
+          this.recent = res.data.data
+        }
       },
-      sendMessage () {
-        this.resetIcon()
-        this.clearMessage()
+      async send(){
+
+        if(this.message) {
+
+          let form = {
+            patient_id: this.patient.patient_id,
+            doctor_id: this.user.id,
+            messages: this.message,
+            whosend: 'Doctor',
+          }
+
+          let res = await this.$axios.post(`api/authorized/patient-chats`, form)
+
+          if(res.status === 201) {
+            this.message = null
+            await this.initialize()
+          }
+
+        }
+
       },
-      clearMessage () {
-        this.message = ''
-      },
-      resetIcon () {
-        this.iconIndex = 0
-      },
-      changeIcon () {
-        this.iconIndex === this.icons.length - 1
-          ? this.iconIndex = 0
-          : this.iconIndex++
-      },
-    },
-    recent: [
-        {
-          active: true,
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Don’t drink sugar calories. Sugary drinks are among the most fattening items you can put into your body.',
-        },   
-        
-      ],
-      previous: [{
-        title: 'Travis Howard',
-        avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-       }],
+      viewImage(data) {
+        if(data.image_url) {
+          window.open(data.image_url)
+        }
+      }
     }
+  }
   
   
 </script>

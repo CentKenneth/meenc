@@ -9,7 +9,7 @@
       color="#01579B"
       elevation="none"
     >
-    <v-app-bar-nav-icon href="/doctorhome"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click="$router.push('/doctorhome')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
     <v-spacer></v-spacer>
        <v-toolbar-title >
                <img
@@ -76,7 +76,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctorviewcpatientconcern">
+                  @click="$router.push('/doctorviewcpatientconcern')">
                     Online Schedule
                   </v-btn> 
              </v-card-actions>
@@ -100,7 +100,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctormedicalconcern">
+                  @click="$router.push('/doctormedicalconcern')">
                     Medical concerns
                   </v-btn> 
              </v-card-actions>
@@ -124,7 +124,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctorcreateprescription">
+                  @click="$router.push('/doctorcreateprescription')">
                    Create prescription
                   </v-btn>
              </v-card-actions>
@@ -132,7 +132,7 @@
             </div>
           </v-alert>
 
-           <v-alert
+           <!-- <v-alert
             outlined
             color="#0277BD"
           >
@@ -149,13 +149,13 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctorprescription">
+                  @click="$router.push('/doctorprescription')">
                    Send prescription
                   </v-btn>
              </v-card-actions>
              <v-card-subtitle>Provide electronic prescription to patient</v-card-subtitle>
             </div>
-          </v-alert>
+          </v-alert> -->
 
           <v-alert
             outlined
@@ -175,7 +175,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctorschedule">
+                  @click="$router.push('/doctorschedule')">
                    Add Appointment slot
                   </v-btn>  
              </v-card-actions>
@@ -183,59 +183,7 @@
             </div>
           </v-alert>
  
-
           <!-- <v-alert
-         
-            outlined
-            color="#0277BD"
-          >
-            <div class="Appointment Schedule">
-              <v-card-actions>
-                
-                  <div> 
-                  <img
-                   class="d-flex justify-center"
-                    height="50"  
-                    max-width="50"    
-                    src="~assets/icon/appointment.png"
-                ><img>
-                </div> 
-                  <v-btn 
-                  text
-                  color="#0277BD"  
-                  href="/doctorviewappointmentschedule">
-                    View Appointment Schedule
-                  </v-btn>  
-             </v-card-actions>
-             <v-card-subtitle>View appoint schedule for face to face consultation</v-card-subtitle>
-            </div>
-          </v-alert> -->
-
-            <!-- <v-alert
-            outlined
-            color="#0277BD"
-            >
-            <div class="patients">
-              <v-card-actions>
-                  <img
-                  class="d-flex justify-center"
-                    height="50"  
-                    max-width="50"
-                    
-                    src="~assets/icon/ma.png"
-                ><img>
-                  <v-btn 
-                  text
-                  color="#0277BD"  
-                  href="/doctorsummaryappointment">
-                    Approve Appointments
-                  </v-btn>
-             </v-card-actions>
-             <v-card-subtitle>Summary of appointments</v-card-subtitle>
-            </div>
-          </v-alert> -->
-
-          <v-alert
             outlined
             color="#0277BD"
           >
@@ -251,13 +199,13 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/doctormedicalhistory">
+                  @click="$router.push('/doctormedicalhistory')">
                     Medical History
                   </v-btn>
              </v-card-actions>
              <v-card-subtitle>Set schedule for online checkup</v-card-subtitle>
             </div>
-          </v-alert>
+          </v-alert> -->
 </v-card-text>
 
 

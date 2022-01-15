@@ -62,8 +62,7 @@
             </v-list-item-icon>
             <v-list-item-title><v-btn 
                 text
-                color="white"
-                 href="/patienthome" >
+                color="white">
                 Home
                 </v-btn>
                 </v-list-item-title>
@@ -78,7 +77,7 @@
             <v-list-item-title><v-btn 
               text
               color="white"
-               href="/patientdoctors" >
+              @click="$router.push('/patientdoctors')" >
                 Doctors
                 </v-btn></v-list-item-title>
           </v-list-item>
@@ -92,7 +91,7 @@
             <v-list-item-title><v-btn 
               text
               color="white"
-               href="/patientservices" >
+              @click="$router.push('/patientservices')" >
                 Services
                 </v-btn></v-list-item-title>
           </v-list-item>
@@ -106,12 +105,12 @@
             <v-list-item-title><v-btn 
               text
               color="white"
-               href="/patientaccount" >
-                Account
+              @click="$router.push('/patientaccount')">
+              Account
                 </v-btn></v-list-item-title>
           </v-list-item>
 
-          <v-list-item>
+          <v-list-item @click="logout">
             <v-list-item-icon>
               <v-icon 
               color="white"
@@ -119,8 +118,7 @@
             </v-list-item-icon>
             <v-list-item-title><v-btn 
               text
-              color="white"
-               href="/" >
+              color="white" >
                 Logout
                 </v-btn></v-list-item-title>
           </v-list-item>
@@ -269,9 +267,20 @@
 </template>
 <script>
   export default {
+    middleware({ store, redirect }) {
+      // If the user is not authenticated
+      if (!store.state.auth.loggedIn) {
+        return redirect('/patientlogin')
+      }
+    },
     data: () => ({
       drawer: false,
       group: null,
-    })
+    }),
+    methods: {
+      logout(){
+        this.$auth.logout().then(() => {this.$router.push('/patientlogin')})
+      }
+    }
   }
 </script>

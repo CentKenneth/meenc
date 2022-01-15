@@ -63,12 +63,12 @@
             <v-list-item-title><v-btn 
               text
               color="white"
-               href="/doctoraccount" >
-                Account
-                </v-btn></v-list-item-title>
+              @click="$router.push('/doctoraccount')">
+              Account
+              </v-btn></v-list-item-title>
           </v-list-item>
 
-          <v-list-item>
+          <!-- <v-list-item>
             <v-list-item-icon>
               <v-icon 
               color="white"
@@ -77,10 +77,10 @@
             <v-list-item-title><v-btn 
               text
               color="white"
-               href="/secretaryregister" >
+              @click="$router.push('/secretaryregister')">
                 Add Secretary
                 </v-btn></v-list-item-title>
-          </v-list-item>
+          </v-list-item> -->
 
         
 
@@ -93,7 +93,7 @@
             <v-list-item-title><v-btn 
               text
               color="white"
-               href="/doctorservices" >
+               @click="$router.push('/doctorservices')">
                 Services
                 </v-btn></v-list-item-title>
           </v-list-item>
@@ -263,14 +263,23 @@
 </template>
 <script>
   export default {
+    middleware({ store, redirect }) {
+      // If the user is not authenticated
+      if (!store.state.auth.loggedIn) {
+        return redirect('/doctorlogin')
+      }
+
+      if(store.state.auth.loggedIn && store.state.auth.user.role != 'doctor') {
+        return redirect('/patientlogin')
+      }
+    },
     data: () => ({
       drawer: false,
       group: null,
     }),
     methods: {
       async logout() {
-        await this.$cookies.removeAll()
-        await this.$router.push('/doctorlogin')
+        this.$auth.logout().then(() => {this.$router.push('/doctorlogin')})
       }
     }
   }

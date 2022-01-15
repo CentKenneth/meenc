@@ -1,7 +1,5 @@
 <template>
-<v-card  
-   >
-
+  <v-card>
     <v-app-bar
       
       absolute
@@ -233,21 +231,21 @@
 <script>
   import { mapState } from 'vuex'
   export default {
+    middleware({ store, redirect }) {
+      // If the user is not authenticated
+      if (!store.state.auth.loggedIn) {
+        return redirect('/patientlogin')
+      }
+    },
     data () {
       return {
-        form: {
-         
-        },
+        form: {},
         submitting: false,
         modal2: false,
         modal: false,
         doctor: [],
         date: '',
-        time: '',
-        
-       
-        
-        
+        time: '' 
       }
      
     },

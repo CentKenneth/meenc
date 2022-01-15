@@ -15,18 +15,25 @@ export default {
     ]
   },
 
+  ssr: false,
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/auth.js', ssr: false },
     { src: '~/plugins/vue-notification.js', ssr: false },
   ],
 
   // axios configuration
   axios: {
     baseURL: process.env.BASEURL
+  },
+
+  router: {
+    middleware: ['auth']
   },
 
   // auth configuration
@@ -46,7 +53,6 @@ export default {
             Accept: 'application/json',
             propertyName: 'access_token'
           },
-          logout: { url: '/oauth/logout', method: 'post' },
           user: {
             url: '/api/authorized/auth',
             method: 'get',

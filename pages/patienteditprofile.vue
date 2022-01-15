@@ -1,17 +1,16 @@
 <template>
   <v-card
-  height="700"
+    flat
+    height="700"
     class="overflow-hidden"
     color="#1E88E5"
-    dark
-  >
+    dark>
+
     <v-toolbar
       flat
       color="#01579B"
     >
-   
-      <v-app-bar-nav-icon href="/patientaccount"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
-
+      <v-app-bar-nav-icon @click="$router.push('/patientaccount')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <v-btn
         color="#01579B"
@@ -28,26 +27,25 @@
       </v-btn>
     </v-toolbar>
 
-    <v-card-text>
+    <v-card-text class="pa-10">
+
       <v-text-field
+        v-model="form.name"
         :disabled="!isEditing"
         color="white"
         label="Name"
       ></v-text-field>
 
-
-
-      <v-autocomplete
+      <v-text-field
+        v-model="form.email"
         :disabled="!isEditing"
-        :items="states"
-        :filter="customFilter"
         color="white"
-        item-text="name"
         label="Email"
-      ></v-autocomplete>
+      ></v-text-field>
+
     </v-card-text>
-    <v-divider></v-divider>
-    <v-card-actions>
+
+    <v-card-actions class="pa-10">
       <v-spacer></v-spacer>
       <v-btn
         :disabled="!isEditing"
@@ -60,8 +58,9 @@
     <v-snackbar
       v-model="hasSaved"
       :timeout="2000"
+      color="success"
       absolute
-      bottom
+      top
       left
     >
       Your profile has been updated
@@ -70,9 +69,20 @@
  
 </template>
 <script>
+  import { mapState } from 'vuex'
   export default {
+    middleware({ store, redirect }) {
+      // If the user is not authenticated
+      if (!store.state.auth.loggedIn) {
+        return redirect('/patientlogin')
+      }
+    },
     data () {
       return {
+        form: {
+          name: null,
+          email: null
+        },
         hasSaved: false,
         isEditing: null,
         model: null,
@@ -81,6 +91,17 @@
           { name: 'Female', abbr: 'F', id: 2 },
         ],
       }
+    },
+
+    computed: {
+      ...mapState('auth', [
+        'user'
+      ]),
+    },
+
+    mounted() {
+      this.form.name = this.user.name
+      this.form.email = this.user.email
     },
 
     methods: {
@@ -92,9 +113,24 @@
         return textOne.indexOf(searchText) > -1 ||
           textTwo.indexOf(searchText) > -1
       },
-      save () {
-        this.isEditing = !this.isEditing
-        this.hasSaved = true
+      async save () {
+        this.isEditing = true
+        this.form.id = this.user.id
+
+        let res = await this.$axios.post(`api/authorized/update-user`, this.form)
+
+        if(res.status === 200) {
+
+          this.hasSaved = true
+          
+        }
+
+        this.isEditing = false
+
+        setTimeout(() => {
+          this.hasSaved = false
+        }, 1000)
+
       },
     },
   }

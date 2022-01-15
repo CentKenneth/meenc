@@ -1,7 +1,5 @@
 <template>
-
-<v-card  
-   >
+  <v-card flat>
     <v-app-bar
       
       absolute
@@ -9,205 +7,209 @@
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/patientservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
-   <v-spacer> </v-spacer>   
+      <v-app-bar-nav-icon @click="$router.push('/patientservices')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    
       <v-toolbar-title  
-          text
-              color="#01579B"
-              dark
-              dense>
-              My Appointments
+        text
+        color="#01579B"
+        dark
+        class="text-center mx-auto"
+        dense>
+          My Appointments
       </v-toolbar-title>
       
-    <v-spacer> </v-spacer> 
     </v-app-bar>
 
+    <v-card-text class="mt-16 pa-10">
 
-  
-  <v-data-table
-    :headers="headers"
-    :items="desserts"
-    sort-by="calories"
-    class="elevation-1"
-  >
-    <template v-slot:top>
-      <v-toolbar
-        flat
-      >
-        <v-toolbar-title>My CRUD</v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
-        <v-spacer></v-spacer>
-        <v-dialog
-          v-model="dialog"
-          max-width="500px"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              class="mb-2"
-              v-bind="attrs"
-              v-on="on"
+      <div class="d-flex py-4">
+        <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
+        <div :style="$vuetify.breakpoint.mdAndUp ? 'width: 250px;' : 'width: 100%;'">
+          <v-select
+            :items="doctors"
+            clearable
+            @change="filterTable"
+            placeholder="Filter by Doctor"
+            item-text="name"
+            outlined>
+
+          </v-select>
+        </div>
+      </div>
+      
+      <v-data-table
+        :headers="headers"
+        :items="appointment"
+        class="elevation-1" >
+          <template v-slot:item.actions="{ item }">
+            <v-icon
+              small
+              class="mr-2"
+              @click="showTable(item)"
             >
-              New Item
-            </v-btn>
+              mdi-eye
+            </v-icon>
           </template>
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">{{ formTitle }}</span>
-            </v-card-title>
+        </v-data-table>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Dessert name"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.calories"
-                      label="Calories"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
+    </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="close"
-              >
-                Cancel
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="save"
-              >
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5">Are you sure you want to download this prescription?</v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="red darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="green darken-1" href="/patientprescription" text @click="deleteItemConfirm">Download</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
-    <template v-slot:item.actions="{ item }">
-     
-      <v-icon
-        
-        @click="deleteItem(item)"
-        color="blue"
-      >
-        mdi-cloud-download
-      </v-icon>
-     
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
-      </v-btn>
-    </template>
-  </v-data-table>
+    <v-dialog
+      v-model="dialog"
+      :scrollable="true"
+      persistent
+      width="500"
+    >
+      <v-card flat :disabled="disabled">
 
-</v-card>
+        <v-progress-linear
+          v-if="disabled"
+          indeterminate
+          color="primary"
+        ></v-progress-linear>
+
+        <v-card-title>
+          Edit Form
+        </v-card-title>
+
+        <v-card-text>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
+            <v-text-field
+                v-model="editedItem.bday"
+                :rules="fieldRules"
+                type="date"
+                label="Birthday">
+
+            </v-text-field>
+            <v-text-field
+                v-model="editedItem.address"
+                :rules="fieldRules"
+                label="Address">
+
+            </v-text-field>
+            <v-text-field
+                v-model="editedItem.weight"
+                :rules="fieldRules"
+                label="Weight">
+
+            </v-text-field>
+            <v-text-field
+                v-model="editedItem.height"
+                :rules="fieldRules"
+                label="Height">
+
+            </v-text-field>
+            <v-textarea
+              v-model="editedItem.diagnosis"
+              :rules="fieldRules"
+              label="Diagnosis">
+
+            </v-textarea>
+          </v-form>
+        </v-card-text>
+
+        <v-card-actions class="pa-6">
+          <v-btn outlined class="primary--text" @click="dialog = false">Close</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn depressed class="primary" @click="save">Save</v-btn>
+        </v-card-actions>
+
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      v-model="dialog2"
+      :scrollable="true"
+      persistent
+      width="900"
+    >
+      <v-card flat>
+
+        <v-card-title>
+          Appointments
+        </v-card-title>
+
+        <v-card-text>
+          <v-data-table
+            :headers="headers"
+            :items="appointments"
+            class="elevation-1" >
+              <template v-slot:item.actions="{ item }">
+                <v-icon
+                  small
+                  class="mr-2"
+                  @click="editItem(item)"
+                >
+                  mdi-pencil
+                </v-icon>
+              </template>
+            </v-data-table>
+        </v-card-text>
+
+        <v-card-actions class="pa-6">
+          <v-spacer></v-spacer>
+          <v-btn outlined class="primary--text" @click="dialog2 = false">Close</v-btn>
+        </v-card-actions>
+
+      </v-card>
+    </v-dialog>
+
+  </v-card>
 </template>
 
 <script>
+  import { mapActions, mapState } from 'vuex'
+  import moment from 'moment'
+
   export default {
+    middleware({ store, redirect }) {
+      // If the user is not authenticated
+      if (!store.state.auth.loggedIn) {
+        return redirect('/patientlogin')
+      }
+    },
     data: () => ({
+      disabled: false,
+      dialog2: false,
       dialog: false,
-      dialogDelete: false,
+      valid: true,
+      doctors: [],
+      fieldRules: [
+          v => !!v || "this field is required",
+      ],
       headers: [
+        { text: 'ID', value: 'id' },
         {
-          text: 'Patient Name',
+          text: 'Doctor Name',
           align: 'start',
-          sortable: false,
           value: 'name',
         },
-       { text: 'Doctor', value: 'doctor' },
-       { text: 'Transaction Type', value: 'transactiontype' },
-        { text: 'Date', value: 'date' },
-        { text: 'Time', value: 'time' },
+        { text: 'Schedule', value: 'schedule' },
+        { text: 'Birthday', value: 'bday', sortable: false },
+        { text: 'Address', value: 'address', sortable: false },
+        { text: 'Weight', value: 'weight', sortable: false },
+        { text: 'Height', value: 'height', sortable: false },
+        { text: 'Diagnosis', value: 'diagnosis', sortable: false },
         { text: 'Status', value: 'status', sortable: false },
+        { text: 'Action', value: 'actions', sortable: false },
       ],
-      desserts: [],
+      appointment: [],
+      appointments: [],
+      temAppointment: [],
       editedIndex: -1,
       editedItem: {
+        id: '',
         name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
-      },
-      defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+        schedule: '',
+        bday: '',
+        address: '',
+        weight: '',
+        height: '',
+        diagnosis: '',
       },
     }),
 
@@ -215,15 +217,9 @@
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
-    },
-
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
-      dialogDelete (val) {
-        val || this.closeDelete()
-      },
+      ...mapState('auth', [
+        'user'
+      ]),
     },
 
     created () {
@@ -231,91 +227,115 @@
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Cent Kenneth Peria',
-            doctor: 'Sam Gabito',
-            clinic: 'Medical Clinic',
-            transactiontype: 'Schedule',
-            date: '07-30-2021',
-            time: '13:00',
-            status:'Pending'
-            
-          },
-          {
-            name: 'Cent Kenneth Peria',
-            doctor: 'Sam Gabito',
-            clinic: 'Medical Clinic',
-            transactiontype: 'Appointment',
-            date: '06-13-2021',
-            time: '14:00',
-            status:'Approve'
-            
-          },
-          {
-            name: 'Cent Kenneth Peria',
-            doctor: 'Sam Gabito',
-            clinic: 'Medical Clinic',
-            transactiontype: 'Schedule',
-            date: '06-11-2021',
-            time: '18:00',
-            status:'Approve'
-            
-          },
-  
-   
-  
-    
-  
-  
-  
-     
-        
-        ]
+      async initialize () {
+        const form = {
+          patient_id: this.user.id,
+          group_by: "doctor_id",
+        }
+        let res = await this.$axios.post(`api/authorized/get-patient-schedule`, form)
+
+        if(res.status == 200) {
+          res.data.data.forEach(r => {
+
+            this.doctors.push({
+              id: r.doctor_id,
+              name: r.doctors_name,
+            })
+
+            this.appointment.push({
+              id: r.id,
+              doctor_id: r.doctor_id,
+              name: r.doctors_name,
+              schedule: moment(r.schedule).format("MMMM DD, YYYY, h:mm:ss a"),
+              bday: moment(r.bday).format("MMMM DD, YYYY"),
+              address: r.address,
+              weight: r.weigth,
+              height: r.heigth,
+              diagnosis: r.diagnosis,
+              status: r.status,
+            })
+
+          })
+
+          this.temAppointment = this.appointment
+        }
+
+      },
+
+      async filterTable(data) {
+        if(data)
+          this.appointment = this.temAppointment.filter(app => app.name == data)
+        else
+          this.appointment = this.temAppointment
       },
 
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.appointments.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.editedItem.bday = moment(this.editedItem.bday).format('YYYY-MM-DD')
         this.dialog = true
       },
 
-      deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
+      async showTable(item) {
 
-      deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
-        this.closeDelete()
-      },
+        this.appointments = []
 
-      close () {
-        this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      closeDelete () {
-        this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
+        const form = {
+          patient_id: this.user.id,
+          doctor_id: item.doctor_id
         }
-        this.close()
+
+        let res = await this.$axios.post(`api/authorized/get-patient-schedule`, form)
+
+        if(res.status == 200) {
+
+          res.data.data.forEach(r => {
+            this.appointments.push({
+              id: r.id,
+              name: r.doctors_name,
+              schedule: moment(r.schedule).format("MMMM DD, YYYY, h:mm:ss a"),
+              bday: moment(r.bday).format("MMMM DD, YYYY"),
+              address: r.address,
+              weight: r.weigth,
+              height: r.heigth,
+              diagnosis: r.diagnosis,
+              status: r.status,
+            })
+          })
+
+          this.dialog2 = true
+        }
+
       },
+
+      async save () {
+
+        this.disabled = true
+
+        const valid = this.$refs.form.validate()
+
+        if(valid) {
+          
+          this.editedItem.heigth = this.editedItem.height
+          this.editedItem.weigth = this.editedItem.weight
+
+          let res = await this.$axios.post(`api/authorized/edit-patient-schedule`, this.editedItem)
+
+          if(res.status == 200) {
+            if (this.editedIndex > -1) {
+              Object.assign(this.appointments[this.editedIndex], this.editedItem)
+            } else {
+              this.appointments.push(this.editedItem)
+            }
+          }
+
+        }
+
+        this.disabled = false
+        this.dialog = false
+
+      },
+
     },
   }
 </script>

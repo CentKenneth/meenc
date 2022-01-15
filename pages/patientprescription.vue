@@ -1,7 +1,6 @@
 <template>
 
-<v-card  
-   >
+<v-card flat>
     <v-app-bar
       
       absolute
@@ -9,164 +8,89 @@
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/patientservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="$router.push('/patientservices')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
-              color="#01579B"
-              dark
-              dense>
-              Prescription
+          color="#01579B"
+          dark
+          dense>
+          Prescriptions
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
-  <v-data-table
-    :headers="headers"
-    :items="transactions"
-    sort-by="calories"
-    class="elevation-1"
-  >
-    <template v-slot:top>
-      <v-toolbar
-        flat
-      >
-        <v-toolbar-title>My CRUD</v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
-        <v-spacer></v-spacer>
-        <v-dialog
-          v-model="dialog"
-          max-width="500px"
+
+  <v-card-text class="mt-16">
+    <div class="d-flex py-2">
+      <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
+      <div :style="$vuetify.breakpoint.mdAndUp ? 'width: 250px;' : 'width: 100%;'">
+        <v-select
+          :items="doctors"
+          clearable
+          @change="filterTable"
+          placeholder="Filter by Doctor"
+          item-text="name"
+          outlined>
+
+        </v-select>
+      </div>
+    </div>
+    <v-data-table
+      :headers="headers"
+      :items="prescription"
+      sort-by="calories"
+      class="elevation-1"
+    >
+      <template v-slot:item.actions="{ item }">
+        <v-icon
+          @click="showItem(item)"
+          color="blue"
         >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              class="mb-2"
-              v-bind="attrs"
-              v-on="on"
-            >
-              New Item
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">{{ formTitle }}</span>
-            </v-card-title>
+          mdi-eye
+        </v-icon>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Dessert name"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.calories"
-                      label="Calories"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
+      </template>
+    </v-data-table>
+  </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="close"
-              >
-                Cancel
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="save"
-              >
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5">Are you sure you want to download this prescription?</v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="red darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn href="#" color="green darken-1" text @click="deleteItemConfirm">Download</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
-    <template v-slot:item.actions="{ item }">
-     
-      <v-icon
-        
-        @click="deleteItem(item)"
-        color="blue"
-      >
-        mdi-download
-      </v-icon>
+  <v-dialog
+      v-model="dialog2"
+      :scrollable="true"
+      persistent
+      width="800"
+    >
+      <v-card flat>
 
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
-      </v-btn>
-    </template>
-  </v-data-table>
+        <v-card-title>
+          Prescriptions
+        </v-card-title>
 
+        <v-card-text>
+          <v-data-table
+            :headers="headers"
+            :items="prescriptions"
+            class="elevation-1" >
+              <template v-slot:item.actions="{ item }">
+                <v-icon
+                  small
+                  :disabled="item.url == ''"
+                  class="mr-2"
+                  @click="showPrescription(item)"
+                >
+                  mdi-eye
+                </v-icon>
+              </template>
+            </v-data-table>
+        </v-card-text>
+
+        <v-card-actions class="pa-6">
+          <v-spacer></v-spacer>
+          <v-btn outlined class="primary--text" @click="dialog2 = false">Close</v-btn>
+        </v-card-actions>
+
+      </v-card>
+    </v-dialog>
+  
 </v-card>
 </template>
 
@@ -174,8 +98,10 @@
 import { mapState } from 'vuex'
   export default {
     data: () => ({
+      dialog2: false,
       dialog: false,
-      dialogDelete: false,
+      editedItem: {},
+      doctors: [],
       headers: [
         {
           text: 'Doctor Name',
@@ -183,49 +109,18 @@ import { mapState } from 'vuex'
           sortable: false,
           value: 'name',
         },
-        { text: 'Email', value: 'email' },
-        { text: 'Message', value: 'message' },
         { text: 'Prescription', value: 'prescription' },
-        { text: 'Price', value: 'price' },
         { text: 'Actions', value: 'actions' },
-
-        
       ],
-      transactions: [],
-      desserts: [],
-      editedIndex: -1,
-      editedItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
-      },
-      defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
-      },
+      prescription: [],
+      tempprescription: [],
+      prescriptions: []
     }),
 
     computed: {
       ...mapState('auth', [
         'user'
       ]),
-      formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-      },
-    },
-
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
-      dialogDelete (val) {
-        val || this.closeDelete()
-      },
     },
 
     mounted () {
@@ -234,71 +129,74 @@ import { mapState } from 'vuex'
 
     methods: {
       async initialize () {
-        try {
+        const form = {
+          patient_id: this.user.id,
+        }
 
-          // api request
-          const transaction = await this.$axios.get(`api/authorized/prescription-by-doctors-email/${this.user.email}`)
+        let res = await this.$axios.post(`api/authorized/get-prescription`, form)
 
-          // filter doctor email
-          if (transaction?.data) {
-            transaction.data.map((el) => {
-              // push data to array
-              this.transactions.push({
-                  "name": el.name,
-                  "email": el.email,
-                  "message": el.message,
-                  "prescription": el.prescription,
-                  "price": el.price,
-              })
+        if(res.status == 200) {
+           res.data.data.forEach(r => {
+
+            this.doctors.push({
+              id: r.doctor_id,
+              name: r.doctor_name,
             })
-          }
 
-        } catch (err) {
+            this.prescription.push({
+              doctor_id: r.doctor_id,
+              name: r.doctor_name,
+              prescription: r.prescription,
+              url: r.url
+            })
+
+          })
+
+          this.tempprescription = this.prescription
+        }
+
+      },
+
+      async filterTable(data) {
+        if(data)
+          this.prescription = this.tempprescription.filter(app => app.name == data)
+        else
+          this.prescription = this.tempprescription
+      },
+
+      async showItem (item) {
+        this.prescriptions = []
+        const form = {
+          patient_id: this.user.id,
+          doctor_id: item.doctor_id,
+        }
+
+        let res = await this.$axios.post(`api/authorized/get-prescription-by-doctor`, form)
+
+        if(res.status === 200) {
+          res.data.data.forEach(r => {
+
+            this.prescriptions.push({
+              doctor_id: r.doctor_id,
+              name: r.doctor_name,
+              prescription: r.prescription,
+              url: r.url
+            })
+
+          })
+
+          this.dialog2 = true
 
         }
+
       },
 
-      editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
-
-      deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
-
-      deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
-        this.closeDelete()
-      },
-
-      close () {
-        this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      closeDelete () {
-        this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
+      showPrescription(item){
+        if(item.url) {
+          window.open(item.url)
         }
-        this.close()
-      },
+      }
+
     },
   }
 </script>

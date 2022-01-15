@@ -1,103 +1,103 @@
 <template>
-<v-card  
-   >
+<v-card flat>
+
     <v-app-bar
       absolute
       color="#01579B"
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/doctorservices"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
-   <v-spacer> </v-spacer>   
+      <v-app-bar-nav-icon @click="$router.push('/doctorservices')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
-              color="#01579B"
-              
-              dense>
-              Medical Concern
+          color="#01579B"
+          dense>
+            Medical Concern
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
-    
- <v-card flat color="#BBDEFB" class="pa-1">
-  <v-row justify="center">
-    <v-col
-    :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'"
-    >
-    </v-col>
-  </v-row>
 
-  </v-card
-  >
+    <v-card-text class="mt-16 pa-6">
+      <v-list subheader  height="570">
+        <v-subheader>Doctors</v-subheader>
+        <v-list-item
+          v-for="chat in recent"
+          :key="chat.doctor_name"
+        >
 
-    <v-toolbar
-    >
-     
+          <v-list-item-content>
+            <v-list-item-title v-text="chat.doctor_name"></v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-icon>
+          <v-app-bar-nav-icon @click="showMesssages(chat)"> <v-icon color="deep-purple accent-4">
+              mdi-message-outline
+            </v-icon>
+              </v-app-bar-nav-icon>
+          </v-list-item-icon>
 
-
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-    </v-toolbar>
-
-    <v-list subheader  height="570">
-      <v-subheader>patients</v-subheader>
-
-      <v-list-item
-        v-for="chat in recent"
-        :key="chat.title"
-      >
-        <v-list-item-icon>
-         <v-app-bar-nav-icon href="/doctorpatientinfo"> <v-icon  >
-            mdi-information
-          </v-icon>
-            </v-app-bar-nav-icon>
-        </v-list-item-icon>
-
-        <v-list-item-content>
-          <v-list-item-title v-text="chat.title"></v-list-item-title>
-        </v-list-item-content>
-
-        <v-list-item-icon>
-         <v-app-bar-nav-icon href="/doctorchat"> <v-icon :color="chat.active ? 'deep-purple accent-4' : 'grey'">
-            mdi-message-outline
-          </v-icon>
-            </v-app-bar-nav-icon>
-        </v-list-item-icon>
-      </v-list-item>
-    </v-list>
+        </v-list-item>
+      </v-list>
+    </v-card-text>
 
   </v-card>
   
 </template>
 <script>
+  import { mapState, mapMutations } from 'vuex'
+
   export default {
+    middleware({ store, redirect }) {
+      // If the user is not authenticated
+      if (!store.state.auth.loggedIn) {
+        return redirect('/patientlogin')
+      }
+    },
     data: () => ({
-      recent: [
-        {
-          active: true,
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Cent Kenneth Peria',
-        },
-        {
-          active: true,
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-          title: 'Mike Carlson',
-        },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-          title: 'Cindy Baker',
-        },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-          title: 'Ali Connors',
-        },
-      ],
+      recent: [],
+      interval: null,
       previous: [{
         title: 'Travis Howard',
         avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
       }],
     }),
+    computed: {
+      ...mapState('auth', [
+        'user'
+      ]),
+    },
+    mounted(){
+      // this.$nextTick(() => {
+      //     window.setInterval(() => {
+      //         console.log('yes')
+      //     },1000);
+      // })
+
+      this.initialize()
+    },
+    methods: {
+      ...mapMutations('chat', [
+          'setPatient'
+      ]),
+      async initialize(){
+
+        let form = {
+          patient_id: 'test',
+          doctor_id: this.user.id,
+        }
+
+        let res = await this.$axios.post(`api/authorized/get-doctor-chats`, form)
+
+        if(res.status === 200) {
+          this.recent = res.data.data
+        }
+
+      },
+      showMesssages(data){
+        this.setPatient(data)
+        this.$router.push('/doctorchat')
+
+      }
+    }
   }
 </script>

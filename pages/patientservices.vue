@@ -9,7 +9,7 @@
       color="#01579B"
       elevation="none"
     >
-          <v-app-bar-nav-icon href="/patienthome"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+          <v-app-bar-nav-icon @click="$router.push('/patienthome')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
     <v-spacer></v-spacer>
        <v-toolbar-title >
                <img
@@ -84,8 +84,8 @@
                  </div> 
                   <v-btn 
                   text
-                  color="#0277BD"  
-                  href="/patientschedule">
+                  color="#0277BD" 
+                  @click="$router.push('/patientschedule')">
                     Online checkup
                   </v-btn> 
              </v-card-actions>
@@ -110,7 +110,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patientmedicalconcern">
+                  @click="$router.push('/patientmedicalconcern')">
                     Medical concerns
                   </v-btn> 
              </v-card-actions>
@@ -135,70 +135,16 @@
                  </div>   
                   <v-btn 
                   text
-                  color="#0277BD"  
-                  href="/patientprescription">
+                  color="#0277BD" 
+                  @click="$router.push('/patientprescription')">
                    Doctor's prescription
                   </v-btn>
              </v-card-actions>
              <v-card-subtitle>View the doctor’s diagnosis and instruction</v-card-subtitle>
             </div>
           </v-alert>
- 
-         <!-- <v-alert
-         
-            outlined
-            color="#0277BD"
-          >
-            <div class="Appointment Schedule">
-              <v-card-actions>
-                
-                  <div> 
-                  <img
-                   class="d-flex justify-center"
-                    height="50"  
-                    max-width="50"    
-                    src="~assets/icon/appointment.png"
-                ><img>
-                </div> 
-                  <v-btn 
-                  text
-                  color="#0277BD"  
-                  href="/patientsetappointment">
-                    Set Appointment Schedule
-                  </v-btn>  
-             </v-card-actions>
-             <v-card-subtitle>Set appoint schedule for face to face consultation</v-card-subtitle>
-            </div>
-          </v-alert> -->
 
           <!-- <v-alert
-         
-            outlined
-            color="#0277BD"
-          >
-            <div class="Appointment Schedule">
-              <v-card-actions>
-                
-                  <div> 
-                  <img
-                   class="d-flex justify-center"
-                    height="50"  
-                    max-width="50"    
-                    src="~assets/icon/appointment.png"
-                ><img>
-                </div> 
-                  <v-btn 
-                  text
-                  color="#0277BD"  
-                  href="/patientviewappointmentslot">
-                    view Appointment Slot
-                  </v-btn>  
-             </v-card-actions>
-             <v-card-subtitle> appointment schedule for face to face consultation</v-card-subtitle>
-            </div>
-          </v-alert> -->
-
-          <v-alert
             outlined
             color="#0277BD"
           >
@@ -214,13 +160,13 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patientmedicalhistory">
+                  @click="$router.push('/patientmedicalhistory')">
                     Medical History
                   </v-btn>
              </v-card-actions>
              <v-card-subtitle>Patient medical history</v-card-subtitle>
             </div>
-          </v-alert>
+          </v-alert> -->
 
            <v-alert
             outlined
@@ -238,7 +184,7 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patientsummaryappointments">
+                  @click="$router.push('/patientsummaryappointments')">
                     My Appointments
                   </v-btn>
              </v-card-actions>
@@ -246,7 +192,7 @@
             </div>
           </v-alert>
 
-          <v-alert
+          <!-- <v-alert
             outlined
             color="#0277BD"
           >
@@ -262,13 +208,13 @@
                   <v-btn 
                   text
                   color="#0277BD"  
-                  href="/patientbillingstatement">
+                  @click="$router.push('/patientbillingstatement')">
                     Recent Payment Bills
                   </v-btn>
              </v-card-actions>
              <v-card-subtitle>Billing statement</v-card-subtitle>
             </div>
-          </v-alert>
+          </v-alert> -->
 
           
 </v-card-text>
@@ -286,6 +232,12 @@
 </template>
 <script>
   export default {
+    middleware({ store, redirect }) {
+      // If the user is not authenticated
+      if (!store.state.auth.loggedIn) {
+        return redirect('/patientlogin')
+      }
+    },
     data: () => ({
       drawer: false,
       group: null,
