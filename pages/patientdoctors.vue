@@ -92,6 +92,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
   export default {
+    layout: 'patientDefault',
     data: () => ({
       dialog: false,
       search: null,

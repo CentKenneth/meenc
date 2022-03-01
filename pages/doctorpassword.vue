@@ -96,6 +96,8 @@
 </template>
 <script>
   export default {
+    layout: 'doctorDefault',
+
     middleware({ store, redirect }) {
       // If the user is not authenticated
       if (!store.state.auth.loggedIn) {

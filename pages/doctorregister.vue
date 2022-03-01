@@ -290,7 +290,8 @@
         ],
         dlevels: ['Doctorate', 'Professional', 'Master'+'s'], collapseOnScroll: true,
         dfields: ['Anesthesiologists', 'Dermatologists', 'Internists', 'Obstetricians and gynecologists','Ophthalmologists'
-        , 'Pediatricians','Physicians', 'Psychiatrists', 'Surgeons'], collapseOnScroll: true,
+        , 'Pediatricians','Physicians', 'Psychiatrists', 'Surgeons'],
+        collapseOnScroll: true,
         genders: ['Male', 'Female', 'Custom'], collapseOnScroll: true,
 
 
@@ -328,7 +329,7 @@
             type: 'error',
             group: 'foo',
             title: 'Error!',
-            text: err.message
+            text: 'Please check your credentials thank you.'
           })
 
         } finally {

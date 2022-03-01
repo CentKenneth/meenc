@@ -20,14 +20,14 @@
 
     <v-card-text class="mt-16 pa-6">
       <v-list subheader  height="570">
-        <v-subheader>Doctors</v-subheader>
+        <v-subheader>Patient's</v-subheader>
         <v-list-item
           v-for="chat in recent"
-          :key="chat.doctor_name"
+          :key="chat.patient_name"
         >
 
           <v-list-item-content>
-            <v-list-item-title v-text="chat.doctor_name"></v-list-item-title>
+            <v-list-item-title v-text="chat.patient_name"></v-list-item-title>
           </v-list-item-content>
           <v-list-item-icon>
           <v-app-bar-nav-icon @click="showMesssages(chat)"> <v-icon color="deep-purple accent-4">
@@ -47,6 +47,8 @@
   import { mapState, mapMutations } from 'vuex'
 
   export default {
+    layout: 'doctorDefault',
+
     middleware({ store, redirect }) {
       // If the user is not authenticated
       if (!store.state.auth.loggedIn) {

@@ -234,6 +234,7 @@
 
         // api request
         const doctor = await this.$axios.get('api/authorized/doctor-email')
+        console.log(doctor)
 
         // filter doctor email
         if (doctor?.data) {
@@ -282,7 +283,7 @@
             type: 'error',
             group: 'foo',
             title: 'Error!',
-            text: err.message
+            text: 'Something went wrong'
           })
 
         } finally {

@@ -47,6 +47,7 @@
   import { mapState, mapMutations } from 'vuex'
 
   export default {
+    layout: 'patientDefault',
     middleware({ store, redirect }) {
       // If the user is not authenticated
       if (!store.state.auth.loggedIn) {

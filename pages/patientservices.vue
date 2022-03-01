@@ -93,6 +93,31 @@
             </div>
           </v-alert>
 
+          <v-alert
+            outlined
+            color="#0277BD"
+          >
+            <div class="patients">
+              <v-card-actions>
+                 <div>   
+                 <img
+                 class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    src="~assets/icon/schedule.png"
+                ><img>
+                 </div> 
+                  <v-btn 
+                  text
+                  color="#0277BD" 
+                  @click="$router.push('/patientschedulefacetoface')">
+                    Face to Face Appointment
+                  </v-btn> 
+             </v-card-actions>
+             <v-card-subtitle>Set schedule for Face to Face Appointment</v-card-subtitle>
+            </div>
+          </v-alert>
+
         <v-alert
             outlined
             color="#0277BD"
@@ -168,7 +193,7 @@
             </div>
           </v-alert> -->
 
-           <v-alert
+          <v-alert
             outlined
             color="#0277BD"
             >
@@ -186,6 +211,30 @@
                   color="#0277BD"  
                   @click="$router.push('/patientsummaryappointments')">
                     My Appointments
+                  </v-btn>
+             </v-card-actions>
+             <v-card-subtitle>Summary of appointments</v-card-subtitle>
+            </div>
+          </v-alert>
+
+          <v-alert
+            outlined
+            color="#0277BD"
+            >
+            <div class="patients">
+              <v-card-actions>
+                  <img
+                  class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    
+                    src="~assets/icon/ma.png"
+                ><img>
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  @click="$router.push('/patientsummaryappointmentsfacetoface')">
+                    My Face to Face Appointments
                   </v-btn>
              </v-card-actions>
              <v-card-subtitle>Summary of appointments</v-card-subtitle>
@@ -232,6 +281,7 @@
 </template>
 <script>
   export default {
+    layout: 'patientDefault',
     middleware({ store, redirect }) {
       // If the user is not authenticated
       if (!store.state.auth.loggedIn) {

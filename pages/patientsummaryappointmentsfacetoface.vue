@@ -15,7 +15,7 @@
         dark
         class="text-center mx-auto"
         dense>
-          My Appointments
+          My Face to Face Appointments
       </v-toolbar-title>
       
     </v-app-bar>
@@ -232,7 +232,7 @@
           patient_id: this.user.id,
           group_by: "doctor_id",
         }
-        let res = await this.$axios.post(`api/authorized/get-patient-schedule`, form)
+        let res = await this.$axios.post(`api/authorized/get-patient-schedule-face`, form)
 
         if(res.status == 200) {
           res.data.data.forEach(r => {
@@ -285,7 +285,7 @@
           doctor_id: item.doctor_id
         }
 
-        let res = await this.$axios.post(`api/authorized/get-patient-schedule`, form)
+        let res = await this.$axios.post(`api/authorized/get-patient-schedule-face`, form)
 
         if(res.status == 200) {
 
@@ -319,7 +319,7 @@
           this.editedItem.heigth = this.editedItem.height
           this.editedItem.weigth = this.editedItem.weight
 
-          let res = await this.$axios.post(`api/authorized/edit-patient-schedule`, this.editedItem)
+          let res = await this.$axios.post(`api/authorized/edit-patient-schedule-face`, this.editedItem)
 
           if(res.status == 200) {
             if (this.editedIndex > -1) {

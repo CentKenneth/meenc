@@ -224,7 +224,7 @@
             type: 'error',
             group: 'foo',
             title: 'Error!',
-            text: err.message
+            text: "Something went wrong!"
           })
 
         } finally {

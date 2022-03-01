@@ -1,5 +1,6 @@
 <template>
   <v-card
+  flat
     :loading="loading"
    :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
    class="my-1"
@@ -25,12 +26,7 @@
     </v-app-bar>
     <!-- head -->
 
-    <v-img
-      :height="$vuetify.breakpoint.smAndDown ? '250' : '750'"
-      src="https://th.bing.com/th/id/OIP.zmT8WMtoF7CcUrhQ5JRCUQHaE8?pid=ImgDet&rs=1"
-    ></v-img>
-
-    <v-card flat color="#BBDEFB" class="pa-6">
+    <v-card flat class="pa-6 mt-16">
 
     <v-card-title class="d-flex justify-center">
       <v-icon>mdi-doctor</v-icon>
@@ -79,11 +75,11 @@
 
         <br>
 
-        <div>
+        <!-- <div>
           <a href="#">Forgot Password?</a>
-        </div>
+        </div> -->
 
-        <div> 
+        <!-- <div> 
             <v-btn 
               rounded
               elevation="2"
@@ -93,7 +89,7 @@
             > 
               Create New Account
             </v-btn>
-        </div>
+        </div> -->
 
     </v-card-actions>
 
@@ -176,7 +172,7 @@
             type: 'error',
             group: 'foo',
             title: 'Error!',
-            text: err.message
+            text: 'Please check your credentials thank you.'
           })
 
         } finally {

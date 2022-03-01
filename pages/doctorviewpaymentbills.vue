@@ -16,7 +16,7 @@
               color="#01579B"
               dark
               dense>
-              Patient Concerns
+              Patient Bills
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
@@ -123,9 +123,16 @@
             v-model="valid"
             lazy-validation
           >
+            <v-text-field
+              v-model="editedItem.payments"
+              :rules="fieldRules"
+              label="Payments"
+            >
+            </v-text-field>
+
             <v-select
-              v-model="editedItem.status"
-              :items="['Done', 'Pending', 'Canceled']"
+              v-model="editedItem.payment_status"
+              :items="['Unpaid', 'Paid', 'Canceled']"
               :rules="fieldRules"
               label="Status"
             >
@@ -166,7 +173,8 @@
       editedIndex: false,
       editedItem: {
         id: '',
-        status: ''
+        payment_status: '',
+        payments: '',
       },
       dialog: false,
       dialogDelete: false,
@@ -179,9 +187,6 @@
         },
         { text: 'Email', value: 'email' },
         { text: 'Mobile #', value: 'phone' },
-        { text: 'Schedule Date', value: 'schedule_date' },
-        { text: 'Schedule Time', value: 'schedule_time' },
-        { text: 'Sysmptoms', value: 'sysmptoms' },
         { text: 'Action', value: 'actions', sortable: false },
       ],
       headers2: [
@@ -193,10 +198,8 @@
         },
         { text: 'Email', value: 'email' },
         { text: 'Mobile #', value: 'phone' },
-        { text: 'Schedule Date', value: 'schedule_date' },
-        { text: 'Schedule Time', value: 'schedule_time' },
-        { text: 'Sysmptoms', value: 'sysmptoms' },
-        { text: 'Status', value: 'status' },
+        { text: 'Payments', value: 'payments' },
+        { text: 'Payment Status', value: 'payment_status' },
         { text: 'Action', value: 'actions', sortable: false },
       ],
       dialog2: false,
@@ -237,9 +240,8 @@
                   "patient_id": el.patient_id,
                   "email": el.patient_email,
                   "phone": el.patient_phone,
-                  "schedule_date": moment(el.schedule).format("MMMM DD, YYYY"),
-                  "schedule_time": moment(el.schedule).format("h:mm:ss a"),
-                  "sysmptoms": el.diagnosis,
+                  "payments": el.payments,
+                  "payment_status": el.payment_status,
               })
             })
           }
@@ -269,10 +271,8 @@
                 "name": r.patient_name,
                 "email": r.patient_email,
                 "phone": r.patient_phone,
-                "schedule_date": moment(r.schedule).format("MMMM DD, YYYY"),
-                "schedule_time": moment(r.schedule).format("h:mm:ss a"),
-                "sysmptoms": r.diagnosis,
-                "status": r.status,
+                "payment_status": r.payment_status,
+                "payments": r.payments ? '₱' + r.payments : '₱'+0,
             })
           })
 

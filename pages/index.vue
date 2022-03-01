@@ -1,34 +1,6 @@
 <template>
-<v-container
-    class="spacing-playground pa-0"
-    fluid 
-  >
-    <v-app-bar
-      class="mx-auto my-1"
-      color="#01579B"
-      elevation="none"
-      :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
-    >
-      <v-app-bar-nav-icon 
-          color="white"
-          @click="drawer = true">
-      </v-app-bar-nav-icon>
-                
-       <v-spacer></v-spacer>
-          
-          <v-alert
-              color="#01579B"
-              dark
-              dense>
-              MEENC HEALTH CARE
-          </v-alert>
-      <v-spacer></v-spacer>
-       
-         
-
-    </v-app-bar>
-    
-  <v-card
+  
+  <!-- <v-card
     height="200" 
     outlined
     :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
@@ -79,24 +51,30 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-  </v-card>
-
-   <v-card-title class="d-flex justify-center">
+  </v-card> -->
+  <v-card flat>
+    <v-card-title class="d-flex justify-center">
       <img
-          class="d-flex justify-center"
-          height="300"  
-          max-width="300"
+          class="d-flex justify-center mt-10"
+          height="200"  
+          max-width="200"
           src="~assets/M.svg"
       ><img>
-     
     </v-card-title>
-
-  </v-container>
-
+    <v-card-text>
+      <v-card @click="$router.push('/patientlogin')" max-width="300" flat class="primary lighten-3 mx-auto pa-5 rounded-lg title text-center">
+        Patient
+      </v-card>
+      <v-card @click="$router.push('/doctorlogin')" max-width="300" flat class="primary lighten-3 mx-auto pa-5 rounded-lg title mt-2 text-center">
+        Doctor
+      </v-card>
+    </v-card-text>
+  </v-card>
 
 </template>
 <script>
   export default {
+    layout: 'default',
     data: () => ({
       drawer: false,
       group: null,

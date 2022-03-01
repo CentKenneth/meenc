@@ -16,7 +16,7 @@
               color="#01579B"
               dark
               dense>
-              Patient Concerns
+              Face to Face Patient Concerns
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
@@ -226,7 +226,7 @@
           }
 
           // api request
-          const transaction = await this.$axios.post(`api/authorized/get-patient-schedule-by-doctor`, form)
+          const transaction = await this.$axios.post(`api/authorized/get-patient-schedule-by-doctor-face`, form)
           
           // filter doctor email
           if (transaction?.data?.data) {
@@ -259,7 +259,7 @@
           doctor_id: this.user.id
         }
 
-        let res = await this.$axios.post(`api/authorized/get-patient-schedule-by-doctor`, form)
+        let res = await this.$axios.post(`api/authorized/get-patient-schedule-by-doctor-face`, form)
 
         if(res.status == 200) {
 
@@ -308,7 +308,7 @@
 
         if(valid) {
 
-          let res = await this.$axios.post(`api/authorized/edit-patient-schedule`, this.editedItem)
+          let res = await this.$axios.post(`api/authorized/edit-patient-schedule-face`, this.editedItem)
 
           if(res.status == 200) {
             if (this.editedIndex > -1) {

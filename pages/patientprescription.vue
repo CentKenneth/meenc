@@ -97,6 +97,7 @@
 <script>
 import { mapState } from 'vuex'
   export default {
+    layout: 'patientDefault',
     data: () => ({
       dialog2: false,
       dialog: false,

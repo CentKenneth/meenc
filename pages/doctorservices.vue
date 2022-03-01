@@ -1,9 +1,6 @@
 <template
 >
-<v-container
-    class="spacing-playground pa-0"
-    fluid 
-  >
+<div class="pa-0">
     <v-app-bar
       class="mx-auto my-1"
       color="#01579B"
@@ -83,7 +80,58 @@
              <v-card-subtitle>View patients Online consultation</v-card-subtitle>
             </div>
           </v-alert>
-                  <v-alert
+
+          <v-alert
+            outlined
+            color="#0277BD"
+          >
+            <div class="patients">
+              <v-card-actions>
+                 <div>   
+                 <img
+                 class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    src="~assets/icon/consult.png"
+                ><img>
+                 </div> 
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  @click="$router.push('/doctorviewcpatientconcernfacetoface')">
+                    Face to Face Schedule
+                  </v-btn> 
+             </v-card-actions>
+             <v-card-subtitle>View patients Online Face to Face Consultation</v-card-subtitle>
+            </div>
+          </v-alert>
+
+          <v-alert
+            outlined
+            color="#0277BD"
+          >
+            <div class="patients">
+              <v-card-actions>
+                 <div>   
+                 <img
+                 class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"
+                    src="~assets/icon/rb.png"
+                ><img>
+                 </div> 
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  @click="$router.push('/doctorviewpaymentbills')">
+                    Payment Bills
+                  </v-btn> 
+             </v-card-actions>
+             <v-card-subtitle>View patients payments</v-card-subtitle>
+            </div>
+          </v-alert>
+
+        <v-alert
             outlined
             color="#0277BD"
           >
@@ -179,6 +227,32 @@
                    Add Appointment slot
                   </v-btn>  
              </v-card-actions>
+             <v-card-subtitle>View appoint schedule for Online Appointment</v-card-subtitle>
+            </div>
+          </v-alert>
+
+          <v-alert
+            outlined
+            color="#0277BD"
+          >
+            <div class="Appointment Schedule">
+              <v-card-actions>
+                
+                  <div> 
+                  <img
+                   class="d-flex justify-center"
+                    height="50"  
+                    max-width="50"    
+                    src="~assets/icon/appointment.png"
+                ><img>
+                </div> 
+                  <v-btn 
+                  text
+                  color="#0277BD"  
+                  @click="$router.push('/doctoreFtoFSchedule')">
+                   Face to Face Slot
+                  </v-btn>  
+             </v-card-actions>
              <v-card-subtitle>View appoint schedule for face to face consultation</v-card-subtitle>
             </div>
           </v-alert>
@@ -215,12 +289,14 @@
   </v-card>
 
 
-  </v-container>
+  </div>
 
 
 </template>
 <script>
   export default {
+    layout: 'doctorDefault',
+
     data: () => ({
       drawer: false,
       group: null,

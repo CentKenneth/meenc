@@ -25,13 +25,8 @@
       </v-toolbar-title>
     </v-app-bar>
 
-    <v-img
-     :height="$vuetify.breakpoint.smAndDown ? '250' : '750'"
-      src="https://www.cdc.gov/bloodpressure/images/materials-for-patients.jpg"
-    ></v-img>
-
     <div>
-      <v-card color="#BBDEFB" class="rounded-xl pa-6" :disabled="submitting">
+      <v-card color="#BBDEFB" class="rounded-xl pa-6 mt-16" :disabled="submitting">
         <v-card-title >Sign Up
           <v-icon
           >mdi-account</v-icon>
@@ -106,11 +101,11 @@
               md="6"
             >
               <v-text-field
-                v-model="form['bday']"
+                v-model="form['date']"
                 :rules="fieldRules"
-                type="number"
-                label="Age"
-                placeholder="Age"
+                type="date"
+                label="Birth Day"
+                placeholder="Birth Date"
                 prepend-icon="mdi-cake-layered"
               ></v-text-field>
             </v-col>
@@ -203,7 +198,7 @@
               ></v-text-field>
             </v-col>
           <!-- vvv -->
-          <v-col>
+          <!-- <v-col>
                <v-text-field
               v-model="form['bp']"
               :rules="fieldRules"
@@ -227,9 +222,59 @@
                 placeholder="Temperature"
                 prepend-icon="mdi-thermometer-lines"
               ></v-text-field>
+            </v-col> -->
+            
+            <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+              >
+                <v-text-field
+                  name="input-13-2"
+                  v-model="form['country']"
+                  :rules="fieldRules"
+                  label="Country"
+                  value=""
+                  class="input-group--focused"
+                  prepend-icon="mdi-city-variant-outline"
+                >
+                </v-text-field>
             </v-col>
-            
-            
+
+            <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+              >
+                <v-text-field
+                  name="input-13-2"
+                  v-model="form['city']"
+                  :rules="fieldRules"
+                  label="City"
+                  value=""
+                  class="input-group--focused"
+                  prepend-icon="mdi-city-variant-outline"
+                >
+                </v-text-field>
+            </v-col>
+
+            <v-col
+              class="d-flex"
+              cols="12"
+              sm="6"
+              >
+                <v-text-field
+                  name="input-13-2"
+                  v-model="form['zip']"
+                  :rules="fieldRules"
+                  label="Zip"
+                  value=""
+                  class="input-group--focused"
+                  prepend-icon="mdi-city-variant-outline"
+                >
+                </v-text-field>
+            </v-col>
+
             <v-col
               class="d-flex"
               cols="12"
@@ -245,22 +290,7 @@
                     prepend-icon="mdi-google-street-view"
                   >
                 </v-text-field>
-            </v-col>
-              <v-col
-              class="d-flex"
-              cols="12"
-              sm="6"
-              >
-                <v-text-field
-                  name="input-13-2"
-                  v-model="form['city']"
-                  :rules="fieldRules"
-                  label="City"
-                  value=""
-                  class="input-group--focused"
-                  prepend-icon="mdi-city-variant-outline"
-                >
-                </v-text-field>
+                
             </v-col>
             
             <v-col
@@ -326,6 +356,7 @@
   </v-card>
 </template>
 <script>
+  import moment from 'moment'
   export default {
     data () {
       return {
@@ -345,6 +376,7 @@
           'bp': '',
           'temp': '',
           'bday': '',
+          'date': '',
           'gender': '',
           'email': '',
           'street_address': '',
@@ -352,6 +384,8 @@
           'password': '',
           'password_confirmation': '',
           'role': 'patient',
+          'zip': '',
+          'country': '',
         },
         emailRules: [
           v => !!v || "E-mail is required",
@@ -374,6 +408,12 @@
 
       }
      
+    },
+
+    computed: {
+      dateField() {
+        return this.form['date']
+      }
     },
 
     methods: {
@@ -406,13 +446,22 @@
             type: 'error',
             group: 'foo',
             title: 'Error!',
-            text: err.message
+            text: 'Please check your credentials thank you.'
           })
 
         } finally {
 
           this.submitting = false
 
+        }
+      }
+    },
+
+    watch: {
+      dateField(val) {
+        if(val) {
+          let years = moment().diff(val, 'years')
+          this.form['bday'] = years
         }
       }
     }

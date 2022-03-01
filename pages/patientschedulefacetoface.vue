@@ -13,7 +13,7 @@
                     color="#01579B"
                     dark
                     dense>
-                    Schedule for Online Checkup
+                    Schedule for Face to  Face Appointment
                 </v-toolbar-title>
             <v-spacer></v-spacer> 
         </v-app-bar>
@@ -156,6 +156,7 @@
 
                                 </v-text-field>
                             </v-col>
+
                             <v-col cols="12" md="6" lg="6">
                                 <v-text-field
                                     v-model="form.weigth"
@@ -165,18 +166,11 @@
 
                                 </v-text-field>
                             </v-col>
-                            <!-- <v-col cols="12" md="6" lg="6">
-                                <v-text-field
-                                    v-model="form.bday"
-                                    :rules="fieldRules"
-                                    type="date"
-                                    label="Birthday">
-
-                                </v-text-field>
-                            </v-col> -->
+                            
                         </v-row>
                         <v-row>
-                            <v-col cols="12" md="6" lg="6">
+                            
+                             <v-col cols="12" md="6" lg="6">
                                 <v-text-field
                                     v-model="form.heigth"
                                     disabled
@@ -185,11 +179,12 @@
 
                                 </v-text-field>
                             </v-col>
-                            <v-col cols="12" md="6" lg="6">
+
+                             <v-col cols="12" md="6" lg="6">
                                 <v-textarea
                                     v-model="form.diagnosis"
                                     :rules="fieldRules"
-                                    label="Symptoms">
+                                    label="Concerns">
 
                                 </v-textarea>
                             </v-col>
@@ -270,7 +265,7 @@ export default {
                     this.form.schedule_id = this.selected
                     this.form.patient_id = this.user.id
 
-                    let res = await this.$axios.post(`api/authorized/patient-schedule`, this.form)
+                    let res = await this.$axios.post(`api/authorized/patient-schedule-face`, this.form)
 
                     if(res.status == 201) {
 
@@ -279,7 +274,7 @@ export default {
                             status: 'scheduled'
                         }
 
-                        await this.$axios.post('api/authorized/schedule-doctor-update', form)
+                        await this.$axios.post('api/authorized/schedule-doctor-update-f-t-f', form)
 
                         this.$notify({
                             type: 'success',
@@ -351,7 +346,7 @@ export default {
         async fetchDoctorInfo(val) {
             if(val != '') {
                 this.doctors_info = this.doctors.filter(el => el.id == val)
-                let data = await this.$axios.get(`api/authorized/get-doctor-schedule-by-id/${val}`)
+                let data = await this.$axios.get(`api/authorized/get-doctor-schedule-by-id-f-t-f/${val}`)
                 if (data.status == 200) {
                     data.data.map(el => {
                         let obj = {

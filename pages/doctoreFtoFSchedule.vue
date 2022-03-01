@@ -13,7 +13,7 @@
                 color="#01579B"
                 dark
                 dense>
-                Appointment slot
+                Face to Face Appointment slot
             </v-toolbar-title>
       
             <v-spacer> </v-spacer> 
@@ -225,7 +225,7 @@ export default {
     methods: {
         async deleteEvent() {
             this.disabled = true
-            const data = await this.$axios.post('api/authorized/schedule-doctor-delete/' + this.form.id)
+            const data = await this.$axios.post('api/authorized/schedule-doctor-delete-f-t-f/' + this.form.id)
 
             if (data.status == 200) {
 
@@ -270,7 +270,7 @@ export default {
                 else
                     this.form.end = this.form.start
 
-                const data = await this.$axios.post('api/authorized/schedule-doctor-create', this.form)
+                const data = await this.$axios.post('api/authorized/schedule-doctor-f-t-f-create', this.form)
 
                 if (data.status == 201) {
 
@@ -299,7 +299,7 @@ export default {
                 else
                     this.form.end = this.form.start
 
-                const data = await this.$axios.post('api/authorized/schedule-doctor-update', this.form)
+                const data = await this.$axios.post('api/authorized/schedule-doctor-update-f-t-f', this.form)
 
                 if (data.status == 200) {
 
@@ -322,7 +322,7 @@ export default {
         },
         async fetchData() {
             this.events = []
-            const data = await this.$axios.get('api/authorized/schedule-doctor-get', {
+            const data = await this.$axios.get('api/authorized/schedule-doctor-f-to-f-get', {
                 params: {
                     user_id: this.user.id,
                     end: this.$refs.calendar.lastEnd.date,

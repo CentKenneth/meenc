@@ -43,7 +43,7 @@
       <v-card-text>
         <v-row justify="center">
           <v-col :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'" >
-            <v-card ref="form">
+            <v-card ref="form" flat>
               <v-card-text class="pa-4">
 
                 <v-row align="center" class="pa-4">
@@ -63,14 +63,55 @@
 
                   <v-col
                     cols="12">
+                      <v-text-field
+                        v-model="form.license"
+                        label="License"
+                        outlined
+                      >
+                      </v-text-field>
+                  </v-col>
+
+                  <v-col
+                    cols="12">
+                      <v-select
+                        v-model="form.medicines"
+                        :items="items"
+                        :menu-props="{ maxHeight: '400' }"
+                        label="Select Medicines"
+                        multiple
+                        hint="Choose from the dropdown"
+                        persistent-hint
+                      ></v-select>
+                  </v-col>
+
+                  <v-col
+                    cols="12">
                       <v-textarea
                       ref="message"
                       append-icon="mdi-message"
                       v-model="form['prescription']"
-                      label="Prescription:"
+                      label="Comments"
                       placeholder="Prescription"
                       counter="10"
                       ></v-textarea>
+                  </v-col>
+
+                  <v-col
+                    cols="12">
+                      <v-file-input
+                        v-model="form.signature"
+                        class="file-input-small-chips required"
+                        label="Signature"
+                        dense
+                        outlined
+                        chips
+                        :rules="[
+                          v => !!v || 'Signature is required.',
+                          v => !v || v.size < 3000000 || 'Image size should be less than 3 MB.',
+                        ]"
+                        accept="image/png, image/jpeg, image/bmp"
+                        prepend-icon="mdi-camera"
+                      ></v-file-input>
                   </v-col>
 
                 </v-row>
@@ -114,6 +155,8 @@
   import moment from 'moment'
 
   export default {
+    layout: 'doctorDefault',
+
     data () {
       return {
         submitting: false,
@@ -135,11 +178,21 @@
           { text: 'Sysmptoms', value: 'sysmptoms' },
           { text: 'Action', value: 'actions', sortable: false },
         ],
+        items: [
+          'Prednisolone',
+          'Dexamethasone',
+          'Loteprednol',
+          'Fluorometholone',
+          'Medrysone',
+          'Rimexolone',
+        ],
         patient: [],
         form: {
           name: '',
           date: '',
-          prescription: ''
+          prescription: '',
+          medicines: '',
+          signature: null
         }
       }
     },
@@ -196,18 +249,23 @@
         this.submitting = true
 
         if(this.form.name && this.form.prescription) {
-          let form = {
-            patient_id: this.form.name,
-            doctor_id: this.user.id,
-            prescription: this.form.prescription
-          }
 
-          const res = await this.$axios.post(`api/authorized/create-prescription`, form)
+          const payload = new FormData()
+
+          payload.append('patient_id', this.form.name)
+          payload.append('doctor_id', this.user.id)
+          payload.append('prescription', this.form.prescription)
+          payload.append('medicines', this.form.medicines)
+          payload.append('license', this.form.license)
+          payload.append('signature', this.form.signature)
+
+          const res = await this.$axios.post(`api/authorized/create-prescription`, payload)
   
           if(res.status === 201) {
             if(res.data.url) {
               this.dialog = false
               window.open(res.data.url)
+              location.reload()
             }
           }
 

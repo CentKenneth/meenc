@@ -1,5 +1,6 @@
 <template>
   <v-card
+    flat
     :loading="loading"
     :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
   >
@@ -25,12 +26,7 @@
       
     </v-app-bar>
 
-  <v-img
-    :height="$vuetify.breakpoint.smAndDown ? '250' : '750'"
-    src="https://th.bing.com/th/id/OIP.TQCo8L6PiW7sIs_Qv6EHzgHaE8?pid=ImgDet&rs=1"
-  ></v-img>
-
-  <v-card flat color="#BBDEFB" class="pa-6">
+  <v-card flat class="pa-6 mt-16">
 
     <v-card-title class="d-flex justify-center">
       <v-icon>mdi-account</v-icon>
@@ -71,18 +67,13 @@
         <v-btn
           rounded
           large
+          class="mb-5"
           color="primary"
           dark
           @click="validate"
         >
         Login
         </v-btn>
-
-        <br>
-
-        <div>
-          <a href="#">Forgot Password?</a>
-        </div>
 
         <div> 
             <v-btn 
@@ -179,7 +170,7 @@
             type: 'error',
             group: 'foo',
             title: 'Error!',
-            text: err.message
+            text: 'Please check your credentials thank you.'
           })
 
         } finally {
