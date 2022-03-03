@@ -19,7 +19,7 @@
             <v-spacer> </v-spacer> 
         </v-app-bar>
 
-        <v-card flat class="pt-10 mt-10">
+        <v-card flat class="pt-10 mt-10 pa-4">
             
             <v-row class="text-center">
                 <v-col col="12">
@@ -84,7 +84,12 @@
                                 color="primary"
                                 @click="addEvent"
                             >
-                                Add Event
+                                <div v-if="$vuetify.breakpoint.smAndUp">
+                                    Add Event
+                                </div>
+                                <v-icon v-else color="white">
+                                    mdi-plus
+                                </v-icon>
                             </v-btn>
                         </v-toolbar>
                         
@@ -124,48 +129,50 @@
                     </v-sheet>
                 </v-col>
             </v-row>
-            <v-dialog v-model="dialog" persistent scrollable width="500">
-                <v-card flat :disabled="disabled">
-                    <v-card-title>
-                        Event
-                    </v-card-title>
-                    <v-card-text class="py-0 my-0 pt-4">
 
-                        <v-text-field outlined label="Name" v-model="form.name">
-                        </v-text-field>
-
-                        <v-text-field outlined label="Start Date" type="date" v-model="form.start_date">
-                        </v-text-field>
-
-                        <v-text-field outlined label="Start Time" type="time" v-model="form.start_time">
-                        </v-text-field>
-
-                        <v-text-field outlined label="End Date" type="date" v-model="form.end_date">
-                        </v-text-field>
-
-                        <v-text-field outlined label="End Time" type="time" v-model="form.end_time">
-                        </v-text-field>
-
-                        <v-select outlined label="Status" placeholder="Status" v-model="form.status" :items="['pending', 'canceled', 'scheduled']">
-                        </v-select>
-
-                    </v-card-text>
-                    <v-card-actions class="px-6 pb-4">
-                        <v-spacer></v-spacer>
-                        <v-btn class="justify-center white--text" color="grey darken-2" @click="dialog = false">
-                            Cancel
-                        </v-btn>
-                        <v-btn class="justify-center" color="primary" @click="saveSchedule">
-                            {{action}}
-                        </v-btn>
-                        <v-btn v-if="action == 'Update'" class="justify-center white--text" color="red" @click="deleteEvent">
-                            Delete
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
             <notifications group="foo" />
         </v-card>
+
+        <v-dialog v-model="dialog" persistent scrollable width="500">
+            <v-card flat :disabled="disabled">
+                <v-card-title>
+                    Event
+                </v-card-title>
+                <v-card-text class="py-0 my-0 pt-4">
+
+                    <v-text-field outlined label="Name" v-model="form.name">
+                    </v-text-field>
+
+                    <v-text-field outlined label="Start Date" type="date" v-model="form.start_date">
+                    </v-text-field>
+
+                    <v-text-field outlined label="Start Time" type="time" v-model="form.start_time">
+                    </v-text-field>
+
+                    <v-text-field outlined label="End Date" type="date" v-model="form.end_date">
+                    </v-text-field>
+
+                    <v-text-field outlined label="End Time" type="time" v-model="form.end_time">
+                    </v-text-field>
+
+                    <v-select outlined label="Status" placeholder="Status" v-model="form.status" :items="['pending', 'canceled', 'scheduled']">
+                    </v-select>
+
+                </v-card-text>
+                <v-card-actions class="px-6 pb-4">
+                    <v-spacer></v-spacer>
+                    <v-btn class="justify-center white--text" color="grey darken-2" @click="dialog = false">
+                        Cancel
+                    </v-btn>
+                    <v-btn class="justify-center" color="primary" @click="saveSchedule">
+                        {{action}}
+                    </v-btn>
+                    <v-btn v-if="action == 'Update'" class="justify-center white--text" color="red" @click="deleteEvent">
+                        Delete
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
 
     </v-card>
 </template>
@@ -220,6 +227,7 @@ export default {
 
     async mounted() {
         await this.fetchData()
+        console.log(moment().isoWeekday())
     },
 
     methods: {

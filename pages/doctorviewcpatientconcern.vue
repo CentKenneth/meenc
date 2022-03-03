@@ -1,7 +1,6 @@
 <template>
 
-<v-card  flat 
-   >
+<v-card  flat class="ma-2">
     <v-app-bar
       
       absolute
@@ -55,7 +54,7 @@
       v-model="dialog2"
       :scrollable="true"
       persistent
-      width="800"
+      width="900"
     >
       <v-card flat>
 
@@ -103,9 +102,9 @@
       v-model="dialog"
       :scrollable="true"
       persistent
-      width="500"
+      width="900"
     >
-      <v-card flat :disabled="disabled">
+      <v-card flat :disabled="disabled" class="pa-2">
 
         <v-progress-linear
           v-if="disabled"
@@ -114,22 +113,31 @@
         ></v-progress-linear>
 
         <v-card-title>
-          Edit Form
+          Patients Information Form
         </v-card-title>
 
-        <v-card-text>
+        <v-card-text class="py-4 px-6">
           <v-form
             ref="form"
             v-model="valid"
             lazy-validation
           >
-            <v-select
-              v-model="editedItem.status"
-              :items="['Done', 'Pending', 'Canceled']"
-              :rules="fieldRules"
-              label="Status"
-            >
-            </v-select>
+            <v-row v-for="(layout, index) in layouts" :key="index">
+              <v-col v-if="layout.title" class="title font-weight-bold">
+                  {{layout.title}}
+              </v-col>
+              <template v-else>
+                <v-col v-for="(fields, indx) in layout" :key="indx" class="pa-0 ma-0 px-2" cols="12" md="3">
+                  <v-text-field
+                    v-model="editedItem[fields]"
+                    :label="labels[fields]"
+                    outlined>
+
+                  </v-text-field>
+                </v-col>
+              </template>
+
+            </v-row>
           </v-form>
         </v-card-text>
 
@@ -148,6 +156,9 @@
 <script>
   import moment from 'moment'
   import { mapState } from 'vuex'
+  import layout from '~/pages/patient-form-layout'
+  import labels from '~/pages/patient-form-layout-labels'
+
   export default {
     layout: 'doctorDefault',
 
@@ -158,6 +169,8 @@
       }
     },
     data: () => ({
+      layouts: layout.layout,
+      labels: labels.labels,
       disabled: false,
       valid: true,
       fieldRules: [
@@ -165,8 +178,57 @@
       ],
       editedIndex: false,
       editedItem: {
-        id: '',
-        status: ''
+        "id": '',
+        "status": '',
+
+        "case-history": '',
+        "other-history": '',
+        "chief-complaints": '',
+        "other-complaints": '',
+        // external examination
+        "cornea": "",
+        "conjunctiva": "",
+        "eyelids": "",
+        "mgd": "",
+        "lens": "",
+        "pupil": "",
+        "iris": "",
+        "puncta": "",
+        // refraction
+        "oldrx-od": "",
+        "oldrx-sph": "",
+        "oldrx-cx": "",
+        "oldrx-os": "",
+        "oldrx-os-sph": "",
+        "oldrx-os-cx": "",
+        "oldrx-add": "",
+
+        "newrx-od": "",
+        "newrx-sph": "",
+        "newrx-cx": "",
+        "newrx-os": "",
+        "newrx-os-sph": "",
+        "newrx-os-cx": "",
+        "newrx-add": "",
+
+        "fva-odsc": "",
+        "fva-ossc": "",
+        "fva-ousc": "",
+        "fva-odcc": "",
+        "fva-oscc": "",
+        "fva-oucc": "",
+
+        "nva-ousc": "",
+        "nva-oucc": "",
+        "nva-pdod": "",
+        "nva-pdos": "",
+        "nva-pdou": "",
+
+        "doctor-diagnosis": "",
+        "management": "",
+        "type-lens": "",
+        "type-frame": "",
+
       },
       dialog: false,
       dialogDelete: false,
