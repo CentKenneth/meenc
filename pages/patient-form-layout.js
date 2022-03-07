@@ -10,12 +10,12 @@ export default {
         ],
         {title: "Case History"},
         [
-            "case-history",
-            "other-history"
+            "case_history",
+            "other_history"
         ],
         [
-            "chief-complaints",
-            "other-complaints"
+            "chief_complaints",
+            "other_complaints"
         ],
         {title: "External Examination"},
         [
@@ -32,53 +32,53 @@ export default {
         ],
         {title: "Refraction"},
         [
-            "oldrx-od",
-            "oldrx-sph",
-            "oldrx-cx",
-            "oldrx-os"
+            "oldrx_od",
+            "oldrx_sph",
+            "oldrx_cx",
+            "oldrx_os"
         ],
         [
-            "oldrx-os-sph",
-            "oldrx-os-cx",
-            "oldrx-add"
+            "oldrx_os_sph",
+            "oldrx_os_cx",
+            "oldrx_add"
         ],
         [
-            "newrx-od",
-            "newrx-sph",
-            "newrx-cx",
-            "newrx-os"
+            "newrx_od",
+            "newrx_sph",
+            "newrx_cx",
+            "newrx_os"
         ],
         [
-            "newrx-os-sph",
-            "newrx-os-cx",
-            "newrx-add"
+            "newrx_os_sph",
+            "newrx_os_cx",
+            "newrx_add"
         ],
         [
-            "fva-odsc",
-            "fva-ossc",
-            "fva-ousc",
-            "fva-odcc"
+            "fva_odsc",
+            "fva_ossc",
+            "fva_ousc",
+            "fva_odcc"
         ],
         [
-            "fva-oscc",
-            "fva-oucc"
+            "fva_oscc",
+            "fva_oucc"
         ],
         [
-            "nva-ousc",
-            "nva-oucc",
-            "nva-pdod",
-            "nva-pdos"
+            "nva_ousc",
+            "nva_oucc",
+            "nva_pdod",
+            "nva_pdos"
         ],
         [
-            "nva-pdou"
+            "nva_pdou"
         ],
         [
-            "doctor-diagnosis",
+            "doctor_diagnosis",
             "management"
         ],
         [
-            "type-lens",
-            "type-frame"
+            "type_lens",
+            "type_frame"
         ],
         [
             'status'
