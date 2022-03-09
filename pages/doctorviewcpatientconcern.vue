@@ -183,6 +183,10 @@
 
         "case_history": '',
         "other_history": '',
+
+        "address": '',
+        "bday": '',
+
         "chief_complaints": '',
         "other_complaints": '',
         // external examination
@@ -336,6 +340,8 @@
                 "schedule_date": moment(r.schedule).format("MMMM DD, YYYY"),
                 "schedule_time": moment(r.schedule).format("h:mm:ss a"),
                 "sysmptoms": r.diagnosis,
+                "bday": r.bday,
+                "address": r.address,
                 "status": r.status,
                 "case_history": r.conjunctiva,
                 "other_history": r.conjunctiva,
@@ -404,7 +410,9 @@
         }
       },
       editItem (item) {
-        console.log(item)
+        console.log(moment().diff(item['bday'], 'years'))
+        console.log(item['bday'])
+        item['bday'] = item['bday'] ? moment().diff(item['bday'], 'years') : 0
         this.editedIndex = this.transactionsDialog.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true

@@ -137,7 +137,12 @@
             <v-card flat :disabled="disabled">
                 <v-card-title>
                     Event
+                    <v-spacer></v-spacer>
+                    <v-btn depressed color="primary">
+                        Add Bulk Event
+                    </v-btn>
                 </v-card-title>
+
                 <v-card-text class="py-0 my-0 pt-4">
 
                     <v-text-field outlined label="Name" v-model="form.name">
@@ -159,6 +164,23 @@
                     </v-select>
 
                 </v-card-text>
+
+                <v-card-text class="py-0 my-0 pt-4">
+
+                    <v-text-field outlined label="Name" v-model="form.name">
+                    </v-text-field>
+
+                    <v-text-field outlined label="Start Time" type="time" v-model="form.start_time">
+                    </v-text-field>
+
+                    <v-text-field outlined label="End Time" type="time" v-model="form.end_time">
+                    </v-text-field>
+
+                    <v-select outlined label="Status" placeholder="Status" v-model="form.status" :items="['pending', 'canceled', 'scheduled']">
+                    </v-select>
+
+                </v-card-text>
+
                 <v-card-actions class="px-6 pb-4">
                     <v-spacer></v-spacer>
                     <v-btn class="justify-center white--text" color="grey darken-2" @click="dialog = false">
@@ -253,6 +275,8 @@ export default {
             this.disabled = false
         },
         addEvent() {
+        console.log(moment().day(0))
+
             this.form = {}
             this.action = "Add"
             this.dialog = true

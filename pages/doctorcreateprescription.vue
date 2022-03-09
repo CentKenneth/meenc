@@ -45,13 +45,17 @@
           <v-col :max-width="$vuetify.breakpoint.smAndDown ? '100%' : '100%'" >
             <v-card ref="form" flat>
               <v-card-text class="pa-4">
+                <v-card-title>
+                  Create Prescription
+                </v-card-title>
 
                 <v-row align="center" class="pa-4">
-                  <v-col
+                  <v-col class="pa-0"
                     cols="12">
                       <v-select
                         v-model="form['name']"
                         disabled
+                        outlined
                         :items="patient"
                         item-text="name"
                         item-value="patient_id"
@@ -62,6 +66,29 @@
                   </v-col>
 
                   <v-col
+                    class="pa-0"
+                    cols="12">
+                      <v-text-field
+                        v-model="form.clinic_name"
+                        label="Clinic Name"
+                        outlined
+                      >
+                      </v-text-field>
+                  </v-col>
+
+                  <v-col
+                    class="pa-0"
+                    cols="12">
+                      <v-text-field
+                        v-model="form.clinic_address"
+                        label="Clinic Address"
+                        outlined
+                      >
+                      </v-text-field>
+                  </v-col>
+
+                  <v-col
+                    class="pa-0"
                     cols="12">
                       <v-text-field
                         v-model="form.license"
@@ -72,10 +99,12 @@
                   </v-col>
 
                   <v-col
+                    class="pa-0"
                     cols="12">
                       <v-select
                         v-model="form.medicines"
                         :items="items"
+                        outlined
                         :menu-props="{ maxHeight: '400' }"
                         label="Select Medicines"
                         multiple
@@ -85,9 +114,11 @@
                   </v-col>
 
                   <v-col
+                    class="pa-0"
                     cols="12">
                       <v-textarea
                       ref="message"
+                      outlined
                       append-icon="mdi-message"
                       v-model="form['prescription']"
                       label="Comments"
@@ -190,6 +221,8 @@
         form: {
           name: '',
           date: '',
+          clinic_name: '',
+          clinic_address: '',
           prescription: '',
           medicines: '',
           signature: null
@@ -258,6 +291,8 @@
           payload.append('medicines', this.form.medicines)
           payload.append('license', this.form.license)
           payload.append('signature', this.form.signature)
+          payload.append('clinic_name', this.form.clinic_name)
+          payload.append('clinic_address', this.form.clinic_address)
 
           const res = await this.$axios.post(`api/authorized/create-prescription`, payload)
   

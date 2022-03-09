@@ -2,7 +2,7 @@ export default {
     layout: [
         [
             "name",
-            "age",
+            "bday",
             "occupation"
         ],
         [

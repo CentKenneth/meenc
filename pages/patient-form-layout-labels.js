@@ -1,7 +1,7 @@
 export default {
     labels: {
         "name": "Px Name",
-        "age": "Age",
+        "bday": "Age",
         "occupation": "Occupation",
         "address": "Address",
         "status": 'Appointment Status',
