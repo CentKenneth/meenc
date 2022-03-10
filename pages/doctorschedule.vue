@@ -136,48 +136,70 @@
         <v-dialog v-model="dialog" persistent scrollable width="500">
             <v-card flat :disabled="disabled">
                 <v-card-title>
-                    Event
+                    Event 
                     <v-spacer></v-spacer>
-                    <v-btn depressed color="primary">
+                    <v-btn v-if="action != 'Update' && showSingle" @click="showBulk = true, showSingle = false" depressed color="primary">
                         Add Bulk Event
+                    </v-btn>
+                    <v-btn v-else @click="showBulk = false, showSingle = true" depressed color="primary">
+                        Add Single Event
                     </v-btn>
                 </v-card-title>
 
-                <v-card-text class="py-0 my-0 pt-4">
+                <v-card-text v-if="showSingle" class="py-0 my-0 pt-4">
+                    <v-form
+                        ref="form"
+                        v-model="valid"
+                        lazy-validation>
 
-                    <v-text-field outlined label="Name" v-model="form.name">
-                    </v-text-field>
+                        <v-text-field :rules="fieldRules" outlined label="Name" v-model="form.name">
+                        </v-text-field>
 
-                    <v-text-field outlined label="Start Date" type="date" v-model="form.start_date">
-                    </v-text-field>
+                        <v-text-field :rules="fieldRules" outlined label="Start Date" type="date" v-model="form.start_date">
+                        </v-text-field>
 
-                    <v-text-field outlined label="Start Time" type="time" v-model="form.start_time">
-                    </v-text-field>
+                        <v-text-field :rules="fieldRules" outlined label="Start Time" type="time" v-model="form.start_time">
+                        </v-text-field>
 
-                    <v-text-field outlined label="End Date" type="date" v-model="form.end_date">
-                    </v-text-field>
+                        <v-text-field :rules="fieldRules" outlined label="End Date" type="date" v-model="form.end_date">
+                        </v-text-field>
 
-                    <v-text-field outlined label="End Time" type="time" v-model="form.end_time">
-                    </v-text-field>
+                        <v-text-field :rules="fieldRules" outlined label="End Time" type="time" v-model="form.end_time">
+                        </v-text-field>
 
-                    <v-select outlined label="Status" placeholder="Status" v-model="form.status" :items="['pending', 'canceled', 'scheduled']">
-                    </v-select>
+                        <v-select :rules="fieldRules" outlined label="Status" placeholder="Status" v-model="form.status" :items="['pending', 'canceled', 'scheduled']">
+                        </v-select>
+
+                    </v-form>
 
                 </v-card-text>
 
-                <v-card-text class="py-0 my-0 pt-4">
+                <v-card-text v-else class="py-0 my-0 pt-4">
+                    <v-form
+                        ref="form2"
+                        v-model="valid2"
+                        lazy-validation>
 
-                    <v-text-field outlined label="Name" v-model="form.name">
-                    </v-text-field>
+                            <v-text-field :rules="fieldRules" outlined label="Name" v-model="form.name">
+                            </v-text-field>
 
-                    <v-text-field outlined label="Start Time" type="time" v-model="form.start_time">
-                    </v-text-field>
+                            <v-select :rules="fieldRules"
+                                v-model="weekDays"
+                                :items="weeks"
+                                outlined
+                                item-text="label"
+                                item-value="value"
+                                label="Select Day"
+                                multiple
+                                chips
+                            ></v-select>
 
-                    <v-text-field outlined label="End Time" type="time" v-model="form.end_time">
-                    </v-text-field>
+                            <v-text-field :rules="fieldRules" outlined label="Start Time" type="time" v-model="form.start_time">
+                            </v-text-field>
 
-                    <v-select outlined label="Status" placeholder="Status" v-model="form.status" :items="['pending', 'canceled', 'scheduled']">
-                    </v-select>
+                            <v-text-field :rules="fieldRules" outlined label="End Time" type="time" v-model="form.end_time">
+                            </v-text-field>
+                    </v-form>
 
                 </v-card-text>
 
@@ -199,7 +221,7 @@
     </v-card>
 </template>
 <script>
-import moment from 'moment'
+import moment, { weekdays } from 'moment'
 import { mapState } from 'vuex'
 export default {
     layout: 'doctorDefault',
@@ -207,6 +229,44 @@ export default {
     name: "Schedule",
     data() {
         return {
+            showSingle: true,
+            showBulk: false,
+            weekDays: [],
+            valid: false,
+            valid2: false,
+            weeks: [
+                {
+                    label: 'Sundany',
+                    value: 0,
+                },
+                {
+                    label: 'Monday',
+                    value: 1,
+                },
+                {
+                    label: 'Tuesday',
+                    value: 2,
+                },
+                {
+                    label: 'Wednesday',
+                    value: 3,
+                },
+                {
+                    label: 'Thursday',
+                    value: 4,
+                },
+                {
+                    label: 'Friday',
+                    value: 5,
+                },
+                {
+                    label: 'Saturday',
+                    value: 6,
+                }
+            ],
+            fieldRules: [
+                v => !!v || "this field is required",
+            ],
             disabled: false,
             action: 'Add',
             form: {
@@ -275,7 +335,7 @@ export default {
             this.disabled = false
         },
         addEvent() {
-        console.log(moment().day(0))
+        console.log(moment().day(0).format('YYYY-MM-DD'))
 
             this.form = {}
             this.action = "Add"
@@ -291,34 +351,71 @@ export default {
         },
         async saveSchedule() {
             if (this.action == 'Add') {
-
                 this.disabled = true
 
-                this.form.start = this.form.start_date + ' ' + (this.form.start_time ? this.form.start_time : '00:00:00')
-                this.form.user_id = this.user.id
+                if(this.showSingle) {
+                    const valid = this.$refs.form.validate()
 
-                if (this.form.end_date)
-                    this.form.end = this.form.end_date + ' ' + (this.form.end_time ? this.form.end_time : '00:00:00')
-                else
-                    this.form.end = this.form.start
+                    if(valid) {
 
-                const data = await this.$axios.post('api/authorized/schedule-doctor-create', this.form)
+                        this.form.start = this.form.start_date + ' ' + (this.form.start_time ? this.form.start_time : '00:00:00')
+                        this.form.user_id = this.user.id
 
-                if (data.status == 201) {
+                        if (this.form.end_date)
+                            this.form.end = this.form.end_date + ' ' + (this.form.end_time ? this.form.end_time : '00:00:00')
+                        else
+                            this.form.end = this.form.start
 
-                    this.dialog = false
+                        const data = await this.$axios.post('api/authorized/schedule-doctor-create', this.form)
 
-                    this.$notify({
-                        type: 'success',
-                        group: 'foo',
-                        title: 'Success!',
-                        text: 'Successfully Created!'
-                    })
+                        if (data.status == 201) {
 
-                    await this.fetchData()
+                            this.dialog = false
 
+                            this.$notify({
+                                type: 'success',
+                                group: 'foo',
+                                title: 'Success!',
+                                text: 'Successfully Created!'
+                            })
+
+                            await this.fetchData()
+
+                        }
+
+                    }
+                } else {
+                    const valid2 = this.$refs.form2.validate()
+
+                    if(valid2) {
+
+                        if(this.weekDays.length > 0) {
+                            this.weekDays.forEach(async day => {
+
+                                this.form.start = moment().day(day).format('YYYY-MM-DD') + ' ' + (this.form.start_time ? this.form.start_time : '00:00:00')
+                                this.form.user_id = this.user.id
+
+                                if (moment().day(day).format('YYYY-MM-DD'))
+                                    this.form.end = moment().day(day).format('YYYY-MM-DD') + ' ' + (this.form.end_time ? this.form.end_time : '00:00:00')
+                                else
+                                    this.form.end = moment().day(day).format('YYYY-MM-DD')
+
+                                const data = await this.$axios.post('api/authorized/schedule-doctor-create', this.form)
+
+                                if (data.status == 201) {
+
+                                    await this.fetchData()
+
+                                }
+
+                            })
+                        }
+
+                        this.dialog = false
+
+                    }
                 }
-
+                
                 this.disabled = false
 
             } else {
