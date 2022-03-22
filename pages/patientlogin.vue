@@ -97,6 +97,8 @@
 
 </template>
 <script>
+  import head from '~/pages/_headServices'
+
   export default {
     middleware({ store, redirect }) {
       // If the user is not authenticated
@@ -104,6 +106,9 @@
         return redirect('/patienthome')
       }
     },
+    mixins: [
+      head
+    ],
     data () {
       return {
         valid: true,

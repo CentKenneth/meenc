@@ -19,6 +19,49 @@
               Face to Face Patient Concerns
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
+    <div>
+        <v-menu
+          :close-on-content-click="false"
+          :nudge-width="300"
+          offset-x>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon @click="updateNotifications" color="white" v-bind="attrs" v-on="on">
+              mdi-message
+            </v-icon>
+            <v-avatar class="ml-n3 mt-n3" size="16" color="red" style="color:white;">
+              {{counter}}
+            </v-avatar>
+          </template>
+          <v-card flat>
+            <v-card-text class="">
+              Messages
+            </v-card-text>
+            <v-card-text class="pt-0" v-if="notifications.length > 0">
+                <div class="d-flex flex-column" v-for="notification in notifications" :key="notification.id">
+                  <v-divider></v-divider>
+                  <div class="py-3">
+                    <div>
+                      {{notification.messages}}
+                    </div>
+                    <div class="caption text-right">
+                      {{convertDate(notification.created_at)}}
+                    </div>
+                  </div>
+                </div>
+                <v-divider></v-divider>
+                <div class="pt-4 text-center">
+                  <v-btn 
+                    class="pa-0 mt-n2"
+                    text
+                    color="#0277BD"  
+                    @click="$router.push('/doctormedicalconcern')">
+                    View all
+                  </v-btn>
+                </div>
+            </v-card-text>
+          </v-card>
+        </v-menu>
+      </div>
     </v-app-bar>
 
   <v-card-text class="pa-4 mt-16">
@@ -103,9 +146,9 @@
       v-model="dialog"
       :scrollable="true"
       persistent
-      width="500"
+      width="900"
     >
-      <v-card flat :disabled="disabled">
+      <v-card flat :disabled="disabled" class="pa-2">
 
         <v-progress-linear
           v-if="disabled"
@@ -114,22 +157,31 @@
         ></v-progress-linear>
 
         <v-card-title>
-          Edit Form
+          Patients Information Form
         </v-card-title>
 
-        <v-card-text>
+        <v-card-text class="py-4 px-6">
           <v-form
             ref="form"
             v-model="valid"
             lazy-validation
           >
-            <v-select
-              v-model="editedItem.status"
-              :items="['Done', 'Pending', 'Canceled']"
-              :rules="fieldRules"
-              label="Status"
-            >
-            </v-select>
+            <v-row v-for="(layout, index) in layouts" :key="index">
+              <v-col v-if="layout.title" class="title font-weight-bold">
+                  {{layout.title}}
+              </v-col>
+              <template v-else>
+                <v-col v-for="(fields, indx) in layout" :key="indx" class="pa-0 ma-0 px-2" cols="12" md="3">
+                  <v-text-field
+                    v-model="editedItem[fields]"
+                    :label="labels[fields]"
+                    outlined>
+
+                  </v-text-field>
+                </v-col>
+              </template>
+
+            </v-row>
           </v-form>
         </v-card-text>
 
@@ -148,8 +200,15 @@
 <script>
   import moment from 'moment'
   import { mapState } from 'vuex'
+  import layout from '~/pages/patient-form-layout'
+  import labels from '~/pages/patient-form-layout-labels'
+  import shared from '~/pages/_doctorshared'
+  import head from '~/pages/_headServices'
+
   export default {
     layout: 'doctorDefault',
+
+    mixins: [shared, head],
 
     middleware({ store, redirect }) {
       // If the user is not authenticated
@@ -158,6 +217,8 @@
       }
     },
     data: () => ({
+      layouts: layout.layout,
+      labels: labels.labels,
       disabled: false,
       valid: true,
       fieldRules: [
@@ -272,7 +333,52 @@
                 "schedule_date": moment(r.schedule).format("MMMM DD, YYYY"),
                 "schedule_time": moment(r.schedule).format("h:mm:ss a"),
                 "sysmptoms": r.diagnosis,
+                "bday": r.bday,
+                "address": r.address,
                 "status": r.status,
+                "case_history": r.conjunctiva,
+                "other_history": r.conjunctiva,
+                "chief_complaints": r.conjunctiva,
+                "other_complaints": r.conjunctiva,
+                "cornea": r.cornea,
+                "conjunctiva": r.conjunctiva,
+                "eyelids": r.eyelids,
+                "mgd": r.mgd,
+                "lens": r.lens,
+                "pupil": r.pupil,
+                "iris": r.iris,
+                "puncta": r.puncta,
+                "oldrx_od": r.oldrx_od,
+                "oldrx_sph": r.oldrx_sph,
+                "oldrx_cx": r.oldrx_cx,
+                "oldrx_os": r.oldrx_os,
+                "oldrx_os_sph": r.oldrx_os_sph,
+                "oldrx_os_cx": r.oldrx_os_cx,
+                "oldrx_add": r.oldrx_add,
+                "newrx_od": r.newrx_od,
+                "newrx_sph": r.newrx_sph,
+                "newrx_cx": r.newrx_cx,
+
+                "newrx_os": r.newrx_cx,
+                "newrx_os_sph": r.newrx_cx,
+                "newrx_os_cx": r.newrx_os_cx,
+                "newrx_add": r.newrx_add,
+
+                "fva_odsc": r.fva_odsc,
+                "fva_ossc": r.fva_ossc,
+                "fva_ousc": r.fva_ousc,
+                "fva_odcc": r.fva_odcc,
+                "fva_oscc": r.fva_oscc,
+                "fva_oucc": r.fva_oucc,
+                "nva_ousc": r.nva_ousc,
+
+                "nva_pdod": r.nva_pdod,
+                "nva_pdos": r.nva_pdos,
+                "nva_pdou": r.nva_pdou,
+                "doctor_diagnosis": r.doctor_diagnosis,
+                "management": r.management,
+                "type_lens": r.type_lens,
+                "type_frame": r.type_frame,
             })
           })
 

@@ -16,6 +16,49 @@
                     Schedule for Online Checkup
                 </v-toolbar-title>
             <v-spacer></v-spacer> 
+            <div>
+                <v-menu
+                :close-on-content-click="false"
+                :nudge-width="300"
+                offset-x>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon @click="updateNotifications" color="white" v-bind="attrs" v-on="on">
+                    mdi-message
+                    </v-icon>
+                    <v-avatar class="ml-n3 mt-n3" size="16" color="red" style="color:white;">
+                    {{counter}}
+                    </v-avatar>
+                </template>
+                <v-card flat>
+                    <v-card-text class="">
+                    Messages
+                    </v-card-text>
+                    <v-card-text class="pt-0" v-if="notifications.length > 0">
+                        <div class="d-flex flex-column" v-for="notification in notifications" :key="notification.id">
+                        <v-divider></v-divider>
+                        <div class="py-3">
+                            <div>
+                            {{notification.messages}}
+                            </div>
+                            <div class="caption text-right">
+                            {{convertDate(notification.created_at)}}
+                            </div>
+                        </div>
+                        </div>
+                        <v-divider></v-divider>
+                        <div class="pt-4 text-center">
+                        <v-btn 
+                            class="pa-0 mt-n2"
+                            text
+                            color="#0277BD"  
+                            @click="$router.push('/patientmedicalconcern')">
+                            View all
+                        </v-btn>
+                        </div>
+                    </v-card-text>
+                </v-card>
+                </v-menu>
+            </div>
         </v-app-bar>
 
         <v-form
@@ -108,25 +151,43 @@
                     <v-card-title>
                         Doctor Schedule This Week
                     </v-card-title>
-                    <v-card-text class="d-flex">
+                    <v-card-text class="d-flex flex-column">
 
-                        <v-card
-                            v-for="schedule in schedules"
-                            :key="schedule.id" flat class="mx-2"
-                            :class="selected == schedule.id ? 'purple' : schedule.status == 'pending' ? 'primary' : 'grey'"
-                            :disabled="schedule.status != 'pending'"
-                            style="cursor: pointer;"
-                            @click="selectSched(schedule.id)"
-                            width="170px">
-                            <v-card-text class="white--text">
-                                <div class="text-center">
-                                    {{formatDate(schedule.start) + ' - ' + formatEnd(schedule.end)}}
-                                </div>
-                                <div v-if="schedule.status != 'pending'" class="text-center">
-                                    Not Available
-                                </div>
-                            </v-card-text>
-                        </v-card>
+                        <v-container class="d-flex mb-5" :class="$vuetify.breakpoint.smAndUp ? '' : 'flex-column'">
+                            <v-card
+                                v-for="(schedule, index) in filteredSchedules"
+                                :key="index" flat class="mx-2"
+                                :class="selectedData == schedule ? 'purple' : 'primary'"
+                                style="cursor: pointer;"
+                                @click="selectSchedUniq(schedule)"
+                                width="170px">
+                                <v-card-text class="white--text">
+                                    <div class="text-center">
+                                        {{schedule}}
+                                    </div>
+                                </v-card-text>
+                            </v-card>
+                        </v-container>
+
+                        <v-container v-if="filterTime.length > 0" class="d-flex" :class="$vuetify.breakpoint.smAndUp ? '' : 'flex-column'">
+                            <v-card
+                                v-for="schedule in filterTime"
+                                :key="schedule.id" flat class="mx-2"
+                                :class="selected == schedule.id ? 'purple' : schedule.status == 'pending' ? 'primary' : 'grey'"
+                                :disabled="schedule.status != 'pending'"
+                                style="cursor: pointer;"
+                                @click="selectSched(schedule.id)"
+                                width="170px">
+                                <v-card-text class="white--text">
+                                    <div class="text-center">
+                                        {{formatDate(schedule.start) + ' - ' + formatEnd(schedule.end)}}
+                                    </div>
+                                    <div v-if="schedule.status != 'pending'" class="text-center">
+                                        Not Available
+                                    </div>
+                                </v-card-text>
+                            </v-card>
+                        </v-container>
 
                     </v-card-text>
                 </v-card>
@@ -193,6 +254,22 @@
 
                                 </v-textarea>
                             </v-col>
+                            <v-col cols="12">
+                                <v-file-input
+                                    v-model="form.image"
+                                    class="file-input-small-chips required"
+                                    label="Image"
+                                    dense
+                                    outlined
+                                    chips
+                                    :rules="[
+                                    v => !!v || 'Image is required.',
+                                    v => !v || v.size < 3000000 || 'Image size should be less than 3 MB.',
+                                    ]"
+                                    accept="image/png, image/jpeg, image/bmp"
+                                    append-icon="mdi-camera"
+                                ></v-file-input>
+                            </v-col>
                         </v-row>
                     </v-card-text>
                 </v-card>
@@ -211,9 +288,12 @@
 <script>
     import moment from 'moment'
     import { mapActions, mapState } from 'vuex'
+  import shared from '~/pages/_patientshared'
+  import head from '~/pages/_headServices'
 
 export default {
     layout: 'patientDefault',
+    mixins: [shared,head],
     middleware({ store, redirect }) {
       // If the user is not authenticated
       if (!store.state.auth.loggedIn) {
@@ -222,6 +302,8 @@ export default {
     },
     data() {
         return {
+            filterTime: [],
+            selectedData: '',
             form: {
                 "specialization": '',
                 "doctor_id": '',
@@ -229,7 +311,8 @@ export default {
                 "name": '',
                 "weigth": '',
                 "diagnosis": '',
-                "heigth": ''
+                "heigth": '',
+                "image": null
             },
             selectedMessages: '',
             valid: true,
@@ -245,9 +328,17 @@ export default {
         }
     },
     computed: {
-      ...mapState('auth', [
-        'user'
-      ]),
+        ...mapState('auth', [
+            'user'
+        ]),
+        filteredSchedules() {
+            let filterSched = []
+
+            filterSched = [...new Set(this.schedules.map(item => item.uniq))]
+
+            return filterSched.sort()
+
+        }
     },
     created() {
         if(this.user) {
@@ -267,10 +358,20 @@ export default {
                 if(!this.selected) {
                     this.selectedMessages = 'Please fill other field and Select schedule'
                 } else if(valid && this.selected) {
-                    this.form.schedule_id = this.selected
-                    this.form.patient_id = this.user.id
+                    const payload = new FormData()
 
-                    let res = await this.$axios.post(`api/authorized/patient-schedule`, this.form)
+                    payload.append('image', this.form.image)
+                    payload.append('schedule_id', this.selected)
+                    payload.append('patient_id', this.user.id)
+                    payload.append('specialization', this.form.specialization)
+                    payload.append('doctor_id', this.form.doctor_id)
+                    payload.append('bday', this.form.bday)
+                    payload.append('name', this.form.name)
+                    payload.append('weigth', this.form.weigth)
+                    payload.append('diagnosis', this.form.diagnosis)
+                    payload.append('heigth', this.form.heigth)
+
+                    let res = await this.$axios.post(`api/authorized/patient-schedule`, payload)
 
                     if(res.status == 201) {
 
@@ -317,14 +418,20 @@ export default {
             this.selected = ''
         },
         formatDate(date) {
-            return moment(date).format('MMMM DD, YYYY hh:mma')
+            return moment(date).format('hh:mma')
+        },
+        formatDate2(date) {
+            return moment(date).format('MMMM DD, YYYY')
         },
         formatEnd(date) {
             return moment(date).format('hh:mma')
         },
+        selectSchedUniq(data) {
+            this.selectedData = data
+            this.filterTime = this.schedules.filter(sched => this.formatDate2(sched.start) == data)
+        },
         selectSched(id) {
             this.selected = id
-            console.log(id)
         },
         async fetchDoctor(value) {
             if(value) {
@@ -352,6 +459,7 @@ export default {
             if(val != '') {
                 this.doctors_info = this.doctors.filter(el => el.id == val)
                 let data = await this.$axios.get(`api/authorized/get-doctor-schedule-by-id/${val}`)
+
                 if (data.status == 200) {
                     data.data.map(el => {
                         let obj = {
@@ -359,11 +467,13 @@ export default {
                             "start": el.start,
                             "end": el.end,
                             "status": el.status,
-                            "name": el.name
+                            "name": el.name,
+                            "uniq": this.formatDate2(el.start),
                         }
                         this.schedules.push(obj)
                     })
                 }
+
             }
         }
     }

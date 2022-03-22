@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-card flat>
     <v-app-bar
       absolute
       color="#01579B"
@@ -17,7 +17,7 @@
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
-    <v-card flat class="mt-16">
+    <v-card flat class="mt-16 mb-16">
       <v-card-title>
         <v-list-item-avatar>
           <v-img :src="patient.profile ? patient.profile : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'"> </v-img>
@@ -29,7 +29,12 @@
         <div class="d-flex" :class="item.whosend == 'Patient' ? 'justify-start': 'justify-end'">
           <v-card @click="viewImage(item)" width="50%" flat class="pa-2 ma-3 primary rounded-lg white--text" :class="item.whosend == 'Patient' ? 'lighten-1': ''">
             <v-card-actions>
-              {{item.messages}}
+              <div v-if="item.image_url">
+                <img :src="item.image_url" width="100px">
+              </div>
+              <div v-else>
+                {{item.messages}}
+              </div>
               <v-spacer></v-spacer>
               <v-icon v-if="item.whosend == 'Doctor'" @click.stop="deleteMessage(item)">mdi-delete</v-icon>
             </v-card-actions>
@@ -81,7 +86,7 @@
       </v-card>
     </v-dialog>
 
-  </div>
+  </v-card>
 </template>
 <script>
   import { mapState } from 'vuex'

@@ -18,6 +18,49 @@
               Patient Concerns
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
+    <div>
+        <v-menu
+          :close-on-content-click="false"
+          :nudge-width="300"
+          offset-x>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon @click="updateNotifications" color="white" v-bind="attrs" v-on="on">
+              mdi-message
+            </v-icon>
+            <v-avatar class="ml-n3 mt-n3" size="16" color="red" style="color:white;">
+              {{counter}}
+            </v-avatar>
+          </template>
+          <v-card flat>
+            <v-card-text class="">
+              Messages
+            </v-card-text>
+            <v-card-text class="pt-0" v-if="notifications.length > 0">
+                <div class="d-flex flex-column" v-for="notification in notifications" :key="notification.id">
+                  <v-divider></v-divider>
+                  <div class="py-3">
+                    <div>
+                      {{notification.messages}}
+                    </div>
+                    <div class="caption text-right">
+                      {{convertDate(notification.created_at)}}
+                    </div>
+                  </div>
+                </div>
+                <v-divider></v-divider>
+                <div class="pt-4 text-center">
+                  <v-btn 
+                    class="pa-0 mt-n2"
+                    text
+                    color="#0277BD"  
+                    @click="$router.push('/doctormedicalconcern')">
+                    View all
+                  </v-btn>
+                </div>
+            </v-card-text>
+          </v-card>
+        </v-menu>
+      </div>
     </v-app-bar>
 
   <v-card-text class="pa-4 mt-16">
@@ -158,9 +201,13 @@
   import { mapState } from 'vuex'
   import layout from '~/pages/patient-form-layout'
   import labels from '~/pages/patient-form-layout-labels'
+  import shared from '~/pages/_doctorshared'
+  import head from '~/pages/_headServices'
 
   export default {
     layout: 'doctorDefault',
+
+    mixins: [shared,head],
 
     middleware({ store, redirect }) {
       // If the user is not authenticated
@@ -264,6 +311,7 @@
         { text: 'Schedule Date', value: 'schedule_date' },
         { text: 'Schedule Time', value: 'schedule_time' },
         { text: 'Sysmptoms', value: 'sysmptoms' },
+        { text: 'Image', value: 'image' },
         { text: 'Status', value: 'status' },
         { text: 'Action', value: 'actions', sortable: false },
       ],
@@ -337,6 +385,7 @@
                 "name": r.patient_name,
                 "email": r.patient_email,
                 "phone": r.patient_phone,
+                "image": r.image,
                 "schedule_date": moment(r.schedule).format("MMMM DD, YYYY"),
                 "schedule_time": moment(r.schedule).format("h:mm:ss a"),
                 "sysmptoms": r.diagnosis,

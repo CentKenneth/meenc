@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-card flat>
     <v-app-bar
       absolute
       color="#01579B"
@@ -29,7 +29,12 @@
         <div class="d-flex" :class="item.whosend == 'Doctor' ? 'justify-start': 'justify-end'">
           <v-card @click="viewImage(item)" width="50%" flat class="pa-2 ma-3 primary rounded-lg white--text" :class="item.whosend == 'Doctor' ? 'lighten-1': ''">
             <v-card-actions>
-              {{item.messages}}
+              <div v-if="item.image_url">
+                <img :src="item.image_url" width="100px">
+              </div>
+              <div v-else>
+                {{item.messages}}
+              </div>
               <v-spacer></v-spacer>
               <v-icon v-if="item.whosend != 'Doctor'" @click.stop="deleteMessage(item)">mdi-delete</v-icon>
             </v-card-actions>
@@ -129,7 +134,7 @@
       </v-card>
     </v-dialog>
 
-  </div>
+  </v-card>
 </template>
 <script>
   import { mapState } from 'vuex'
