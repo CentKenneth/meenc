@@ -515,6 +515,7 @@ export default {
                     if(element.start == element.end)
                         delete element.end
                     this.events.push(element)
+                    console.log(this.events)
                 })
             }
 
@@ -530,6 +531,7 @@ export default {
             this.form.status = event.event.status
             this.form.start_date = moment(event.event.start).format('yyyy-MM-DD')
             this.form.start_time = moment(event.event.start).format('HH:mm')
+           
 
             if (event.event.id)
                 this.form.id = event.event.id

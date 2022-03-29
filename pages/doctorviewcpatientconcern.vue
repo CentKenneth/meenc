@@ -121,6 +121,11 @@
             :headers="headers2"
             :items="transactionsDialog"
             class="elevation-1" >
+              <template v-slot:item.image="{ item }">
+                <div @click="viewImage(item)" style="cursor:pointer;">
+                  View
+                </div>
+              </template>
               <template v-slot:item.actions="{ item }">
                 <v-icon
                   small
@@ -171,7 +176,15 @@
               </v-col>
               <template v-else>
                 <v-col v-for="(fields, indx) in layout" :key="indx" class="pa-0 ma-0 px-2" cols="12" md="3">
+                  <v-select
+                    v-if="fields == 'status'" 
+                    :items="['Pending', 'Done', 'Canceled']"
+                    outlined
+                    :label="labels[fields]"
+                    v-model="editedItem[fields]">
+                  </v-select>
                   <v-text-field
+                    v-else
                     v-model="editedItem[fields]"
                     :label="labels[fields]"
                     outlined>
@@ -192,6 +205,38 @@
 
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="showDialog" width="600">
+            <v-card flat class="pa-3">
+                <v-card-title>
+                    <div>
+                        Symptoms Images.
+                    </div>
+                    <v-spacer></v-spacer>
+                    <v-icon @click="showDialog = false, images = []">
+                        mdi-close
+                    </v-icon>
+                </v-card-title>
+                <v-container v-if="images.length > 0" class="d-flex" :class="$vuetify.breakpoint.smAndUp ? '' : 'flex-column'">
+                    <v-card
+                        v-for="(image, index) in images"
+                        :key="index" flat class="mx-auto px-2 my-2">
+                        <v-card-text class="white--text">
+                          <img :src="image.image" alt="" width="200px">
+                        </v-card-text>
+                    </v-card>
+                </v-container>
+                <v-card-title v-else>
+                  No images found.
+                </v-card-title>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn @click="showDialog = false, images = []" class="primary" depressed>
+                        OK
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
 
 </v-card>
 </template>
@@ -216,6 +261,8 @@
       }
     },
     data: () => ({
+      showDialog: false,
+      images: [],
       layouts: layout.layout,
       labels: labels.labels,
       disabled: false,
@@ -333,6 +380,20 @@
     },
 
     methods: {
+      async viewImage(item) {
+        const images = await this.$axios.get(`api/authorized/patient-schedule-images/${item.id}`)
+
+        if(images.status === 200) {
+          this.images = images.data
+          console.log(images.data)
+          this.showDialog = true
+        }
+      },
+      showImage(image) {
+        if(image) {
+          window.open(image)
+        }
+      },
       async initialize () {
         try {
 

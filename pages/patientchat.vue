@@ -36,7 +36,23 @@
                 {{item.messages}}
               </div>
               <v-spacer></v-spacer>
-              <v-icon v-if="item.whosend != 'Doctor'" @click.stop="deleteMessage(item)">mdi-delete</v-icon>
+              <div class="d-flex flex-column">
+                <div class="d-flex mb-2">
+                  <v-spacer></v-spacer>
+                  <v-icon v-if="item.whosend == 'Patient'" class="justify-rigth" @click.stop="deleteMessage(item)">mdi-delete</v-icon>
+                </div>
+              </div>
+            </v-card-actions>
+            <v-card-actions class="pa-0 ma-0">
+              <v-spacer></v-spacer>
+               <div class="caption">
+                  <div>
+                    {{convertDate(item.created_at)}}
+                  </div>
+                  <div>
+                    {{convertTime(item.created_at)}}
+                  </div>
+                </div>
             </v-card-actions>
           </v-card>
         </div>
@@ -138,6 +154,8 @@
 </template>
 <script>
   import { mapState } from 'vuex'
+  import moment from 'moment'
+
   export default {
     layout: 'patientDefault',
     data() {
@@ -170,6 +188,12 @@
       })
     },
     methods: {
+      convertDate(date) {
+        return moment(date).format('MMM DD, YYYY')
+      },
+      convertTime(date) {
+        return moment(date).format('hh:mm A')
+      },
       async initialize(){
 
         let form = {

@@ -151,7 +151,7 @@
             <v-textarea
               v-model="editedItem.diagnosis"
               :rules="fieldRules"
-              label="Diagnosis">
+              label="Symptoms">
 
             </v-textarea>
           </v-form>
@@ -241,7 +241,7 @@
         { text: 'Address', value: 'address', sortable: false },
         { text: 'Weight', value: 'weight', sortable: false },
         { text: 'Height', value: 'height', sortable: false },
-        { text: 'Diagnosis', value: 'diagnosis', sortable: false },
+        { text: 'Symptoms', value: 'diagnosis', sortable: false },
         { text: 'Status', value: 'status', sortable: false },
         { text: 'Action', value: 'actions', sortable: false },
       ],
