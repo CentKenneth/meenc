@@ -2,26 +2,25 @@
   <v-card
     height="700"
     class="overflow-hidden"
-    color="#1E88E5"
-    dark
   >
     <v-toolbar
       flat
-      color="#01579B"
+      class="primary lighten-1"
     >
       <v-app-bar-nav-icon @click="$router.push('/patientaccount')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
 
       <v-spacer></v-spacer>
       <v-btn
-        color="#01579B"
         fab
         small
+        color="#488fef"
+        class="elevation-0"
         @click="isEditing = !isEditing"
       >
-        <v-icon v-if="isEditing">
+        <v-icon color="white" size="20" v-if="isEditing">
           mdi-close
         </v-icon>
-        <v-icon v-else>
+        <v-icon v-else color="white" size="20">
           mdi-pencil
         </v-icon>
       </v-btn>

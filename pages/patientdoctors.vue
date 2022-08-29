@@ -1,135 +1,133 @@
 <template>
-
-<v-card flat class="pa-4">
-    <v-app-bar
-      
-      absolute
-      color="#01579B"
-      dark
-      scroll-target="#scrolling-techniques-6"
-    >
-      <v-app-bar-nav-icon @click="$router.push('/patienthome')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
-      <v-spacer> </v-spacer>   
-        <v-toolbar-title  
-            text
-                color="#01579B"
-                dark
-                dense>
-                List of Doctors
-        </v-toolbar-title>
-      <v-spacer> </v-spacer> 
-      <div>
-        <v-menu
-          :close-on-content-click="false"
-          :nudge-width="300"
-          offset-x>
-          <template v-slot:activator="{ on, attrs }">
-            <v-icon @click="updateNotifications" color="white" v-bind="attrs" v-on="on">
-              mdi-message
-            </v-icon>
-            <v-avatar class="ml-n3 mt-n3" size="16" color="red" style="color:white;">
-              {{counter}}
-            </v-avatar>
-          </template>
-          <v-card flat>
-            <v-card-text class="">
-              Messages
-            </v-card-text>
-            <v-card-text class="pt-0" v-if="notifications.length > 0">
-                <div class="d-flex flex-column" v-for="notification in notifications" :key="notification.id">
-                  <v-divider></v-divider>
-                  <div class="py-3">
-                    <div>
-                      {{notification.messages}}
-                    </div>
-                    <div class="caption text-right">
-                      {{convertDate(notification.created_at)}}
+  <v-card flat class="pa-0">
+      <v-app-bar
+        flat
+        class="primary lighten-1"
+        dark
+      >
+        <v-app-bar-nav-icon @click="$router.push('/patienthome')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+        <v-spacer> </v-spacer>   
+          <v-toolbar-title
+              text
+              color="#ffffff"
+              dense>
+              List of Doctors
+          </v-toolbar-title>
+        <v-spacer> </v-spacer> 
+        <div>
+          <v-menu
+            :close-on-content-click="false"
+            :nudge-width="300"
+            offset-x>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon @click="updateNotifications" color="white" v-bind="attrs" v-on="on">
+                mdi-message
+              </v-icon>
+              <v-avatar class="ml-n3 mt-n3" size="16" color="red" style="color:white;">
+                {{counter}}
+              </v-avatar>
+            </template>
+            <v-card flat>
+              <v-card-text class="">
+                Messages
+              </v-card-text>
+              <v-card-text class="pt-0" v-if="notifications.length > 0">
+                  <div class="d-flex flex-column" v-for="notification in notifications" :key="notification.id">
+                    <v-divider></v-divider>
+                    <div class="py-3">
+                      <div>
+                        {{notification.messages}}
+                      </div>
+                      <div class="caption text-right">
+                        {{convertDate(notification.created_at)}}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <v-divider></v-divider>
-                <div class="pt-4 text-center">
-                  <v-btn 
-                    class="pa-0 mt-n2"
-                    text
-                    color="#0277BD"  
-                    @click="$router.push('/patientmedicalconcern')">
-                    View all
-                  </v-btn>
-                </div>
-            </v-card-text>
-          </v-card>
-        </v-menu>
+                  <v-divider></v-divider>
+                  <div class="pt-4 text-center">
+                    <v-btn 
+                      class="pa-0 mt-n2"
+                      text
+                      color="#0277BD"  
+                      @click="$router.push('/patientmedicalconcern')">
+                      View all
+                    </v-btn>
+                  </div>
+              </v-card-text>
+            </v-card>
+          </v-menu>
+        </div>
+    </v-app-bar>
+
+    <div class="d-flex pa-2 mt-2">
+        <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
+        <div :style="$vuetify.breakpoint.mdAndUp ? 'width: 250px;' : 'width: 100%;'">
+          <v-text-field
+            @input="searchDoctor"
+            placeholder="Search"
+            outlined>
+
+          </v-text-field>
+        </div>
       </div>
-  </v-app-bar>
 
-  <div class="d-flex mt-16">
-      <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
-      <div :style="$vuetify.breakpoint.mdAndUp ? 'width: 250px;' : 'width: 100%;'">
-        <v-text-field
-          @input="searchDoctor"
-          placeholder="Search"
-          outlined>
+    <v-card-text class="pa-2">
+       <v-data-table
+          :headers="headers"
+          :items="doctors"
+        >
+          <template v-slot:item.actions="{ item }">
+          
+            <v-icon
+              @click="showDialog(item)"
+              color="blue"
+            >
+              mdi-eye
+            </v-icon>
 
-        </v-text-field>
-      </div>
-    </div>
-  
-  <v-data-table
-    :headers="headers"
-    :items="doctors"
-    class="elevation-1 pa-4"
-  >
-    <template v-slot:item.actions="{ item }">
-     
-      <v-icon
-        @click="showDialog(item)"
-        color="blue"
-      >
-        mdi-eye
-      </v-icon>
+          </template>
+        </v-data-table>
+    </v-card-text>
+   
 
-    </template>
-  </v-data-table>
+    <v-dialog
+      v-model="dialog"
+      :scrollable="true"
+      persistent
+      width="400"
+    >
+      <v-card flat>
+        <v-card-title class="d-flex justify-center">
+          <img
+              class="d-flex justify-center"
+              height="50"  
+              max-width="50"
+              src="~assets/doctor/R.png"
+          ><img>
+          <div class="px-2">
+            Dr. {{profile.name}} 
+          </div>
+        </v-card-title >
+        <v-card-text class="pa-6">
+          <div class="py-2 body-1">
+            Specialization: {{profile.degreefield}}
+          </div>
+          <div class="py-2 body-1">
+            Degree Level: {{profile.degreelevel}}
+          </div>
+          <div class="py-2 body-1">
+            Clinic Name: {{profile.clinicname}}
+          </div>
+        </v-card-text>
+        <v-card-actions class="pa-6">
+          <v-btn depressed large class="" @click="dialog = false">Close</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn depressed large class="primary" @click="sendMessage">Message</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
-  <v-dialog
-    v-model="dialog"
-    :scrollable="true"
-    persistent
-    width="800"
-  >
-    <v-card flat>
-      <v-card-title class="d-flex justify-center">
-        <img
-            class="d-flex justify-center"
-            height="50"  
-            max-width="50"
-            src="~assets/doctor/R.png"
-        ><img>
-        <div class="px-2">
-          Dr. {{profile.name}} 
-        </div>
-      </v-card-title >
-      <v-card-text class="pa-6">
-        <div class="py-2 body-1">
-          Specialization: {{profile.degreefield}}
-        </div>
-        <div class="py-2 body-1">
-          Degree Level: {{profile.degreelevel}}
-        </div>
-        <div class="py-2 body-1">
-          Clinic Name: {{profile.clinicname}}
-        </div>
-      </v-card-text>
-      <v-card-actions class="pa-6">
-        <v-spacer></v-spacer>
-        <v-btn outlined class="primary--text" @click="dialog = false">Close</v-btn>
-        <v-btn outlined class="primary--text" @click="sendMessage">Message</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
-
-</v-card>
+  </v-card>
 </template>
 
 <script>

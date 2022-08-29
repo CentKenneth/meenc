@@ -1,76 +1,67 @@
 <template>
-  
-  <!-- <v-card
-    height="200" 
-    outlined
-    :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
-    class="mx-auto"
-    color="white"
-  >
-      <v-navigation-drawer
-        v-model="drawer"
-        absolute
-        temporary
-        color="#0277BD"  
+  <div>
+    <v-container
+      class="pt-10"
+      fluid
+    >
+      <v-row
+        align="center"
+        justify="center"
       >
-      <v-list>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-white--text text--accent-4"
-          
+        <v-col
+          cols="12"
+          sm="8"
+          md="4"
+          lg="3"
         >
+          <v-card class="mt-16" :flat="$vuetify.breakpoint.smAndDown" :class="$vuetify.breakpoint.smAndDown ? 'transparent' : 'primary lighten-5 rounded-lg pa-4'" >
 
-          <v-list-item  >
-            <v-list-item-icon>
-              <v-icon
-              color="white">mdi-doctor</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title><v-btn 
-                text
-                color="white"
-                 href="/doctorlogin" >
-                Doctor
-                </v-btn>
-                </v-list-item-title>
-          </v-list-item>
+            <v-card-title class="d-flex justify-center py-6">
+              <v-avatar class="profile elevation-4" size="164">
+                <img
+                  src="~assets/M.svg" />
+              </v-avatar>
+            </v-card-title>
 
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon 
-              color="white"
-              >mdi-account</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title><v-btn 
-              text
-              color="white"
-               href="/patientlogin" >
-                Patient
-                </v-btn></v-list-item-title>
-          </v-list-item>
+            <v-card-title class="mt-n10 pb-0">
+              <div class="mx-auto text-center pa-2">
+                MEENC Health Care
+              </div>
+            </v-card-title>
 
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
-  </v-card> -->
-  <v-card flat>
-    <v-card-title class="d-flex justify-center">
-      <img
-          class="d-flex justify-center mt-10"
-          height="200"  
-          max-width="200"
-          src="~assets/M.svg"
-      ><img>
-    </v-card-title>
-    <v-card-text>
-      <v-card @click="$router.push('/patientlogin')" max-width="300" flat class="primary lighten-3 mx-auto pa-5 rounded-lg title text-center">
-        Patient
-      </v-card>
-      <v-card @click="$router.push('/doctorlogin')" max-width="300" flat class="primary lighten-3 mx-auto pa-5 rounded-lg title mt-2 text-center">
-        Doctor
-      </v-card>
-    </v-card-text>
-  </v-card>
+            <v-card-text>
+              <div class="mx-auto text-center title pa-2">
+                Login as
+              </div>
+              <v-btn
+                large
+                @click="$router.push('/patientlogin')"
+                class="primary lighten-3 mx-auto pa-5 rounded-lg title d-flex">
+                <v-icon class="mr-3" size="30">mdi-account</v-icon>
+                <div>
+                  Patient
+                </div>
+              </v-btn>
+              <v-btn
+                large
+                @click="$router.push('/doctorlogin')"
+                class="primary lighten-3 mx-auto pa-5 rounded-lg title mt-2 d-flex">
+                <v-icon class="mr-3" size="30">mdi-doctor</v-icon>
+                <div>
+                  Doctor
+                </div>
+              </v-btn>
+            </v-card-text>
 
+          </v-card>
+
+        </v-col>
+
+      </v-row>
+
+    </v-container>
+
+  </div>
 </template>
 <script>
   export default {

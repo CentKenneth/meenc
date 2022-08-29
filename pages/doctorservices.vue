@@ -2,18 +2,15 @@
   <div class="pa-0">
     
     <v-app-bar
-      class="mx-auto my-1"
-      color="#01579B"
-      elevation="none"
+      class="pa-0 primary lighten-1"
+      dark
     >
-    <v-app-bar-nav-icon @click="$router.push('/doctorhome')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
     <v-spacer></v-spacer>
-    <v-alert
-        color="#01579B"
-        dark
-        dense>
-        MEENC HEALTH CARE
-    </v-alert>
+     <v-toolbar-title  
+          text
+          dense>
+         MEENC HEALTH CARE
+      </v-toolbar-title>
     <v-spacer></v-spacer>
     <div>
       <v-menu
@@ -60,7 +57,7 @@
     </div>
     </v-app-bar>
 
-    <v-card flat color="#BBDEFB" class="pa-4">
+    <v-card flat class="pa-4">
 
       <v-card-title class="d-flex justify-center">
         <img

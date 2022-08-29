@@ -2,16 +2,13 @@
 <v-card flat>
 
     <v-app-bar
-      absolute
-      color="#01579B"
+      class="pa-0 primary lighten-1"
       dark
-      scroll-target="#scrolling-techniques-6"
     >
       <v-app-bar-nav-icon @click="$router.push('/patientservices')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
       <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
-          color="#01579B"
           dense>
             Medical Concern
       </v-toolbar-title>
@@ -61,7 +58,7 @@
     </div>
     </v-app-bar>
 
-    <v-card-text class="mt-16 pa-6">
+    <v-card-text class="mt-4 pa-6">
       <v-list subheader  height="570">
         <v-subheader>Doctors</v-subheader>
         <v-list-item

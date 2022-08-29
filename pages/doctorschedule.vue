@@ -1,10 +1,8 @@
 <template>
     <v-card flat> 
         <v-app-bar
-            absolute
-            color="#01579B"
+            class="pa-0 primary lighten-1"
             dark
-            scroll-target="#scrolling-techniques-6"
         >
             <v-app-bar-nav-icon @click="$router.push('/doctorservices')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
             <v-spacer> </v-spacer>   
@@ -62,7 +60,7 @@
       </div>
         </v-app-bar>
 
-        <v-card flat class="pt-10 mt-10 pa-4">
+        <v-card flat class="mt-4 pa-2">
             
             <v-row class="text-center">
                 <v-col col="12">

@@ -1,10 +1,8 @@
 <template>
-  <v-card flat>
+  <v-card flat min-height="100%">
     <v-app-bar
-      absolute
-      color="#01579B"
+      class="pa-0 primary lighten-1"
       dark
-      scroll-target="#scrolling-techniques-6"
     >
       <v-app-bar-nav-icon href="/doctormedicalconcern"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
       <v-spacer> </v-spacer>   
@@ -17,7 +15,7 @@
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
-    <v-card flat class="mt-16 mb-16">
+    <v-card flat class="mt-4 mb-16">
       <v-card-title>
         <v-list-item-avatar>
           <v-img :src="patient.profile ? patient.profile : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'"> </v-img>
@@ -27,7 +25,7 @@
 
       <div v-for="item in recent" :key="item.id">
         <div class="d-flex" :class="item.whosend == 'Patient' ? 'justify-start': 'justify-end'">
-          <v-card @click="viewImage(item)" width="50%" flat class="pa-2 ma-3 primary rounded-lg white--text" :class="item.whosend == 'Patient' ? 'lighten-1': ''">
+          <v-card @click="viewImage(item)" width="50%" flat class="pa-2 ma-3 primary lighten-2 rounded-lg white--text" :class="item.whosend == 'Patient' ? 'lighten-2': ''">
             <v-card-actions>
               <div v-if="item.image_url">
                 <img :src="item.image_url" width="100px">
@@ -59,17 +57,19 @@
       </div>
 
     </v-card>
+
     <v-app-bar
-      absolute
-      bottom
+    absolute
+    bottom
     >
+      <v-icon size="34" @click="dialog = true">mdi-camera</v-icon>
       <v-text-field
         v-model="message"
         append-icon="mdi-send"
-        filled
         bottom
         clear-icon="mdi-close-circle"
         clearable
+        class="mt-2 px-2"
         label="Message"
         @click:append="send"
         type="text"

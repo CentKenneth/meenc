@@ -3,18 +3,17 @@
     <v-card
         :loading="submitting"
         :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
-        class="my-1"    
+        style="background-color: #f2fffe;"  
     >
     <!-- head -->
     <v-app-bar
       :collapse="!collapseOnScroll"
       :collapse-on-scroll="collapseOnScroll"
-      absolute
-      color="#01579B"
+      class="pa-0 primary lighten-1"
       dark
       scroll-target="#scrolling-techniques-6"
     >
-      <v-app-bar-nav-icon href="/patientlogin"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="$router.push('/patientlogin')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
       <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
@@ -26,10 +25,12 @@
     </v-app-bar>
 
     <div>
-      <v-card color="#BBDEFB" class="rounded-xl pa-6 mt-16" :disabled="submitting">
-        <v-card-title >Sign Up
-          <v-icon
+      <v-card class="mx-auto my-4" :flat="$vuetify.breakpoint.smAndDown" :class="$vuetify.breakpoint.smAndDown ? 'transparent' : 'primary lighten-5 rounded-lg pa-4'" max-width="950" :disabled="submitting">
+        <v-card-title >
+          <v-icon class="mx-2"
           >mdi-account</v-icon>
+          Sign Up
+
         </v-card-title>
     
         <!-- form-->
@@ -346,7 +347,7 @@
             </div>
 
           <div class="col-md .offset-md">Already have an account?
-              <a href="/patientlogin">Login
+              <a @click="$router.push('/patientlogin')">Login
               </a>
           </div>
         </div>
@@ -423,6 +424,7 @@
 
           this.submitting = true
 
+          this.form['temppass'] = this.form.password
           const res = await this.$axios.post('api/register', this.form)
 
           if (res.status === 201) {
@@ -434,9 +436,19 @@
               text: 'Successfully Created'
             })
 
-            this.form = {}
+            const login = {
+              username: this.form.email,
+              password: this.form.password,
+              grant_type: process.env.CLIENT_GRANT_TYPE,
+              client_id: process.env.CLIENT_ID,
+              client_secret: process.env.CLIENT_SECRET_KEY
+            }
 
-            this.$router.push('/patientlogin')
+            const loginRes = await this.$auth.loginWith('local', { data: login })
+
+            if (loginRes.status == 200) {
+              this.$router.push('/patienthome')
+            }
 
           }
 

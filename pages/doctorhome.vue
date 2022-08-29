@@ -6,7 +6,7 @@
 
     <v-app-bar
       absolute
-      color="#01579B"
+      class="primary lighten-1 elevation-0"
       dark
       scroll-target="#scrolling-techniques-6"
     >

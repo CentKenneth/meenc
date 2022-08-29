@@ -1,10 +1,10 @@
 <template>
-  <v-container
-    class="spacing-playground pa-0"
-    fluid
-  >
- <v-card >
-    <v-app-bar color="#01579B">
+  <v-card 
+    height="100%"
+    flat
+    class="mx-auto">
+
+    <v-app-bar class="pa-0 primary lighten-1">
       <v-app-bar-nav-icon @click="$router.push('/patienthome')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <div>
@@ -51,35 +51,36 @@
         </v-menu>
       </div>
     </v-app-bar>
-    <v-list color="#0277BD" height="720" >
+
+    <v-list height="720" class="pa-4">
       <v-list-item @click="dialog = true" class="px-2">
         <v-list-item-avatar>
           <v-img :src="user.profile ? user.profile : 'https://randomuser.me/api/portraits/men/85.jpg'"></v-img>
         </v-list-item-avatar>
-        <v-list-item-title v-if="user" style="color:white">{{user.name}}</v-list-item-title>
+        <v-list-item-title v-if="user" class="px-2">{{user.name}}</v-list-item-title>
       </v-list-item>
-        <v-list-item @click="$router.push('/patienteditprofile')">
-            <v-list-item-icon >
-              <v-icon color="white">mdi-id-card</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title style="color:white">Edit Profile</v-list-item-title>
-        </v-list-item>
-
-        <v-list-item @click="$router.push('/patientpassword')">
-          <v-list-item-icon>
-            <v-icon color="white">mdi-lock</v-icon>
+      <v-list-item @click="$router.push('/patienteditprofile')">
+          <v-list-item-icon >
+            <v-icon>mdi-id-card</v-icon>
           </v-list-item-icon>
-          <v-list-item-title style="color:white"> Change Password</v-list-item-title>
-        </v-list-item>
+          <v-list-item-title>Edit Profile</v-list-item-title>
+      </v-list-item>
 
-        <v-list-item link @click="logout">
-          <v-list-item-icon>
-            <v-icon color="white">mdi-power</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title style="color:white"> Logout </v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-card>
+      <v-list-item @click="$router.push('/patientpassword')">
+        <v-list-item-icon>
+          <v-icon>mdi-lock</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title> Change Password</v-list-item-title>
+      </v-list-item>
+
+      <v-list-item link @click="logout">
+        <v-list-item-icon>
+          <v-icon>mdi-power</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title> Logout </v-list-item-title>
+      </v-list-item>
+    </v-list>
+
     <v-dialog
       v-model="dialog"
       persistent
@@ -124,7 +125,7 @@
       </v-card>
       
     </v-dialog>
-  </v-container>
+  </v-card>
 </template>
 <script>
   import { mapState } from 'vuex'

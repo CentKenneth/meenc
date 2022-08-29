@@ -1,23 +1,20 @@
 <template>
-  <v-card flat>
+  <v-card flat min-height="100%">
     <v-app-bar
-      absolute
-      color="#01579B"
+      class="pa-0 primary lighten-1"
       dark
-      scroll-target="#scrolling-techniques-6"
     >
       <v-app-bar-nav-icon href="/patientmedicalconcern"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
       <v-spacer> </v-spacer>   
       <v-toolbar-title  
           text
-              color="#01579B"
-              dark
               dense>
               Medical Concern
       </v-toolbar-title>
     <v-spacer> </v-spacer> 
     </v-app-bar>
-    <v-card flat class="mt-16 mb-16">
+
+    <v-card flat class="mt-4 mb-16" >
       <v-card-title>
         <v-list-item-avatar>
           <v-img :src="doctor.profile ? doctor.profile : 'https://cdn.vuetifyjs.com/images/lists/1.jpg'"> </v-img>
@@ -59,18 +56,19 @@
       </div>
 
     </v-card>
+
     <v-app-bar
-      absolute
-      bottom
+    absolute
+    bottom
     >
-      <v-icon size="34" class="mt-n4" @click="dialog = true">mdi-camera</v-icon>
+      <v-icon size="34" @click="dialog = true">mdi-camera</v-icon>
       <v-text-field
         v-model="message"
         append-icon="mdi-send"
-        filled
         bottom
         clear-icon="mdi-close-circle"
         clearable
+        class="mt-2 px-2"
         label="Message"
         @click:append="send"
         type="text"

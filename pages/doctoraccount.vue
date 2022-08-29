@@ -1,82 +1,79 @@
 <template>
-  <v-container
-    class="spacing-playground pa-0"
-    fluid
-  >
-    <v-card >
-    <v-app-bar color="#01579B">
-      <v-app-bar-nav-icon @click="$router.push('/doctorhome')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
-      <v-spacer></v-spacer>
-      <div>
-        <v-menu
-          :close-on-content-click="false"
-          :nudge-width="300"
-          offset-x>
-          <template v-slot:activator="{ on, attrs }">
-            <v-icon @click="updateNotifications" color="white" v-bind="attrs" v-on="on">
-              mdi-message
-            </v-icon>
-            <v-avatar class="ml-n3 mt-n3" size="16" color="red" style="color:white;">
-              {{counter}}
-            </v-avatar>
-          </template>
-          <v-card flat>
-            <v-card-text class="">
-              Messages
-            </v-card-text>
-            <v-card-text class="pt-0" v-if="notifications.length > 0">
-                <div class="d-flex flex-column" v-for="notification in notifications" :key="notification.id">
-                  <v-divider></v-divider>
-                  <div class="py-3">
-                    <div>
-                      {{notification.messages}}
-                    </div>
-                    <div class="caption text-right">
-                      {{convertDate(notification.created_at)}}
+  <div>
+    <v-card  height="100%"
+      flat
+      class="mx-auto">
+      <v-app-bar absolute
+        class="primary lighten-1 elevation-0"
+        dark
+        scroll-target="#scrolling-techniques-6">
+        <v-spacer></v-spacer>
+        <div>
+          <v-menu
+            :close-on-content-click="false"
+            :nudge-width="300"
+            offset-x>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon @click="updateNotifications" color="white" v-bind="attrs" v-on="on">
+                mdi-message
+              </v-icon>
+              <v-avatar class="ml-n3 mt-n3" size="16" color="red" style="color:white;">
+                {{counter}}
+              </v-avatar>
+            </template>
+            <v-card flat>
+              <v-card-text class="">
+                Messages
+              </v-card-text>
+              <v-card-text class="pt-0" v-if="notifications.length > 0">
+                  <div class="d-flex flex-column" v-for="notification in notifications" :key="notification.id">
+                    <v-divider></v-divider>
+                    <div class="py-3">
+                      <div>
+                        {{notification.messages}}
+                      </div>
+                      <div class="caption text-right">
+                        {{convertDate(notification.created_at)}}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <v-divider></v-divider>
-                <div class="pt-4 text-center">
-                  <v-btn 
-                    class="pa-0 mt-n2"
-                    text
-                    color="#0277BD"  
-                    @click="$router.push('/doctormedicalconcern')">
-                    View all
-                  </v-btn>
-                </div>
-            </v-card-text>
-          </v-card>
-        </v-menu>
-      </div>
-    </v-app-bar>
-    <v-list color="#0277BD" height="720" >
-      <!-- <v-list-item @click="dialog = true" class="px-2">
-        <v-list-item-avatar>
-          <v-img :src="user.profile ? user.profile : 'https://randomuser.me/api/portraits/men/85.jpg'"></v-img>
-        </v-list-item-avatar>
-        <v-list-item-title v-if="user" style="color:white">{{user.name}}</v-list-item-title>
-      </v-list-item> -->
+                  <v-divider></v-divider>
+                  <div class="pt-4 text-center">
+                    <v-btn 
+                      class="pa-0 mt-n2"
+                      text
+                      color="#0277BD"  
+                      @click="$router.push('/doctormedicalconcern')">
+                      View all
+                    </v-btn>
+                  </div>
+              </v-card-text>
+            </v-card>
+          </v-menu>
+        </div>
+      </v-app-bar>
+      
+      <v-list height="720" class="pa-4">
+
         <v-list-item @click="$router.push('/doctoreditprofile')">
             <v-list-item-icon >
-              <v-icon color="white">mdi-id-card</v-icon>
+              <v-icon>mdi-id-card</v-icon>
             </v-list-item-icon>
-            <v-list-item-title style="color:white">Edit Profile</v-list-item-title>
+            <v-list-item-title>Edit Profile</v-list-item-title>
         </v-list-item>
 
         <v-list-item @click="$router.push('/doctorpassword')">
           <v-list-item-icon>
-            <v-icon color="white">mdi-lock</v-icon>
+            <v-icon>mdi-lock</v-icon>
           </v-list-item-icon>
-          <v-list-item-title style="color:white"> Change Password</v-list-item-title>
+          <v-list-item-title> Change Password</v-list-item-title>
         </v-list-item>
 
         <v-list-item link @click="logout">
           <v-list-item-icon>
-            <v-icon color="white">mdi-power</v-icon>
+            <v-icon>mdi-power</v-icon>
           </v-list-item-icon>
-          <v-list-item-title style="color:white"> Logout </v-list-item-title>
+          <v-list-item-title> Logout </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-card>
@@ -125,7 +122,7 @@
       </v-card>
       
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 <script>
   import { mapState } from 'vuex'

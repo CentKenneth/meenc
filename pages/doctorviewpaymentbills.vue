@@ -3,11 +3,8 @@
 <v-card  flat 
    >
     <v-app-bar
-      
-      absolute
-      color="#01579B"
+      class="pa-0 primary lighten-1"
       dark
-      scroll-target="#scrolling-techniques-6"
     >
       <v-app-bar-nav-icon @click="$router.push('/doctorservices')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    <v-spacer> </v-spacer>   
@@ -64,7 +61,7 @@
       </div>
     </v-app-bar>
 
-  <v-card-text class="pa-4 mt-16">
+  <v-card-text class="pa-4 mt-4">
     <div class="d-flex">
       <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
       <div :style="$vuetify.breakpoint.mdAndUp ? 'width: 250px;' : 'width: 100%;'">

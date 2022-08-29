@@ -1,20 +1,19 @@
 <template>
   <v-card
-  flat
+    flat
     :loading="loading"
-   :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
-   class="my-1"
+    :max-width="$vuetify.breakpoint.smAndDown ? '400' : '100%'"
+    style="background-color: #f2fffe;"
   >
       <!-- head -->
      <v-app-bar
       :collapse="!collapseOnScroll"
       :collapse-on-scroll="collapseOnScroll"
-      absolute
-      color="#01579B"
+      class="pa-0 primary lighten-1"
       dark
       scroll-target="#scrolling-techniques-6"
     >
-  <v-app-bar-nav-icon href="/"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
+  <v-app-bar-nav-icon @click="$router.push('/')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
     <v-spacer></v-spacer>
         <v-toolbar-title  
           text
@@ -26,74 +25,92 @@
     </v-app-bar>
     <!-- head -->
 
-    <v-card flat class="pa-6 mt-16">
-
-    <v-card-title class="d-flex justify-center">
-      <v-icon>mdi-doctor</v-icon>
-      Login
-    </v-card-title>
-
-    <v-card-text :style="$vuetify.breakpoint.smAndDown ? 'width:100%;' : 'width:35%;'" class="mx-auto">
-      <v-form
-        ref="form"
-        v-model="valid"
-        lazy-validation
+    <v-container
+      class="pt-10"
+      fluid
+    >
+      <v-row
+        align="center"
+        justify="center"
       >
-
-        <v-text-field
-          outlined
-          v-model="form.email"
-          :rules="emailRules"
-          label="E-mail"
-        ></v-text-field>
-
-        <v-text-field
-          outlined
-          v-model="form.password"
-          label="Password"
-          @click:append="show3 = !show3"
-          :rules="passwordRules"
-          :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="show3 ? 'text' : 'password'"
-        ></v-text-field>
-
-      </v-form>
-
-    </v-card-text>
-
-    <v-card-actions class="d-flex flex-column my-0 py-0">
-
-        <v-btn
-          rounded
-          large
-          color="primary"
-          dark
-          @click="validate"
+        <v-col
+          cols="12"
+          sm="8"
+          md="4"
+          lg="3"
         >
-        Login
-        </v-btn>
+          <v-card class="mt-4" :flat="$vuetify.breakpoint.smAndDown" :class="$vuetify.breakpoint.smAndDown ? 'transparent' : 'primary lighten-5 rounded-lg pa-4'">
 
-        <br>
+          <v-card-title class="d-flex justify-center">
+            <v-icon>mdi-doctor</v-icon>
+            Login
+          </v-card-title>
 
-        <!-- <div>
-          <a href="#">Forgot Password?</a>
-        </div> -->
+          <v-card-text class="mx-auto">
+              <v-form
+                ref="form"
+                v-model="valid"
+                lazy-validation
+              >
 
-        <!-- <div> 
-            <v-btn 
-              rounded
-              elevation="2"
-              color="green"
-              dark
-              @click="$router.push('/doctorregister')"
-            > 
-              Create New Account
-            </v-btn>
-        </div> -->
+                <v-text-field
+                  outlined
+                  v-model="form.email"
+                  :rules="emailRules"
+                  label="E-mail"
+                  append-icon="mdi-email"
+                ></v-text-field>
 
-    </v-card-actions>
+                <v-text-field
+                  outlined
+                  v-model="form.password"
+                  label="Password"
+                  @click:append="show3 = !show3"
+                  :rules="passwordRules"
+                  :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show3 ? 'text' : 'password'"
+                ></v-text-field>
 
-    </v-card>
+              </v-form>
+
+            </v-card-text>
+
+          <v-card-actions class="d-flex flex-column my-0 py-0">
+
+              <v-btn
+                rounded
+                large
+                color="primary"
+                dark
+                @click="validate"
+              >
+              Login
+              </v-btn>
+
+              <br>
+
+              <!-- <div>
+                <a href="#">Forgot Password?</a>
+              </div> -->
+
+              <!-- <div> 
+                  <v-btn 
+                    rounded
+                    elevation="2"
+                    color="green"
+                    dark
+                    @click="$router.push('/doctorregister')"
+                  > 
+                    Create New Account
+                  </v-btn>
+              </div> -->
+
+          </v-card-actions>
+
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   <notifications group="foo" />
   </v-card>
 

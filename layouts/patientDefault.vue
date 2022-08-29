@@ -1,6 +1,6 @@
 <template>
-  <v-app class="secondary">
-    <v-card flat class="d-flex primary" :class="$vuetify.breakpoint.smAndDown ? 'flex-column' : ''" height="100%">
+  <v-app class="app">
+    <v-card flat class="d-flex" :class="$vuetify.breakpoint.smAndDown ? 'flex-column' : ''" height="100%">
 
       <div v-if="$vuetify.breakpoint.smAndDown" class="primary pa-5 pb-n5">
         <v-icon color="white" @click="drawer = true">mdi-menu</v-icon>
@@ -8,7 +8,7 @@
 
       <v-card-title v-else class="ma-0 pa-0">
         <v-navigation-drawer
-          class="primary"
+          class="primary lighten-1"
           :mini-variant.sync="mini"
           permanent>
 
@@ -30,35 +30,30 @@
           <v-divider></v-divider>
 
           <v-list dense>
-            <v-list-item
-              v-for="item in items"
-              :key="item.title"
-              @click="$router.push(item.url)"
-              link
+            <v-list-item-group
+              v-model="selectedItem"
             >
-              <v-list-item-icon>
-                <v-icon color="white">{{ item.icon }}</v-icon>
-              </v-list-item-icon>
+              <v-list-item
+                v-for="item in items"
+                :key="item.title"
+                @click="$router.push(item.url)"
+                link
+              >
+                <v-list-item-icon>
+                  <v-icon color="white">{{ item.icon }}</v-icon>
+                </v-list-item-icon>
 
-              <v-list-item-content>
-                <v-list-item-title class="white--text">{{ item.title }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item @click="logout">
-              <v-list-item-icon>
-                <v-icon color="white">mdi-power</v-icon>
-              </v-list-item-icon>
-
-              <v-list-item-content>
-                <v-list-item-title class="white--text">Logout</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="white--text">{{ item.title }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
           </v-list>
         </v-navigation-drawer>
       </v-card-title>
       
       <v-card-text class="ma-0 pa-0">
-        <Nuxt class="pa-5" />
+        <Nuxt />
       </v-card-text>
 
       <v-dialog
@@ -107,7 +102,7 @@
       </v-dialog>
 
       <v-navigation-drawer
-        class="primary"
+        class="primary lighten-1"
         v-model="drawer"
         absolute
         temporary >
@@ -116,7 +111,7 @@
           dense
         >
           <v-list-item-group
-            active-class="deep-purple--text text--accent-4"
+            v-model="selectedItem"
           >
             <v-list-item
               v-for="item in items"
@@ -132,15 +127,6 @@
                 <v-list-item-title class="white--text">{{ item.title }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item @click="logout">
-              <v-list-item-icon>
-                <v-icon color="white">mdi-power</v-icon>
-              </v-list-item-icon>
-
-              <v-list-item-content>
-                <v-list-item-title class="white--text">Logout</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
@@ -153,6 +139,7 @@
   export default {
     data () {
       return {
+        selectedItem: 0,
         drawer: false,
         items: [
           { title: 'Home', icon: 'mdi-home-city', url: '/patienthome' },
@@ -204,61 +191,9 @@
   }
 </script>
 <style>
-
-html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: rgb(22, 150, 64);
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #355e4a;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
+  .app {
+    background-color: #f2fffe !important;
+  }
 
 </style>
 

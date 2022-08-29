@@ -2,16 +2,13 @@
     <v-card flat>
    
         <v-app-bar
-            color="#01579B"
+            class="pa-0 primary lighten-1"
             dark
-            scroll-target="#scrolling-techniques-6"
         >
             <v-app-bar-nav-icon @click="$router.push('/patientservices')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
                 <v-spacer> </v-spacer>   
                 <v-toolbar-title  
-                text
-                    color="#01579B"
-                    dark
+                    text
                     dense>
                     Schedule for Online Checkup
                 </v-toolbar-title>
@@ -60,302 +57,305 @@
                 </v-menu>
             </div>
         </v-app-bar>
+        <v-card flat class="primary lighten-5 rounded-lg mx-auto my-6 pa-4" max-width="950">
+            <v-form
+                ref="form"
+                v-model="valid"
+                lazy-validation
+            >
 
-        <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-        >
+                <v-card-text v-if="selectedMessages">
+                    <v-card class="error white--text">
+                        <v-card-title class="d-flex">
+                            <div>
+                                {{selectedMessages}}
+                            </div>
+                            <v-spacer></v-spacer>
+                            <div>
+                                <v-icon class="white--text" @click="selectedMessages = ''">
+                                    mdi-close
+                                </v-icon>
+                            </div>
+                        </v-card-title>
+                    </v-card>
+                </v-card-text>
 
-            <v-card-text v-if="selectedMessages">
-                <v-card class="error white--text">
-                    <v-card-title class="d-flex">
-                        <div>
-                            {{selectedMessages}}
-                        </div>
-                        <v-spacer></v-spacer>
-                        <div>
-                            <v-icon class="white--text" @click="selectedMessages = ''">
-                                mdi-close
-                            </v-icon>
-                        </div>
-                    </v-card-title>
-                </v-card>
-            </v-card-text>
+                <v-card-text>
+                    <v-select
+                        v-model="form.specialization"
+                        :items="specialization"
+                        @change="fetchDoctor"
+                        :rules="fieldRules"
+                        item-value="name"
+                        item-text="name"
+                        label="Select Specialization"
+                    >
+                    </v-select>
+                </v-card-text>
 
-            <v-card-text>
-                <v-select
-                    v-model="form.specialization"
-                    :items="specialization"
-                    @change="fetchDoctor"
-                    :rules="fieldRules"
-                    item-value="name"
-                    item-text="name"
-                    label="Select Specialization"
-                >
-                </v-select>
-            </v-card-text>
+                <v-card-text v-if="doctors.length > 0">
+                    <v-select
+                        v-model="form.doctor_id"
+                        :items="doctors"
+                        @change="fetchDoctorInfo"
+                        :rules="fieldRules"
+                        item-value="id"
+                        item-text="name"
+                        label="Select Doctor"
+                    >
+                    </v-select>
+                </v-card-text>
 
-            <v-card-text v-if="doctors.length > 0">
-                <v-select
-                    v-model="form.doctor_id"
-                    :items="doctors"
-                    @change="fetchDoctorInfo"
-                    :rules="fieldRules"
-                    item-value="id"
-                    item-text="name"
-                    label="Select Doctor"
-                >
-                </v-select>
-            </v-card-text>
+                <v-card-text v-if="doctors_info.length > 0">
+                    <v-card flat class="primary lighten-5">
+                        <v-card-title>
+                            Doctor Information
+                        </v-card-title>
+                        <v-card-text>
+                            <v-row class="px-4">
+                                <v-col cols="12">
+                                    <div>
+                                        Name: {{doctors_info[0].name}}
+                                    </div>
+                                </v-col>
+                                <v-col cols="12">
+                                    <div>
+                                        Degree Level: {{doctors_info[0].degreelevel}}
+                                    </div>
+                                </v-col>
+                                <v-col cols="12">
+                                    <div>
+                                        Degree Field: {{doctors_info[0].degreefield}}
+                                    </div>
+                                </v-col>
+                                <v-col cols="12">
+                                    <div>
+                                        Email: {{doctors_info[0].email}}
+                                    </div>
+                                </v-col>
+                                <v-col cols="12">
+                                    <div>
+                                        Medical Clinic Name: {{doctors_info[0].clinicname}}
+                                    </div>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+                </v-card-text>
 
-            <v-card-text v-if="doctors_info.length > 0">
-                <v-card flat class="primary lighten-5">
-                    <v-card-title>
-                        Doctor Information
-                    </v-card-title>
-                    <v-card-text>
-                        <v-row class="px-4">
-                            <v-col cols="12">
-                                <div>
-                                    Name: {{doctors_info[0].name}}
-                                </div>
-                            </v-col>
-                            <v-col cols="12">
-                                <div>
-                                    Degree Level: {{doctors_info[0].degreelevel}}
-                                </div>
-                            </v-col>
-                            <v-col cols="12">
-                                <div>
-                                    Degree Field: {{doctors_info[0].degreefield}}
-                                </div>
-                            </v-col>
-                            <v-col cols="12">
-                                <div>
-                                    Email: {{doctors_info[0].email}}
-                                </div>
-                            </v-col>
-                            <v-col cols="12">
-                                <div>
-                                    Medical Clinic Name: {{doctors_info[0].clinicname}}
-                                </div>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
-                </v-card>
-            </v-card-text>
+                <v-card-text v-if="doctors_info.length > 0 && schedules.length > 0">
+                    <v-card flat class="primary lighten-5">
+                        <v-card-title>
+                            Selected Date and Time
+                        </v-card-title>
+                        <v-card-text class="d-flex flex-column">
+                            <v-card class="pa-2" flat v-if="Object.keys(filteredSelected).length > 0" :class="filteredSelected.status == 'pending' ? 'primary' : 'warning'">
+                                <v-card-title class="white--text">
+                                    <div class="text-center">
+                                        {{filteredSelected.uniq}}
+                                    </div>
+                                    <div class="text-center px-2">
+                                        {{formatDate(filteredSelected.start) + ' - ' + formatEnd(filteredSelected.end)}}
+                                    </div>
+                                    <v-spacer></v-spacer>
+                                    <div v-if="filteredSelected.status != 'pending'" >Not available, please select again</div>
+                                    <v-icon @click="selected = ''">mdi-close</v-icon>
+                                </v-card-title>
+                            </v-card>
+                            <v-card flat v-else class="warning">
+                                <v-card-title>
+                                    No Date and Time selected, Please click slot on the calendar.
+                                </v-card-title>
+                            </v-card>
+                        </v-card-text>
+                    </v-card>
 
-            <v-card-text v-if="doctors_info.length > 0 && schedules.length > 0">
-                <v-card flat class="primary lighten-5">
-                    <v-card-title>
-                        Selected Date and Time
-                    </v-card-title>
-                    <v-card-text class="d-flex flex-column">
-                        <v-card class="pa-2" flat v-if="Object.keys(filteredSelected).length > 0" :class="filteredSelected.status == 'pending' ? 'primary' : 'warning'">
-                            <v-card-title class="white--text">
-                                <div class="text-center">
-                                    {{filteredSelected.uniq}}
-                                </div>
-                                <div class="text-center px-2">
-                                    {{formatDate(filteredSelected.start) + ' - ' + formatEnd(filteredSelected.end)}}
-                                </div>
-                                <v-spacer></v-spacer>
-                                <div v-if="filteredSelected.status != 'pending'" >Not available, please select again</div>
-                                <v-icon @click="selected = ''">mdi-close</v-icon>
-                            </v-card-title>
-                        </v-card>
-                        <v-card flat v-else class="warning">
-                            <v-card-title>
-                                No Date and Time selected, Please click slot on the calendar.
-                            </v-card-title>
-                        </v-card>
-                    </v-card-text>
-                </v-card>
-
-                <v-card flat>
-                    <v-card-actions>
-                        <v-btn
-                            outlined
-                            large
-                            class="mr-4"
-                            color="grey darken-2"
-                            @click="setToday"
-                        >
-                            Today
-                        </v-btn>
-
-                        <v-btn
-                            fab
-                            text
-                            small
-                            color="grey darken-2"
-                            @click="prev"
-                        >
-                            <v-icon small>
-                            mdi-chevron-left
-                            </v-icon>
-                        </v-btn>
-
-                        <v-btn
-                            fab
-                            text
-                            small
-                            color="grey darken-2"
-                            class="mr-2"
-                            @click="next"
-                        >
-                            <v-icon small>
-                            mdi-chevron-right
-                            </v-icon>
-                        </v-btn>
-
-                        <v-toolbar-title v-if="$refs.calendar">
-                            {{ $refs.calendar.title }}
-                        </v-toolbar-title>
-
-                        <v-spacer></v-spacer>
-
-                        <div v-if="$vuetify.breakpoint.mdAndUp" style="width:220px;" class="mb-n4">
-                            <v-select
-                                v-model="type"
-                                solo
-                                :items="types"
-                                item-value="value"
-                                item-text="name"
+                    <v-card flat>
+                        <v-card-actions>
+                            <v-btn
+                                outlined
+                                large
+                                class="mr-4"
+                                color="grey darken-2"
+                                @click="setToday"
                             >
-                            </v-select>
-                        </div>
-                    </v-card-actions>
-                </v-card>
+                                Today
+                            </v-btn>
 
-                <v-calendar
-                    ref="calendar"
-                    v-model="focus"
-                    :type="type"
-                    :events="filterEvents"
-                    color="primary"
-                    :event-ripple="false"
-                    @click:more="viewDay"
-                    @change="fetchData"
-                    @click:event="showDialog"
-                >
-                    <template v-slot:day-body="{ date, week }">
-                        <div
-                            class="v-current-time"
-                            :class="{ first: date === week[0].date }"
-                            :style="{ top: nowY }"
-                        ></div>
-                    </template>
+                            <v-btn
+                                fab
+                                text
+                                small
+                                color="grey darken-2"
+                                @click="prev"
+                            >
+                                <v-icon small>
+                                mdi-chevron-left
+                                </v-icon>
+                            </v-btn>
 
-                    <template v-slot:event="{ eventSummary }">
-                        <div
-                            class="v-event-draggable"
-                            v-html="eventSummary()"
-                        ></div>
-                        <!-- <div
-                            v-if="timed"
-                            class="v-event-drag-bottom"
-                            @mousedown.stop="extendBottom(event)"
-                        ></div> -->
-                    </template>
+                            <v-btn
+                                fab
+                                text
+                                small
+                                color="grey darken-2"
+                                class="mr-2"
+                                @click="next"
+                            >
+                                <v-icon small>
+                                mdi-chevron-right
+                                </v-icon>
+                            </v-btn>
 
-                </v-calendar>
-            </v-card-text>
+                            <v-toolbar-title v-if="$refs.calendar">
+                                {{ $refs.calendar.title }}
+                            </v-toolbar-title>
 
-            <v-card-text v-if="doctors_info.length > 0 && schedules.length == 0">
-                <v-card flat class="warning lighten-5">
-                    <v-card-title>
-                        No Schedule for this week
-                    </v-card-title>
-                </v-card>
-            </v-card-text>
+                            <v-spacer></v-spacer>
 
-            <v-card-text>
-                <v-card flat class="primary lighten-5">
-                    <v-card-title>
-                        Patient Information
-                    </v-card-title>
-                    <v-card-text class="px-7">
-                        <v-row>
-                            <v-col cols="12" md="6" lg="6">
-                                <v-text-field
-                                    v-model="form.name"
-                                    disabled
-                                    :rules="fieldRules"
-                                    label="Name">
+                            <div v-if="$vuetify.breakpoint.mdAndUp" style="width:220px;" class="mb-n4">
+                                <v-select
+                                    v-model="type"
+                                    solo
+                                    :items="types"
+                                    item-value="value"
+                                    item-text="name"
+                                >
+                                </v-select>
+                            </div>
+                        </v-card-actions>
+                    </v-card>
 
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6" lg="6">
-                                <v-text-field
-                                    v-model="form.weigth"
-                                    disabled
-                                    :rules="fieldRules"
-                                    label="Weight">
+                    <v-calendar
+                        ref="calendar"
+                        v-model="focus"
+                        :type="type"
+                        :events="filterEvents"
+                        color="primary"
+                        :event-ripple="false"
+                        @click:more="viewDay"
+                        @change="fetchData"
+                        @click:event="showDialog"
+                    >
+                        <template v-slot:day-body="{ date, week }">
+                            <div
+                                class="v-current-time"
+                                :class="{ first: date === week[0].date }"
+                                :style="{ top: nowY }"
+                            ></div>
+                        </template>
 
-                                </v-text-field>
-                            </v-col>
-                            <!-- <v-col cols="12" md="6" lg="6">
-                                <v-text-field
-                                    v-model="form.bday"
-                                    :rules="fieldRules"
-                                    type="date"
-                                    label="Birthday">
+                        <template v-slot:event="{ eventSummary }">
+                            <div
+                                class="v-event-draggable"
+                                v-html="eventSummary()"
+                            ></div>
+                            <!-- <div
+                                v-if="timed"
+                                class="v-event-drag-bottom"
+                                @mousedown.stop="extendBottom(event)"
+                            ></div> -->
+                        </template>
 
-                                </v-text-field>
-                            </v-col> -->
-                        </v-row>
-                        <v-row>
-                            <v-col cols="12" md="6" lg="6">
-                                <v-text-field
-                                    v-model="form.heigth"
-                                    disabled
-                                    :rules="fieldRules"
-                                    label="Height">
+                    </v-calendar>
+                </v-card-text>
 
-                                </v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6" lg="6">
-                                <v-textarea
-                                    v-model="form.diagnosis"
-                                    :rules="fieldRules"
-                                    label="Symptoms">
+                <v-card-text v-if="doctors_info.length > 0 && schedules.length == 0">
+                    <v-card flat class="warning lighten-5">
+                        <v-card-title>
+                            No Schedule for this week
+                        </v-card-title>
+                    </v-card>
+                </v-card-text>
 
-                                </v-textarea>
-                            </v-col>
-                            <v-col cols="12">
-                                <v-file-input
-                                   v-model="form.images"
-                                    multiple
-                                    show-size
-                                    counter
-                                    :rules="[ v => !!v || 'Images is required.' ]"
-                                    accept="image/png, image/jpeg, image/bmp"
-                                    placeholder="Select an Image"
-                                    prepend-icon="mdi-camera"
-                                    clearable>
-                                    <template v-slot:selection="{ text }">
-                                        <v-chip
-                                            small
-                                            label
-                                            color="primary"
-                                        >
-                                            {{ text }}
-                                        </v-chip>
-                                    </template>
-                                </v-file-input>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
-                </v-card>
-            </v-card-text>
+                <v-card-text>
+                    <v-card flat class="primary lighten-5">
+                        <v-card-title>
+                            Patient Information
+                        </v-card-title>
+                        <v-card-text class="px-7">
+                            <v-row>
+                                <v-col cols="12" md="6" lg="6">
+                                    <v-text-field
+                                        v-model="form.name"
+                                        disabled
+                                        :rules="fieldRules"
+                                        label="Name">
 
-        </v-form>
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="6" lg="6">
+                                    <v-text-field
+                                        v-model="form.weigth"
+                                        disabled
+                                        :rules="fieldRules"
+                                        label="Weight">
 
-        <v-card-actions class="px-4 pa-5 justify-center">
-            <v-btn large class="primary rounded-lg" min-width="200" @click="submit">Submit</v-btn>
-        </v-card-actions>
+                                    </v-text-field>
+                                </v-col>
+                                <!-- <v-col cols="12" md="6" lg="6">
+                                    <v-text-field
+                                        v-model="form.bday"
+                                        :rules="fieldRules"
+                                        type="date"
+                                        label="Birthday">
+
+                                    </v-text-field>
+                                </v-col> -->
+                            </v-row>
+                            <v-row>
+                                <v-col cols="12" md="6" lg="6">
+                                    <v-text-field
+                                        v-model="form.heigth"
+                                        disabled
+                                        :rules="fieldRules"
+                                        label="Height">
+
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="6" lg="6">
+                                    <v-textarea
+                                        v-model="form.diagnosis"
+                                        :rules="fieldRules"
+                                        label="Symptoms">
+
+                                    </v-textarea>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-file-input
+                                    v-model="form.images"
+                                        multiple
+                                        show-size
+                                        counter
+                                        :rules="[ v => !!v || 'Images is required.' ]"
+                                        accept="image/png, image/jpeg, image/bmp"
+                                        placeholder="Select an Image"
+                                        prepend-icon="mdi-camera"
+                                        clearable>
+                                        <template v-slot:selection="{ text }">
+                                            <v-chip
+                                                small
+                                                label
+                                                color="primary"
+                                            >
+                                                {{ text }}
+                                            </v-chip>
+                                        </template>
+                                    </v-file-input>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+                </v-card-text>
+
+            </v-form>
+
+            <v-card-actions class="px-4 pa-5">
+                <v-spacer></v-spacer>
+                <v-btn large class="primary rounded-lg" min-width="200" @click="submit">Submit</v-btn>
+            </v-card-actions>
+        </v-card>
+        
 
         <notifications group="foo" />
 

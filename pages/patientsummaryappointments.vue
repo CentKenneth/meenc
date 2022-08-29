@@ -1,19 +1,13 @@
 <template>
   <v-card flat>
     <v-app-bar
-      
-      absolute
-      color="#01579B"
       dark
-      scroll-target="#scrolling-techniques-6"
+      class="pa-0 primary lighten-1"
     >
       <v-app-bar-nav-icon @click="$router.push('/patientservices')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <v-toolbar-title  
         text
-        color="#01579B"
-        dark
-        class="text-center mx-auto"
         dense>
           My Appointments
       </v-toolbar-title>
@@ -65,9 +59,9 @@
       
     </v-app-bar>
 
-    <v-card-text class="mt-16 pa-10">
+    <v-card-text class="mt-2">
 
-      <div class="d-flex py-4">
+      <div class="d-flex ">
         <v-spacer v-if="$vuetify.breakpoint.mdAndUp"></v-spacer>
         <div :style="$vuetify.breakpoint.mdAndUp ? 'width: 250px;' : 'width: 100%;'">
           <v-select
@@ -81,7 +75,10 @@
           </v-select>
         </div>
       </div>
-      
+
+    </v-card-text>
+
+    <v-card-text class="pt-0">
       <v-data-table
         :headers="headers"
         :items="appointment"
@@ -95,8 +92,7 @@
               mdi-eye
             </v-icon>
           </template>
-        </v-data-table>
-
+      </v-data-table>
     </v-card-text>
 
     <v-dialog

@@ -3,10 +3,8 @@
    >
 
     <v-app-bar
-      absolute
-      color="#01579B"
+      class="pa-0 primary lighten-1"
       dark
-      scroll-target="#scrolling-techniques-6"
     >
       <v-app-bar-nav-icon @click="$router.push('/doctorservices')"> <v-icon color="white">mdi-arrow-left</v-icon> </v-app-bar-nav-icon>
    <v-spacer> </v-spacer>   
@@ -64,7 +62,7 @@
     </v-app-bar>
 
  
- <v-card flat color="#BBDEFB" class="pa-1 mt-16">
+ <v-card flat class="pa-6 mt-4">
   <v-data-table
     :headers="headers"
     :items="patient"
