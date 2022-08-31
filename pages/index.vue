@@ -68,7 +68,7 @@
     layout: 'default',
     mounted() {
       console.log(this.$config.BASEURL)
-      console.log(process)
+      console.log(ENV)
     },
     data: () => ({
       drawer: false,
