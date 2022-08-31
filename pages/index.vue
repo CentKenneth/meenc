@@ -67,7 +67,6 @@
   export default {
     layout: 'default',
     mounted() {
-      console.log(this.$config.BASEURL)
       console.log(process.env.BASEURL)
       console.log(process)
     },

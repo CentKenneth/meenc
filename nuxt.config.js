@@ -16,13 +16,6 @@ export default {
     ]
   },
 
-  publicRuntimeConfig: {
-    BASE_URL: process.env.BASE_URL,
-    CLIENT_SECRET_KEY: process.env.CLIENT_SECRET_KEY,
-    CLIENT_ID: process.env.CLIENT_ID,
-    CLIENT_GRANT_TYPE: process.env.CLIENT_GRANT_TYPE
-  },
-
   ssr: false,
 
   // Global CSS: https://go.nuxtjs.dev/config-css
