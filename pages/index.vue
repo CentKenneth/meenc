@@ -67,7 +67,7 @@
   export default {
     layout: 'default',
     mounted() {
-      console.log(process.env.BASEURL)
+      console.log(this.$config.BASEURL)
     },
     data: () => ({
       drawer: false,
