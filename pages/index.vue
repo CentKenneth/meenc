@@ -66,6 +66,9 @@
 <script>
   export default {
     layout: 'default',
+    mounted() {
+      console.log(process.env.BASEURL)
+    },
     data: () => ({
       drawer: false,
       group: null,
